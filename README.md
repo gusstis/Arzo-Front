@@ -32,3 +32,38 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+-----------------
+-----------------
+
+# Login con NextAuth.js
+https://next-auth.js.org/
+
+1. npm i next-auth, en realidad fue: npm install --legacy-peer-deps next-auth
+
+2. creamos el arch: /pages/api/auth/[...nextauth].js
+
+3. debemos registrar:
+
+Register a new OAuth application
+
+Application name
+
+    Something users will recognize and trust.
+
+Homepage URL
+
+    The full URL to your application homepage.
+
+Application description
+
+    This is displayed to all users of your application.
+
+Authorization callback URL
+
+    Your application’s callback URL. Read our OAuth documentation for more information.
+
+    
+
+

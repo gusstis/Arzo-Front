@@ -1,4 +1,48 @@
-import Head from 'next/head'
+import {getSession} from 'next-auth/react';
+//import {useEffect, useState} from 'react';
+import {Image} from 'next/image';
+import {GetServerSideProps} from 'next';
+
+function HomePage ({title}) {
+  console.log(title);
+
+/*
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    
+    (async() => {
+      const session = await getSession()
+      setUser(session.user)
+    }) ();
+  }, [])
+
+*/
+
+  return (
+    <div>
+{/*
+<h1> {user.name} </h1>
+      <p> {user.email} </p>
+      <Image src={user.image} alt="60px" srcset="5px" />
+*/}
+    </div>
+  );
+}
+
+export const getServerSideProps = () => {
+  return {
+    props:{
+      title:'My first walk for the back-end'
+    }
+  }
+}
+export default HomePage;
+
+
+
+/*import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
@@ -68,4 +112,4 @@ export default function Home() {
       </footer>
     </div>
   )
-}
+} */
