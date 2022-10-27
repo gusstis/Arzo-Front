@@ -1,12 +1,16 @@
-import {getSession} from 'next-auth/react';
+import { getSession } from "next-auth/react";
 //import {useEffect, useState} from 'react';
-import {Image} from 'next/image';
-import {GetServerSideProps} from 'next';
+import Image  from "next/image";
+import { GetServerSideProps } from "next";
 
-function HomePage ({title}) {
-  console.log(title);
+function HomePage({ session }) {
+  console.log(session);
+  if( !session){
+    console.log("error null session")
+  }
+  const { user } = session;
 
-/*
+  /*
 
   const [user, setUser] = useState(null);
 
@@ -22,27 +26,27 @@ function HomePage ({title}) {
 
   return (
     <div>
-{/*
-<h1> {user.name} </h1>
+      <h1> {user.name} </h1>
       <p> {user.email} </p>
-      <Image src={user.image} alt="60px" srcset="5px" />
-*/}
+      <img src={user.image} alt="algo" height={150} width = {150} />
     </div>
   );
 }
 
-export const getServerSideProps = () => {
+export const getServerSideProps = async (context) => {
+  const session = await getSession(context);
+
   return {
-    props:{
-      title:'My first walk for the back-end'
-    }
-  }
-}
+    props: {
+      session: session,
+    },
+  };
+};
 export default HomePage;
 
+/*  index.js original
 
-
-/*import Head from 'next/head'
+import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
