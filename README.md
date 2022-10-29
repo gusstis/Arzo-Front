@@ -64,6 +64,15 @@ Authorization callback URL
 
     Your application’s callback URL. Read our OAuth documentation for more information.
 
+
+    ...
+
+    Para agragar aproviders(google, facebook): ir video minuto 50 (funciones next-auth): https://www.youtube.com/watch?v=cOgogGJ6_7M
+
+    ...
+
+
+
      
 
 
