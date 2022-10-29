@@ -25,10 +25,24 @@ function HomePage({ session }) {
 */
 
   return (
-    <div>
-      <h1> {user.name} </h1>
-      <p> {user.email} </p>
-      <img src={user.image} alt="algo" height={150} width = {150} />
+    <div className="mx-auto max-w-4xl">
+      <h1 className="mt-6 flex text-2xl"> {user.name} </h1>
+      <p className="mt-4"> {user.email} </p>
+      {/*
+      <img
+      src={user.image}
+      alt="algo"
+      height= {200}
+      width = {200}
+      />
+      */}
+
+      <picture>
+        <source srcSet={user.image} type="image/webp" />
+        <img src={user.image} height= {250}
+      width = {250} alt="avatar" />
+      </picture>
+
     </div>
   );
 }
