@@ -12,11 +12,11 @@ function IndexPage({ session }) {
             <h1>{session.user.name}</h1>
 
             <p>{session.user.email}</p>
-            <Image
-              src={session.user.image}
-              alt={session.user.name}
-              width={220}
-              height={220}
+              <Image
+                src={session.user.image}
+                alt={session.user.name}
+                width={220}
+                height={220}
             />
 
             <button onClick={() => signOut()}>Logout</button>
