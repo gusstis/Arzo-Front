@@ -10,23 +10,23 @@ const SacerdoteSchema = mongoose.Schema({
         require: true
     },
     nombramiento: {
-        type: [{ type: Schema.Types.ObjectId, ref: 'NombramientoSacerdote' }],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'NombramientoSacerdote' }],
         require: true
     },
     postalCode: {
-        type: string,
+        type: String,
         require: true
     },
     address: {
-        type: string,
+        type: String,
         require: true
     },
     phone: {
-        type: string,
+        type: String,
         require: true
     },
     parroquia: {
-        type: [{ type: Schema.Types.ObjectId, ref: 'parroquia' }],
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'parroquia' }],
         require: true
     },
     dateOfBirth: {
@@ -42,4 +42,4 @@ const SacerdoteSchema = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Sacerdote', SacerdoteSchema);
+module.exports = mongoose.model('Sacerdote', SacerdoteSchema) || mongoose.models.Sacerdote;

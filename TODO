@@ -1,0 +1,4 @@
+Check if sacerdote name is available
+Add an error handling middleware or function
+Add comments
+Fix false negative at sacerdote creation when giving an existing parroquia ID
