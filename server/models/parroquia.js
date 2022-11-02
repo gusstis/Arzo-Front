@@ -23,4 +23,4 @@ const ParroquiaSchema = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Parroquia', ParroquiaSchema);
+module.exports = mongoose.models.Parroquia || mongoose.model('Parroquia', ParroquiaSchema);

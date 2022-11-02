@@ -15,4 +15,4 @@ const NombramientoSchema = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Nombramiento', NombramientoSchema);
+module.exports = mongoose.model('Nombramiento', NombramientoSchema) || mongoose.models.Nombramiento;
