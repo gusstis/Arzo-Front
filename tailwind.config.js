@@ -13,6 +13,7 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
+  purge: ['./api/**/*{html,js,jsx}'],
   theme: {
     colors: {
       gray: colors.coolGray,
