@@ -1,98 +1,98 @@
-const { findOneAndUpdate } = require("../models/Producto");
-const Producto = require("../models/Producto");
+const { findOneAndUpdate } = require("../models/Sacerdote");
+const Sacerdote = require("../models/Sacerdote");
 
 
-exports.crearProducto = async(req, res) => {
-    
+exports.crearSacerdote = async(req, res) => {
+
     try {
-        let producto;
+        let sacerdote;
 
-        //Creamos nuestro producto
-        producto= new Producto(req.body);
+        //Creamos nuestro sacerdote
+        sacerdote = new Sacerdote(req.body);
 
-        await producto.save();
-        res.send(producto);
+        await sacerdote.save();
+        res.send(sacerdote);
 
         console.log(req.body)
     } catch (error) {
         console.log(error);
-        res.status(500).send("Hubo un error.....post");
+        res.status(500).send("error.....post");
     };
-} 
+}
 
-exports.obtenerProductos = async (req, res) => {
+exports.obtenerSacerdotes = async(req, res) => {
 
 
     try {
 
-        const productos = await Producto.find();
-        res.json(productos)
-        
+        const sacerdotes = await Sacerdote.find();
+        res.json(sacerdotes)
+
     } catch (error) {
         console.log(error);
-        res.status(500).send("Hubo un error.....get");     
+        res.status(500).send("error.....get");
     }
 }
 
-exports.actualizarProducto = async (req, res) => {
+exports.actualizarSacerdote = async(req, res) => {
 
     try {
 
         const { nombre, categoria, ubicacion, precio } = req.body;
-        let producto = await Producto.findById(req.params.id);
+        let sacerdote = await Sacerdote.findById(req.params.id);
 
-        if(!producto) {
-            res.status(404).json({ msg: 'Producto inexistente' })
+        if (!sacerdote) {
+            res.status(404).json({ msg: 'Sacerdote inexistente' })
         }
 
-        producto.nombre = nombre;
-        producto.categoria = categoria;
-        producto.ubicacion = ubicacion;
-        producto.precio = precio;
-        
-        producto = await Producto.findOneAndUpdate({ _id: req.params.id }, producto, { new:true });
-        res.json(producto);
+        sacerdote.nombre = nombre;
+        sacerdote.categoria = categoria;
+        sacerdote.ubicacion = ubicacion;
+        sacerdote.precio = precio;
+
+        sacerdote = await Sacerdote.findOneAndUpdate({ _id: req.params.id }, sacerdote, { new: true });
+        res.json(sacerdote);
 
     } catch (error) {
         console.log(error);
-        res.status(500).send("Hubo un error.....put");
+        res.status(500).send("error.....put");
     }
 
 }
 
-exports.obtenerProducto = async (req, res) => {
+exports.obtenerSacerdote = async(req, res) => {
 
     try {
-        let producto = await Producto.findById(req.params.id);
+        let sacerdote = await Sacerdote.findById(req.params.id);
 
-        if(!producto) {
-            res.status(404).json({ msg: 'Producto inexistente' })
+        if (!sacerdote) {
+            res.status(404).json({ msg: 'Sacerdote inexistente' })
         }
 
-        res.json(producto);
+        res.json(sacerdote);
 
     } catch (error) {
         console.log(error);
-        res.status(500).send("Hubo un error en el mtd obtenerProducto");
+        res.status(500).send("error en el mtd obtenerSacerdote");
     }
 
 }
 
-exports.eliminarProducto = async (req, res) => {
+exports.eliminarSacerdote = async(req, res) => {
 
     try {
-        let producto = await Producto.findById(req.params.id);
+        let sacerdote = await Sacerdote.findById(req.params.id);
 
-        if(!producto) {
-            res.status(404).json({ msg: 'Producto inexistente' })
+        if (!sacerdote) {
+            res.status(404).json({ msg: 'Sacerdote inexistente' })
         }
 
-        await Producto.findOneAndRemove({ _id: req.params.id })
-        res.json({msg: 'Producto eliminado con éxito'});
+        await Sacerdote.findOneAndRemove({ _id: req.params.id })
+        res.json({ msg: 'Sacerdote eliminado con éxito' });
 
     } catch (error) {
         console.log(error);
-        res.status(500).send("Hubo un error, en el mtd eliminarProducto");
+        res.status(500).send("error, en el mtd eliminarSacerdote");
     }
 
 }
