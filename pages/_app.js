@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }) {
 export default MyApp;*/}
 import "/styles/globals.css";
 import Head from "next/head";
+import { SessionProvider } from "next-auth/react";
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -22,7 +23,9 @@ export default function MyApp({ Component, pageProps }) {
         <title key="title">Arzobispado App</title>
         <meta key="description" name="description" content="Contactanos!" />
       </Head>
+      <SessionProvider session={pageProps.session}>
       <Component {...pageProps} />
+    </SessionProvider>
     </>
   );
 }

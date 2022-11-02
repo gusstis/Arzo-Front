@@ -1,9 +1,9 @@
-import { signIn, useSession, getProviders } from "next-auth/react";
+import { signIn, useSession, getProviders, SessionProvider } from "next-auth/react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 function LoginPage() {
-  const { data, status } = useSession();
+const { data, status } = useSession()
   const router = useRouter();
  useEffect(() => {
    (async () => {
