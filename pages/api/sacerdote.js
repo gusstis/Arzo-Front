@@ -20,17 +20,12 @@ export default async function handler(req, res) {
                 //Creamos nuestro sacerdote
                 sacerdote = new Sacerdote(req.body);
                 console.log("sacerdote.parroquia:", sacerdote.parroquia)
-                if (mongoose.Types.ObjectId.isValid(sacerdote.parroquia) && Parroquia.findById(sacerdote.parroquia)) {
+
+                if (isSacerdoteValid()) {
                     await sacerdote.save();
                     res.send(sacerdote);
                 } else {
-                    res.status(500)
-                        .send(
-                            JSON.stringify({
-                                "code": "11",
-                                "message": "parroquia not found"
-                            })
-                        )
+                    throw NotFoundError("sacerdote")
                 }
 
                 console.log(req.body)
