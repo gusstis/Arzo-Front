@@ -1,6 +1,7 @@
 const Sacerdote = require("../../server/models/Sacerdote");
-const mongoose = require('mongoose');
 const Parroquia = require("../../server/models/Parroquia");
+import { handleError, InvalidSacerdote } from 'server/errors';
+import { IsSacerdoteValid } from 'server/helpers/sacerdoteHelpers';
 import dbConnect from '../../lib/mongodb'
 
 export default async function handler(req, res) {
@@ -21,20 +22,20 @@ export default async function handler(req, res) {
                 sacerdote = new Sacerdote(req.body);
                 console.log("sacerdote.parroquia:", sacerdote.parroquia)
 
-                if (isSacerdoteValid()) {
+                if (IsSacerdoteValid(sacerdote)) {
                     await sacerdote.save();
                     res.send(sacerdote);
                 } else {
-                    throw NotFoundError("sacerdote")
+                    throw new InvalidSacerdote("sacerdote")
                 }
 
                 console.log(req.body)
             } catch (error) {
                 console.log(error);
-                res.status(500).send("error.....post");
-            } finally {
+                res.status(500).send(handleError(error));
+            } 
                 return
-            };
+            
         case 'GET':
 
             try {
@@ -45,9 +46,9 @@ export default async function handler(req, res) {
             } catch (error) {
                 console.log(error);
                 res.status(500).send("error.....get");
-            } finally {
+            }
                 return
-            };
+            
         case 'PUT':
             try {
 
@@ -69,9 +70,9 @@ export default async function handler(req, res) {
             } catch (error) {
                 console.log(error);
                 res.status(500).send("error.....put");
-            } finally {
+            }
                 return
-            };
+            
 
         case 'DELETE':
 
@@ -88,9 +89,9 @@ export default async function handler(req, res) {
             } catch (error) {
                 console.log(error);
                 res.status(500).send("error, en el mtd eliminarSacerdote");
-            } finally {
+            }
                 return
-            };
+            
         case 'DEFAULT':
             console.log(error);
             res.status(404).send("method not found");

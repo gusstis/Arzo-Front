@@ -42,4 +42,4 @@ const SacerdoteSchema = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Sacerdote', SacerdoteSchema) || mongoose.models.Sacerdote;
+module.exports =  mongoose.models.Sacerdote || mongoose.model('Sacerdote', SacerdoteSchema) ;
