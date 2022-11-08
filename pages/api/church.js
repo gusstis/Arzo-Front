@@ -24,7 +24,7 @@
                  console.log(req.body)
              } catch (error) {
                  console.log(error);
-                 res.status(500).send("error.....post");
+                 handleError(error)
              } finally {
                  return
              };
