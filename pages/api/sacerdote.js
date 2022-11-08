@@ -1,7 +1,7 @@
 const Sacerdote = require("../../server/models/Sacerdote");
 const Parroquia = require("../../server/models/Parroquia");
 import { handleError, InvalidSacerdote } from 'server/errors';
-import { IsSacerdoteValid } from 'server/helpers/sacerdoteHelpers';
+import { IsParroquiaSacerdoteValid } from 'server/helpers/sacerdoteHelpers';
 import dbConnect from '../../lib/mongodb'
 
 export default async function handler(req, res) {
@@ -22,11 +22,11 @@ export default async function handler(req, res) {
                 sacerdote = new Sacerdote(req.body);
                 console.log("sacerdote.parroquia:", sacerdote.parroquia)
 
-                if (IsSacerdoteValid(sacerdote)) {
+                if (IsParroquiaSacerdoteValid(sacerdote)) {
                     await sacerdote.save();
                     res.send(sacerdote);
                 } else {
-                    throw new InvalidSacerdote("sacerdote")
+                    throw new InvalidSacerdote("La parroquia del sacerdote no existe")
                 }
 
                 console.log(req.body)

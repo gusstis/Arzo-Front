@@ -1,6 +1,7 @@
 
 const mongoose = require('mongoose');
+const Parroquia = require("../../server/models/Parroquia");
 
-export function IsSacerdoteValid(sacerdote) {
-    return (mongoose.Types.ObjectId.isValid(sacerdote.parroquia) && Parroquia.findById(sacerdote.parroquia))
+export function IsParroquiaSacerdoteValid(sacerdote) {
+    return ( true && Parroquia.findById(sacerdote.parroquia))
 }
