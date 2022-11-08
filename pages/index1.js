@@ -1,15 +1,17 @@
-import { Fragment } from "react";
-import { Popover, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Fragment } from 'react';
+import { Popover, Transition } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import LoginPage from 'pages/login.js';
+import { getSession, signOut } from 'next-auth/react';
 
 const navigation = [
-  { name: "Product", href: "#" },
-  { name: "Features", href: "#" },
-  { name: "Marketplace", href: "#" },
-  { name: "Company", href: "#" },
+  { name: 'Product', href: '#' },
+  { name: 'Features', href: '#' },
+  { name: 'Marketplace', href: '#' },
+  { name: 'Company', href: '#' },
 ];
 
-export default function index1() {
+export default function IndexPage({ session }) {
   return (
     <div className="relative overflow-hidden bg-white">
       <div className="mx-auto max-w-7xl">
@@ -26,18 +28,15 @@ export default function index1() {
 
           <Popover>
             <div className="relative px-4 pt-6 sm:px-6 lg:px-8">
-              <nav
-                className="relative flex items-center justify-between sm:h-10 lg:justify-start"
-                aria-label="Global"
-              >
+              <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                 <div className="flex flex-shrink-0 flex-grow items-center lg:flex-grow-0">
                   <div className="flex w-full items-center justify-between md:w-auto">
                     <a href="#">
                       <span className="sr-only">Your Company</span>
                       <img
                         alt="Your Company"
-                        className="h-8 w-auto sm:h-10"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                        className="h-8 w-auto sm:h-20"
+                        src="https://scontent.fcor12-1.fna.fbcdn.net/v/t39.30808-1/296109132_1207603183388186_1494822052676002475_n.jpg?stp=dst-jpg_s200x200&_nc_cat=111&ccb=1-7&_nc_sid=c6021c&_nc_ohc=76KumTr2uBkAX_tbtjc&_nc_ht=scontent.fcor12-1.fna&oh=00_AfBy4jcxq8a1HO5J0i7lbsODmf5CxdK6i5rSDjkZaxz6YA&oe=636A47FC"
                       />
                     </a>
                     <div className="-mr-2 flex items-center md:hidden">
@@ -50,20 +49,13 @@ export default function index1() {
                 </div>
                 <div className="hidden md:ml-10 md:block md:space-x-8 md:pr-4">
                   {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="font-medium text-gray-500 hover:text-gray-900"
-                    >
+                    <a key={item.name} href={item.href} className="font-medium  text-gray-500 hover:text-gray-900">
                       {item.name}
                     </a>
                   ))}
-                  <a
-                    href="#"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    Log in
-                  </a>
+                  <button className="" onClick={() => LoginPage()}>
+                    Loginn
+                  </button>
                 </div>
               </nav>
             </div>
@@ -77,18 +69,11 @@ export default function index1() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Popover.Panel
-                focus
-                className="absolute inset-x-0 top-0 z-10 origin-top-right transform p-2 transition md:hidden"
-              >
+              <Popover.Panel focus className="absolute inset-x-0 top-0 z-10 origin-top-right transform p-2 transition md:hidden">
                 <div className="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
                   <div className="flex items-center justify-between px-5 pt-4">
                     <div>
-                      <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                        alt=""
-                      />
+                      <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
                     </div>
                     <div className="-mr-2">
                       <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -99,19 +84,12 @@ export default function index1() {
                   </div>
                   <div className="space-y-1 px-2 pt-2 pb-3">
                     {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-                      >
+                      <a key={item.name} href={item.href} className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">
                         {item.name}
                       </a>
                     ))}
                   </div>
-                  <a
-                    href=""
-                    className="block w-full bg-gray-50 px-5 py-3 text-center font-medium text-indigo-600 hover:bg-gray-100"
-                  >
+                  <a href="" className="block w-full bg-gray-50 px-5 py-3 text-center font-medium text-indigo-600 hover:bg-gray-100">
                     Log in
                   </a>
                 </div>
@@ -122,10 +100,10 @@ export default function index1() {
           <main className="mx-auto mt-10 max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="sm:text-center lg:text-left">
               <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-                <span className="block xl:inline">Arzobispado de San Juan de Cuyo</span>{" "}
-                <span className="block text-indigo-600 xl:inline">
-                  Sistema Informático
-                </span>
+                <div className="block xl:block">
+                  Arzobispado de San Juan de Cuyo <br />{' '}
+                </div>{' '}
+                <div className="block text-indigo-600 xl:inline">Sistema Informático</div>
               </h1>
               <p className="mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
                 Usted puede explorar limitadamente este espacio, o logearse para acceder a todas las funcionalidades.
@@ -153,12 +131,29 @@ export default function index1() {
         </div>
       </div>
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <img
-          className="h-56 w-full object-cover sm:h-72 md:h-96 lg:h-full lg:w-full"
-          src="https://www.ellitoral.com/images/2022/03/14/K_6HpitcO_1300x655__1.jpg"
-          alt=""
-        />
+        <img className="h-56 w-full object-cover sm:h-72 md:h-96 lg:h-full lg:w-full" src="https://www.ellitoral.com/images/2022/03/14/K_6HpitcO_1300x655__1.jpg" alt="" />
       </div>
     </div>
   );
 }
+
+{/*export const getServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  return console.log(session);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+};*/}
