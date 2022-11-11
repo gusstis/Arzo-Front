@@ -2,6 +2,8 @@ import { signIn, signOut, useSession, getProviders, SessionProvider } from 'next
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
+console.log('Pasando por: login.js...');
+
 export default function LoginPage() {
   const { data, status } = useSession();
   const router = useRouter();

@@ -13,15 +13,24 @@ function MyApp({ Component, pageProps }) {
 export default MyApp;*/}
 //import MainLayout from '@layout/MainLayout'
 import '../styles/globals.css';
-import Head from "next/head";
+import 'tailwindcss/tailwind.css';
+import Head from "../components/Head";
+import Navbar from '../components/navbar'
 import { SessionProvider } from "next-auth/react";
+import Footer from 'components/footer';
+console.log(' leendo: _app');
 
-export default function MyApp({ Component, pageProps:{session, ...pageProps} }) {
+export default function MyApp({ Component, pageProps:{session, ...pageProps}, }) {
+  console.log('entrando a Component...')
+  console.log( 'pageProps.session: ' + pageProps.session);
+
   return (
     <>
+    <Navbar></Navbar>
     <SessionProvider session={pageProps.session}>
       <Component {...pageProps} />
     </SessionProvider>
+    <Footer></Footer>
     </>
   );
 }

@@ -20,10 +20,6 @@ export const nombramientoNotFound = JSON.stringify({
 })
 
 export function handleError(error) {
-    console.log('error :>>', error)
-    console.log('error.name :>>', error.name)
-    console.log('error.message :>>', error.message)
-    console.log('error :>>', error)
     if (error.name=="ValidationError"){
         return JSON.stringify({code:"111",
             message:error.message});
