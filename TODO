@@ -3,3 +3,7 @@ Add an error handling middleware or function
 Add comments
 Fix false negative at sacerdote creation when giving an existing parroquia ID
 In the middleware check if the user has the admin role to get to a certain page.
+
+# Into ./pages/examples/jwt.js: give a name to anonymous function default exported
+
+

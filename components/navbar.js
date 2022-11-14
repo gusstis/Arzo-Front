@@ -4,8 +4,8 @@ import {useState} from 'react'
 
 function NavLink({to, children}) {
     return <Link href={to} className={`mx-4`}>
-        {children}
-    </Link>
+                {children}
+            </Link>
 }
 
 

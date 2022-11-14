@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-//import LoginPage from '../components/login';
+import { Bars3Icon, XIcon } from '@heroicons/react/24/outline';
+import LoginPage from '../components/login';
 import { getSession, signOut } from 'next-auth/react';
 
 const navigation = [
@@ -15,10 +15,10 @@ console.log('entrando a: index.js...');
 export default function IndexPage({ session }) {
   return (
     <div className="relative overflow-hidden bg-white">
-      <div className="mx-auto max-w-full">
-        <div className="relative z-10 bg-white pb-8 sm:pb-16 md:pb-20 lg:w-full lg:max-w-5xl lg:pb-25 xl:pb-32">
+      <div className="max-w-7xl mx-auto">
+        <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
           <svg
-            className="absolute inset-y-0 right-0 hidden h-full w-48 translate-x-1/2 transform text-white lg:block"
+            className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2"
             fill="currentColor"
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
@@ -28,20 +28,20 @@ export default function IndexPage({ session }) {
           </svg>
 
           <Popover>
-            <div className="relative px-4 pt-6 sm:px-6 lg:px-8">
+            <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
               <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
-                <div className="flex flex-shrink-0 flex-grow items-center lg:flex-grow-0">
-                  <div className="flex w-full items-center justify-between md:w-auto">
-                    <a href="#">
-                      <span className="sr-only">Your Company</span>
+                <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
+                  <div className="flex items-center justify-between w-full md:w-auto">
+                    <a href="/Login">
+                      <span className="sr-only">Workflow</span>
                       <img
                         alt="Your Company"
-                        className="h-8 w-auto sm:h-20"
+                        className="h-8 w-auto sm:h-10"
                         src="https://scontent.fcor12-1.fna.fbcdn.net/v/t39.30808-1/296109132_1207603183388186_1494822052676002475_n.jpg?stp=dst-jpg_s200x200&_nc_cat=111&ccb=1-7&_nc_sid=c6021c&_nc_ohc=76KumTr2uBkAX_tbtjc&_nc_ht=scontent.fcor12-1.fna&oh=00_AfBy4jcxq8a1HO5J0i7lbsODmf5CxdK6i5rSDjkZaxz6YA&oe=636A47FC"
                       />
                     </a>
                     <div className="-mr-2 flex items-center md:hidden">
-                      <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                      <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                         <span className="sr-only">Open main menu</span>
                         <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                       </Popover.Button>
@@ -70,27 +70,27 @@ export default function IndexPage({ session }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Popover.Panel focus className="absolute inset-x-0 top-0 z-10 origin-top-right transform p-2 transition md:hidden">
-                <div className="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
-                  <div className="flex items-center justify-between px-5 pt-4">
+              <Popover.Panel focus className="absolute z-10 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
+                <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
+                  <div className="px-5 pt-4 flex items-center justify-between">
                     <div>
                       <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
                     </div>
                     <div className="-mr-2">
-                      <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                      <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                         <span className="sr-only">Close main menu</span>
-                        <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                        <XIcon className="h-6 w-6" aria-hidden="true" />
                       </Popover.Button>
                     </div>
                   </div>
-                  <div className="space-y-1 px-2 pt-2 pb-3">
+                  <div className="px-2 pt-2 pb-3 space-y-1">
                     {navigation.map((item) => (
-                      <a key={item.name} href={item.href} className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">
+                      <a key={item.name} href={item.href} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
                         {item.name}
                       </a>
                     ))}
                   </div>
-                  <a href="" className="block w-full bg-gray-50 px-5 py-3 text-center font-medium text-indigo-600 hover:bg-gray-100">
+                  <a href="/login" className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100">
                     Log in
                   </a>
                 </div>
@@ -98,30 +98,27 @@ export default function IndexPage({ session }) {
             </Transition>
           </Popover>
 
-          <main className="mx-auto mt-10 max-w-3xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+          <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="sm:text-center lg:text-left">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-                <div className="block xl:block">
-                  Arzobispado de San Juan de Cuyo <br />{' '}
-                </div>{' '}
-                <div className="block text-indigo-600 xl:inline">Sistema Informático</div>
+              <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+              <span className="block xl:inline">Arzobispado</span> <span className="block text-indigo-600 xl:inline">de San Juan de Cuyo</span>
               </h1>
-              <p className="mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
+              <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                 Usted puede explorar limitadamente este espacio, o logearse para acceder a todas las funcionalidades.
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
                   <a
-                    href="#"
-                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg"
+                    href="/login"
+                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                   >
-                    Contacto
+                    Inicio
                   </a>
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
                   <a
-                    href="#"
-                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-100 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-200 md:py-4 md:px-10 md:text-lg"
+                    href="/login"
+                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                   >
                     Paseo Virtual
                   </a>
@@ -132,7 +129,7 @@ export default function IndexPage({ session }) {
         </div>
       </div>
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <img className="h-auto w-auto object-cover sm:h-72 md:h-96 lg:h-full lg:w-full" src="https://www.ellitoral.com/images/2022/03/14/K_6HpitcO_1300x655__1.jpg" alt="Arzobispado" />
+        <img className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://www.ellitoral.com/images/2022/03/14/K_6HpitcO_1300x655__1.jpg" alt="Arzobispado" />
       </div>
     </div>
   );
@@ -143,14 +140,15 @@ export const getServerSideProps = async (context) => {
 
    console.log(session);
 
-  {/*if (!session) {
+  if (!session) {
     return {
+      console.log("There`s no session...")
       redirect: {
         destination: '/login',
         permanent: false,
       }
     };
-  }*/}
+  }
 
   return {
     props: {
