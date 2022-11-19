@@ -4,12 +4,13 @@ export class InvalidSacerdote extends Error {
         this.code = "01"
         this.description = description
         this.message = "Sacerdote Invalido"
+        
     }
 }
-export const parroquiaNotFound = JSON.stringify({
-    "code": "11",
-    "message": "parroquia not found"
-})
+export const parroquiaNotFound ={
+    code: "01",
+    message: "parroquia not found"
+}
 export const sacerdoteNotFound = JSON.stringify({
     "code": "11",
     "message": "sacerdote not found"
@@ -24,5 +25,13 @@ export function handleError(error) {
         return JSON.stringify({code:"111",
             message:error.message});
     }
-    return JSON.stringify(error);
+    if (error.name=="CastError"){
+        if (error.kind == "ObjectId"){
+            return JSON.stringify({
+                code:"00",
+                message:("El valor "+error.value+" no corresponde al tipo: "+error.kind)
+            })
+        }
+    }
+    return JSON.stringify({code:error.code,message:error.message,description:error.description});
 }

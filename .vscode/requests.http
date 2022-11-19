@@ -15,5 +15,23 @@ Content-Type: application/json
     "name":"Gustavo",
     "lastname":"Aranciba",
     "postalcode":"5411",
-    "parroquia":"123"
+    "parroquia":"6372ad9b458a43abd62503db"
+}
+### get sacerdotes
+GET http://localhost:3000/api/sacerdote
+Content-Type: application/json
+
+### get sacerdote
+GET http://localhost:3000/api/sacerdotes/6372ad9b458a43abd62503db
+Content-Type: application/json
+
+### borrar sacerdote
+DELETE  http://localhost:3000/api/sacerdotes/
+Content-Type: application/json
+
+{
+    "name":"Gustavo",
+    "lastname":"Aranciba",
+    "postalcode":"5411",
+    "parroquia":"6342b309e0fd35adfd10c227"
 }
