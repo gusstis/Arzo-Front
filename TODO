@@ -6,4 +6,4 @@ In the middleware check if the user has the admin role to get to a certain page.
 
 # Into ./pages/examples/jwt.js: give a name to anonymous function default exported
 
-
+# Incorporar securing pages and API routes: https://next-auth.js.org/tutorials/securing-pages-and-api-routes

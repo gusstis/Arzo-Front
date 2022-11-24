@@ -37,7 +37,7 @@ export default function IndexPage({ session }) {
                       <img
                         alt="Your Company"
                         className="h-8 w-auto sm:h-10"
-                        src="https://scontent.fcor12-1.fna.fbcdn.net/v/t39.30808-1/296109132_1207603183388186_1494822052676002475_n.jpg?stp=dst-jpg_s200x200&_nc_cat=111&ccb=1-7&_nc_sid=c6021c&_nc_ohc=76KumTr2uBkAX_tbtjc&_nc_ht=scontent.fcor12-1.fna&oh=00_AfBy4jcxq8a1HO5J0i7lbsODmf5CxdK6i5rSDjkZaxz6YA&oe=636A47FC"
+                        src="https://www.thefreelogomakers.com/logo-maker/logo_templates/1527.png"
                       />
                     </a>
                     <div className="-mr-2 flex items-center md:hidden">
@@ -90,7 +90,7 @@ export default function IndexPage({ session }) {
                       </a>
                     ))}
                   </div>
-                  <a href="/login" className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100">
+                  <a href="/components/login" className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100">
                     Log in
                   </a>
                 </div>
@@ -141,15 +141,15 @@ export const getServerSideProps = async (context) => {
    console.log(session);
 
   if (!session) {
-    return {
-      console.log("There`s no session...")
+    console.log("There`s no session...");
+    {/*return {
       redirect: {
-        destination: '/login',
+        destination: '../components/login',
         permanent: false,
       }
-    };
+    };*/}
   }
-
+  console.log('Ya hay una session guardada..');
   return {
     props: {
       session,
