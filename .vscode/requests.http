@@ -14,8 +14,10 @@ Content-Type: application/json
 {
     "name":"Gustavo",
     "lastname":"Aranciba",
-    "postalcode":"5411",
-    "parroquia":"6372ad9b458a43abd62503db"
+    "postalCode":"5411",
+    "phone":"1234",
+    "imagen":"https://res.cloudinary.com/doh6fzrdq/image/upload/v1669303568/cld-sample-5.jpg",
+    "parroquia":"637f736a4f32d19ab7a00582"
 }
 ### get sacerdotes
 GET http://localhost:3000/api/sacerdote
@@ -23,6 +25,10 @@ Content-Type: application/json
 
 ### get sacerdote
 GET http://localhost:3000/api/sacerdotes/6372ad9b458a43abd62503db
+Content-Type: application/json
+
+### get sacerdote
+GET https://ec6a-200-114-98-6.sa.ngrok.io/api/sacerdote
 Content-Type: application/json
 
 ### borrar sacerdote

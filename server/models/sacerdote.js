@@ -25,6 +25,10 @@ const SacerdoteSchema = mongoose.Schema({
         type: String,
         require: true
     },
+    imagen: {
+        type: String,
+        require: true
+    },
     parroquia: {
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'parroquia' }],
         require: true
