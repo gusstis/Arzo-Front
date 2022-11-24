@@ -37,7 +37,7 @@ export default function IndexPage({ session }) {
                       <img
                         alt="Your Company"
                         className="h-8 w-auto sm:h-10"
-                        src="https://www.thefreelogomakers.com/logo-maker/logo_templates/1527.png"
+                        src="https://www.statcan.gc.ca/sites/default/files/blog-automated-systems.jpg"
                       />
                     </a>
                     <div className="-mr-2 flex items-center md:hidden">

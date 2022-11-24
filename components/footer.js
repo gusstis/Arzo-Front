@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import Container from "./container";
+import logoXaju from '/public/xaju.jpg'
 
 export default function Footer() {
   const navigation = [
@@ -21,21 +22,19 @@ export default function Footer() {
               {" "}
               <Link href="/" className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">
                   <span>
-                    <img
-                      src="/img/logo.svg"
+                    <Image
+                      src="https://media-exp1.licdn.com/dms/image/C4E0BAQG7lyqLclcRAg/company-logo_200_200/0/1568827391031?e=1677110400&v=beta&t=oC5efSofVNxqi0N5nDysCsDiDWJ4TIV093FUfqWWD7k"
                       alt="N"
-                      width="32"
-                      height="32"
-                      className="w-8"
+                      width="82"
+                      height="42"
                     />
                   </span>
-                  <span>Nextly</span>
+                  <span>Footer</span>
               </Link>
             </div>
 
             <div className="max-w-md mt-4 text-gray-500 dark:text-gray-400">
-              Nextly is a free landing page & marketing website
-              template for startups and indie projects. Its built with
+              Landing page powered with Nextly. Its built with
               Next.js & TailwindCSS. And its completely open-source.
             </div>
 
@@ -46,11 +45,11 @@ export default function Footer() {
                 rel="noreferrer"
                 className="relative block w-44">
                 <Image
-                  src="/public/vercel.svg"
+                  src={logoXaju}
                   layout="responsive"
-                  alt="Powered by Vercelius"
-                  width="212"
-                  height="44"
+                  alt="Pwd by XaJu Systems"
+                  width="150"
+                  height="80"
                 />
               </a>
             </div>

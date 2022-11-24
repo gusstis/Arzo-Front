@@ -2,6 +2,7 @@ module.exports = {
   images: {
     domains: ["avatars.githubusercontent.com"],
     domains: ["lh3.googleusercontent.com"],
+    domains: ["media-exp1.licdn.com"],
   },
   reactStrictMode: true,
 };
