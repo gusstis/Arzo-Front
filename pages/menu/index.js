@@ -1,4 +1,5 @@
 import { Card, Grid, Row, Text } from "@nextui-org/react";
+import { apiBaseUrl } from "next-auth/client/_utils";
 
 export default function Cards({data}) {
     return (
@@ -17,13 +18,14 @@ export default function Cards({data}) {
                 </Card.Body>
                 <Card.Footer css={{ justifyItems: "flex-start" }}>
                   <Row wrap="wrap" justify="space-between" align="center">
-                    <Text b>{item.title}</Text>
+                    <Text b>{item.name+" "+item.lastname}</Text>
                     <Text css={{ color: "$accents7", fontWeight: "$semibold", fontSize: "$sm" }}>
-                      {item.name+" "+item.lastname}
+                      {item.nombramiento[0]}
                     </Text>
                     
-<p>{item.nombramiento[0]}</p>
 <p>fecha de creacion:{item.CreatedAt}</p>
+<p>codigo postal:{item.postalCode}</p>
+<p>direccion:{item.address}</p>
                   </Row>
                 </Card.Footer>
               </Card>
@@ -36,8 +38,7 @@ export default function Cards({data}) {
 
 // This gets called on every request
 export async function getServerSideProps() {
-
-    const res = await fetch(`https://ec6a-200-114-98-6.sa.ngrok.io/api/sacerdote`)
+    const res = await fetch(process.env.devUrl+`/api/sacerdote`)
     const data = await res.json()
     
     console.log("data:==========",data)

@@ -12,15 +12,20 @@ POST http://localhost:3000/api/sacerdote
 Content-Type: application/json
 
 {
-    "name":"Gustavo",
-    "lastname":"Aranciba",
+    "name":"Miguel",
+    "lastname":"perez",
     "postalCode":"5411",
     "phone":"1234",
-    "imagen":"https://res.cloudinary.com/doh6fzrdq/image/upload/v1669303568/cld-sample-5.jpg",
-    "parroquia":"637f736a4f32d19ab7a00582"
+    "imagen":"https://res.cloudinary.com/doh6fzrdq/image/upload/v1669303568/cld-sample-2.jpg",
+    "parroquia":"637f93c0901f1f1e0dbdcc3b",
+    "nombramiento":["Presbitero"]
 }
 ### get sacerdotes
 GET http://localhost:3000/api/sacerdote
+Content-Type: application/json
+
+### get parroquias
+GET http://localhost:3000/api/church
 Content-Type: application/json
 
 ### get sacerdote
