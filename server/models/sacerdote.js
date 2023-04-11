@@ -10,7 +10,7 @@ const SacerdoteSchema = mongoose.Schema({
         require: true
     },
     nombramiento: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'NombramientoSacerdote' }],
+        type: [ String ],
         require: true
     },
     postalCode: {
@@ -22,6 +22,10 @@ const SacerdoteSchema = mongoose.Schema({
         require: true
     },
     phone: {
+        type: String,
+        require: true
+    },
+    imagen: {
         type: String,
         require: true
     },

@@ -11,6 +11,20 @@
   justify-content: center;
   align-items: center;
 }
+.outer-div {
+  display: flex;
+  justify-content: center;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.inner-div {
+  align-self: center;
+}
+.displayed {
+  display: block;
+  margin-left: auto;
+  margin-right: auto }
 
 .footer {
   display: flex;
@@ -55,7 +69,17 @@
   line-height: 1.5;
   font-size: 1.5rem;
 }
-
+.center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+}
+div.centerblock {
+justify-content: center;
+width: 100%;
+text-align: center;
+}
 .code {
   background: #fafafa;
   border-radius: 5px;
@@ -73,6 +97,12 @@
   max-width: 800px;
 }
 
+body {
+  text-align: center;
+}
+form {
+  display: inline-block;
+}
 .card {
   margin: 1rem;
   padding: 1.5rem;
