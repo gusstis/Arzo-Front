@@ -27,7 +27,11 @@ export default function Navbar() {
             <nav className="flex filter drop-shadow-md bg-white px-4 py-4 h-20 items-center">
                 <MobileNav open={open} setOpen={setOpen}/>
                 <div className="w-3/12 flex items-center">
-                    <Link href="/"className="text-2xl font-semibold" >>LOGO</Link>
+                    <Link href="/"className="text-2xl font-semibold" >
+                    <div>
+                      <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Aca va logo arzo" />
+                    </div>
+                    </Link>
                 </div>
                 <div className="w-9/12 flex justify-end items-center">
     
