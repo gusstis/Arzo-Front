@@ -23,6 +23,7 @@
     "moment": "2.29.4",
     "mongodb": "^4.11.0",
     "mongoose": "^6.7.0",
+    "motion": "^10.15.5",
     "next": "13.0.0",
     "next-auth": "^4.15.0",
     "nouislider": "15.1.0",

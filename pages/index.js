@@ -3,12 +3,14 @@ import { Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XIcon } from '@heroicons/react/24/outline';
 import Login from '../components/login';
 import { getSession, signOut } from 'next-auth/react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
+  { name: 'Product', href: '/product' },
+  { name: 'Features', href: '/features' },
+  { name: 'Marketplace', href: '/marketplace' },
+  { name: 'Company', href: '/about' },
 ];
 
 console.log('entrando a: index.js...');
@@ -32,10 +34,10 @@ export default function IndexPage({ session }) {
               <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                   <div className="flex items-center justify-between w-full md:w-auto">
-                    <a href="/Login">
+                    <Link href="/login">
                       <span className="sr-only">Workflow</span>
-                      <img alt="Your Company" className="h-8 w-auto sm:h-10" src="https://www.statcan.gc.ca/sites/default/files/blog-automated-systems.jpg" />
-                    </a>
+                      <Image alt="Cinta Corazon" className="h-8 w-auto sm:h-10" src="/cora.png" width={200} height={200} />
+                    </Link>
                     <div className="-mr-2 flex items-center md:hidden">
                       <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                         <span className="sr-only">Open main menu</span>
@@ -97,27 +99,27 @@ export default function IndexPage({ session }) {
           <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="sm:text-center lg:text-left">
               <h1 className="text-4xl tracking-tight font-extrabold text-black-900 sm:text-5xl md:text-6xl">
-                <span className="block xl:inline">Arzobispado</span> <span className="block text-indigo-600 xl:inline">de San Juan de Cuyo</span>
+                <span className="block xl:inline">Arzobispado de</span> <span className="block text-indigo-600 xl:inline">San Juan de Cuyo</span>
               </h1>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                 Usted puede explorar limitadamente este espacio, o logearse para acceder a todas las funcionalidades.
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
-                  <a
+                  <Link
                     href="/login"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                   >
                     Inicio
-                  </a>
+                  </Link>
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
-                  <a
+                  <Link
                     href="/login"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                   >
                     Paseo Virtual
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
