@@ -7,13 +7,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const navigation = [
-  { name: 'Product', href: '/product' },
-  { name: 'Features', href: '/features' },
-  { name: 'Marketplace', href: '/marketplace' },
-  { name: 'Company', href: '/about' },
+  { name: 'Ayuda', href: '/product' },
+  { name: 'Helpdesk', href: '/features' },
+  { name: 'Contact', href: '/contact' },
+  { name: 'About', href: '/about' },
 ];
 
-console.log('entrando a: index.js...');
+console.log('entrando a: IndexPage (exp func), en /pages/index.js...');
 export default function IndexPage({ session }) {
   return (
     <div className="relative overflow-hidden bg-white">
@@ -34,14 +34,14 @@ export default function IndexPage({ session }) {
               <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                   <div className="flex items-center justify-between w-full md:w-auto">
-                    <Link href="/login">
+                    <Link href="#">
                       <span className="sr-only">Workflow</span>
                       <Image alt="Cinta Corazon" className="h-8 w-auto sm:h-10" src="/cora.png" width={200} height={200} />
                     </Link>
                     <div className="-mr-2 flex items-center md:hidden">
                       <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                         <span className="sr-only">Open main menu</span>
-                        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+                        <Bars3Icon className="h-6 w-6" aria-hidden="true" /> {/*Esto no anda*/}
                       </Popover.Button>
                     </div>
                   </div>
@@ -52,9 +52,9 @@ export default function IndexPage({ session }) {
                       {item.name}
                     </a>
                   ))}
-                  <button className="" onClick={() => Login()}>
+                  {/*<button className="" onClick={() => Login()}>
                     Loginn
-                  </button>
+                  </button>*/}
                 </div>
               </nav>
             </div>
@@ -72,7 +72,7 @@ export default function IndexPage({ session }) {
                 <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div className="px-5 pt-4 flex items-center justify-between">
                     <div>
-                      <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
+                      <Image className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="tailwindlogo" />
                     </div>
                     <div className="-mr-2">
                       <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -115,7 +115,7 @@ export default function IndexPage({ session }) {
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
                   <Link
-                    href="/login"
+                    href="/about"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                   >
                     Paseo Virtual
@@ -127,32 +127,15 @@ export default function IndexPage({ session }) {
         </div>
       </div>
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <img className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://www.ellitoral.com/images/2022/03/14/K_6HpitcO_1300x655__1.jpg" alt="Arzobispado" />
+        <Image
+          className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+          src="https://www.ellitoral.com/images/2022/03/14/K_6HpitcO_1300x655__1.jpg"
+          alt="Arzobispado"
+          width={800}
+          height={800}
+        />
       </div>
     </div>
   );
 }
-
-export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
-
-  console.log(session);
-
-  if (!session) {
-    console.log('There`s no session...');
-    {
-      /*return {
-      redirect: {
-        destination: '../components/login',
-        permanent: false,
-      }
-    };*/
-    }
-  }
-  console.log('Ya hay una session guardada..');
-  return {
-    props: {
-      session,
-    },
-  };
-};
+// Acá estaba el código de: /lib/authSession.js

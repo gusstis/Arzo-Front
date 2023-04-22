@@ -10,22 +10,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@headlessui/react": "^1.7.3",
-    "@heroicons/react": "^2.0.13",
-    "@material-ui/core": "^4.12.4",
+    "@emotion/react": "11.10.5",
+    "@emotion/styled": "11.10.5",
+    "@headlessui/react": "1.7.3",
+    "@heroicons/react": "2.0.13",
+    "@material-ui/core": "4.12.4",
     "@material-ui/icons": "4.11.2",
-    "@mui/material": "^5.10.15",
-    "@next-auth/mongodb-adapter": "^1.1.1",
-    "@nextui-org/react": "^1.0.0-beta.10",
+    "@mui/material": "5.10.15",
+    "@next-auth/mongodb-adapter": "1.1.1",
+    "@nextui-org/react": "1.0.0-beta.10",
     "classnames": "2.3.1",
     "moment": "2.29.4",
-    "mongodb": "^4.11.0",
-    "mongoose": "^6.7.0",
-    "motion": "^10.15.5",
+    "mongodb": "4.11.0",
+    "mongoose": "6.7.0",
+    "motion": "10.15.5",
     "next": "13.0.0",
-    "next-auth": "^4.15.0",
+    "next-auth": "4.15.0",
     "nouislider": "15.1.0",
     "prop-types": "15.8.1",
     "react": "18.2.0",
@@ -37,10 +37,10 @@
     "webpack": "5.74.0"
   },
   "devDependencies": {
-    "autoprefixer": "^9.8.8",
+    "autoprefixer": "9.8.8",
     "eslint": "8.26.0",
     "eslint-config-next": "13.0.0",
-    "postcss": "^7.0.39",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
+    "postcss": "7.0.39",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@2.2.17"
   }
 }

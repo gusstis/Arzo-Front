@@ -5,7 +5,7 @@ import Container from './container';
 import logoXaju from '/public/xaju.jpg';
 
 export default function Footer() {
-  const navigation = ['Product', 'Features', 'Pricing', 'Company', 'Blog'];
+  const navigation = ['Product', 'Features', 'Pricing'];
   const legal = ['Terms', 'Privacy', 'Legal'];
   return (
     <div className="relative">
@@ -26,9 +26,8 @@ export default function Footer() {
                 <span>Footer</span>
               </Link>
             </div>
-            <div>Pié de página interactivo.</div>
-            <div className="max-w-md mt-1 text-gray-500 dark:text-gray-400"> Landing page powered with Nextly. Its built with Next.js & TailwindCSS.</div>
-
+            <div className="max-w-md mt-1 text-gray-500 dark:text-gray-400">Pié de página interactivo.</div>
+            <span className="max-w-md mt-1 text-gray-500 dark:text-gray-400"> Landing page powered with Nextly.</span>
             <div className="mt-5">
               <a href="https://vercel.com/?utm_source=web3templates&utm_campaign=oss" target="_blank" rel="noreferrer" className="relative block w-44">
                 <Image src={logoXaju} layout="responsive" alt="Pwd by XaJu Systems" width="150" height="80" />

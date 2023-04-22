@@ -2,9 +2,9 @@ import { signIn, signOut, useSession, getProviders, SessionProvider } from 'next
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-console.log('Pasando por: login.js...');
+console.log('Pasando por: /components/login.js...');
 
- function Login() {
+function Login() {
   const { data, status } = useSession();
   const router = useRouter();
   useEffect(() => {
@@ -31,5 +31,5 @@ console.log('Pasando por: login.js...');
       </button>
     </div>
   );
-};                            
+}
 export default Login;

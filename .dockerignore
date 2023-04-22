@@ -1,4 +1,6 @@
 .next/
 node-modules/
-.git
-
+.git/
+TODO
+.front-how-to.md
+.gitignore

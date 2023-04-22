@@ -2,15 +2,15 @@ import { signIn, signOut, useSession, getProviders, SessionProvider } from 'next
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-console.log('Pasando por: login.js...');
+console.log('Pasando por: /pages/login.js...');
 
- function Login() {
+function Login() {
   const { data, status } = useSession();
   const router = useRouter();
   useEffect(() => {
     (async () => {
       const providers = await getProviders();
-      console.log('providers:', providers);
+      console.log('En /pages/login.js: providers:', providers);
     })();
   }, []);
 
@@ -31,5 +31,5 @@ console.log('Pasando por: login.js...');
       </button>
     </div>
   );
-};                            
+}
 export default Login;
