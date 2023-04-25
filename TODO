@@ -7,3 +7,250 @@ In the middleware check if the user has the admin role to get to a certain page.
 # Into ./pages/examples/jwt.js: give a name to anonymous function default exported
 
 # Incorporar securing pages and API routes: https://next-auth.js.org/tutorials/securing-pages-and-api-routes
+
+
+Modificacion /dashboard/index.js
+
+Para cargar los datos de una base de datos MongoDB en este dashboard, primero deberás instalar la librería necesaria para interactuar con la base de datos. Puedes usar Mongoose, una librería de modelado de objetos MongoDB para Node.js.
+
+Para utilizar Mongoose, necesitas importarlo en tu archivo index.js y configurarlo para conectarse a tu base de datos MongoDB. Una vez que hayas establecido una conexión, puedes crear un modelo que represente la colección de datos que deseas cargar.
+
+En lugar de la variable people con datos de ejemplo, podrías utilizar una consulta a la base de datos para obtener los datos y mostrarlos en la tabla.
+
+A continuación, te dejo un ejemplo básico de cómo podrías modificar el archivo index.js para cargar datos desde una base de datos MongoDB utilizando Mongoose:
+
+import mongoose from 'mongoose';
+import { useEffect, useState } from 'react';
+
+// Definir el esquema de los datos
+const personSchema = new mongoose.Schema({
+  name: String,
+  title: String,
+  department: String,
+  role: String,
+  email: String,
+  image: String,
+});
+
+// Crear el modelo
+const Person = mongoose.model('Person', personSchema);
+
+export default function Dashboard() {
+  const [people, setPeople] = useState([]);
+
+  // Conectar a la base de datos al cargar el componente
+  useEffect(() => {
+    mongoose.connect('mongodb://localhost/my_database')
+      .then(() => console.log('Conectado a la base de datos'))
+      .catch((error) => console.error(error));
+  }, []);
+
+  // Cargar los datos de la base de datos al cargar el componente
+  useEffect(() => {
+    Person.find()
+      .then((data) => setPeople(data))
+      .catch((error) => console.error(error));
+  }, []);
+
+  return (
+    // Renderizar la tabla con los datos cargados
+    <>
+      <div className="flex flex-col">
+        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Name
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Title
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Role
+                    </th>
+                    <th scope="col" className="relative px-6 py-3">
+                      <span className="sr-only">Edit</span>
+                    </th>
+                 </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {people.map((person) => (
+                    <tr key={person.email}>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center">
+                          <div className="flex-shrink-0 h-12 w-12">
+                            <img className="h-25 w-auto rounded-full" src={person.image} alt="" />
+                          </div>
+                          <div className="ml-4">
+                            <div className="text-sm font-medium text-gray-900">{person.name}</div>
+                            <div className="text-sm text-gray-500">{person.email}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{person.title}</div>
+                        <div className="text-sm text-gray-500">{person.department}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.role}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                          Edit
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+y para next.js:
+Sí, en un proyecto de Next.js puedes utilizar MongoDB como base de datos. Para ello, debes agregar la librería oficial de MongoDB para Node.js, que se llama mongodb. Puedes instalarla mediante npm con el siguiente comando:
+
+npm install mongodb
+
+Luego, para conectarte a la base de datos, puedes crear un archivo mongo.js en el directorio lib con el siguiente código:
+
+javascript
+
+import { MongoClient } from 'mongodb';
+
+const uri = 'mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<dbname>?retryWrites=true&w=majority';
+
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+export async function connectToDatabase() {
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB');
+    return client.db('<dbname>');
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
+
+Reemplaza <username>, <password>, <cluster> y <dbname> por los valores correspondientes para tu base de datos. Este código utiliza el driver mongodb para conectar a MongoDB Atlas, pero también puedes utilizarlo para conectarte a una base de datos local.
+
+Luego, en tu componente de Dashboard, puedes utilizar la función getServerSideProps para obtener los datos de la base de datos y pasárselos al componente mediante props. Por ejemplo, podrías crear un archivo dashboard.js en la carpeta pages con el siguiente código:
+
+javascript
+
+import { connectToDatabase } from '../lib/mongo';
+
+export default function Dashboard({ people }) {
+  return (
+    // código del componente de Dashboard
+  );
+}
+
+export async function getServerSideProps(context) {
+  const db = await connectToDatabase();
+  const collection = db.collection('people');
+  const people = await collection.find().toArray();
+
+  return {
+    props: {
+      people: JSON.parse(JSON.stringify(people)),
+    },
+  };
+}
+
+Este código utiliza la función connectToDatabase para conectarse a la base de datos, luego obtiene la colección people y obtiene todos los documentos de esa colección utilizando la función find. Luego, los datos se pasan al componente de Dashboard mediante la función getServerSideProps.
+
+Ten en cuenta que este código es solo un ejemplo y deberás adaptarlo a tu proyecto y a tu estructura de base de datos. Además, deberás proteger tu conexión a la base de datos mediante variables de entorno o algún otro método seguro.
+
+
+Para configurar next-auth con magic.link, tendrías que seguir los siguientes pasos:
+
+    Registrar una cuenta en magic.link y configurar tu aplicación.
+    Agregar las credenciales de magic.link en el archivo .env.local.
+    Instalar las dependencias de next-auth y magic-sdk.
+    Configurar el archivo pages/api/auth/[...nextauth].js con las opciones de next-auth.
+    Usar useSession en los componentes donde necesites comprobar la autenticación del usuario.
+
+Aquí te dejo un ejemplo de cómo podrías configurar next-auth con magic.link en un archivo pages/api/auth/[...nextauth].js:
+
+javascript
+
+import NextAuth from 'next-auth';
+import Providers from 'next-auth/providers';
+import { Magic } from '@magic-sdk/admin';
+
+const magic = new Magic(process.env.MAGIC_SECRET_KEY);
+
+export default NextAuth({
+  // Configure one or more authentication providers
+  providers: [
+    Providers.Credentials({
+      // The name to display on the sign in form (e.g. 'Sign in with...')
+      name: 'Magic Link',
+
+      // The credentials provider accepts any email and password combination
+      credentials: {
+        email: { label: 'Email', type: 'email', placeholder: 'john.doe@example.com' },
+      },
+
+      async authorize(credentials) {
+        try {
+          await magic.auth.loginWithMagicLink({ email: credentials.email });
+          // If successful, return the user object
+          return { email: credentials.email };
+        } catch (error) {
+          // If an error occurs, return null
+          return null;
+        }
+      },
+    }),
+  ],
+
+  // Optional SQL or MongoDB database to persist users
+  database: process.env.DATABASE_URL,
+
+  // Optional secret to sign cookies
+  secret: process.env.SECRET,
+
+  // Optional session configuration options
+  session: {
+    // Use JSON Web Tokens for session instead of database sessions
+    jwt: true,
+
+    // Seconds - How long until an idle session expires and is no longer valid
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+
+    // Seconds - Throttle how frequently to write to database to extend a session
+    // Use it to limit write operations. Set to 0 to always update the database.
+    updateAge: 24 * 60 * 60, // 24 hours
+  },
+
+  // Callbacks for NextAuth events
+  callbacks: {
+    // Called when a user signs in
+    async signIn(user, account, profile) {
+      if (account.provider === 'credentials') {
+        // Don't allow sign in with credentials unless email has been verified
+        if (user.emailVerified !== true) {
+          throw new Error('Email not verified');
+        }
+      }
+      return true;
+    },
+  },
+});
+
+Ten en cuenta que este es solo un ejemplo de configuración y que tendrás que adaptarlo a tus necesidades específicas. También deberías revisar la documentación de next-auth y magic-sdk para obtener más información y ejemplos detallados.

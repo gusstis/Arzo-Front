@@ -9,10 +9,16 @@
           "common/*"
         ],
         "@components/*":[
-          "component/*"
+          "components/*"
         ],
         "@layout/*":[
           "layout/*"
+        ],
+        "@hooks/*":[
+          "hooks/*"
+        ],
+        "@services/*":[
+          "services/*"
         ]
       }
     }

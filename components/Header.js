@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/24/outline';
+import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/solid';
 
 const userData = {
   name: 'Tom Cook',

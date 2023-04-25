@@ -1,4 +1,12 @@
-import { signIn, signOut, useSession, getProviders, SessionProvider } from 'next-auth/react';
+import LoginPage from '@components/LoginPage';
+
+export default function Login() {
+  return <LoginPage />;
+}
+
+
+
+/* import { signIn, signOut, useSession, getProviders, SessionProvider } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
@@ -33,3 +41,4 @@ function Login() {
   );
 }
 export default Login;
+ */

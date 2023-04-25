@@ -1,20 +1,21 @@
 import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
-import { Bars3Icon, XIcon } from '@heroicons/react/24/outline';
+import { MenuIcon, XIcon } from '@heroicons/react/solid';
 import Login from '../components/login';
-import { getSession, signOut } from 'next-auth/react';
+//import { getSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 const navigation = [
   { name: 'Ayuda', href: '/product' },
-  { name: 'Helpdesk', href: '/features' },
+  { name: 'Helpdesk', href: '/help' },
   { name: 'Contact', href: '/contact' },
   { name: 'About', href: '/about' },
 ];
 
 console.log('entrando a: IndexPage (exp func), en /pages/index.js...');
-export default function IndexPage({ session }) {
+
+export default function IndexPage({ }) {
   return (
     <div className="relative overflow-hidden bg-white">
       <div className="max-w-7xl mx-auto">
@@ -34,14 +35,14 @@ export default function IndexPage({ session }) {
               <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                   <div className="flex items-center justify-between w-full md:w-auto">
-                    <Link href="#">
+                    <Link href="/login">
                       <span className="sr-only">Workflow</span>
                       <Image alt="Cinta Corazon" className="h-8 w-auto sm:h-10" src="/cora.png" width={200} height={200} />
                     </Link>
                     <div className="-mr-2 flex items-center md:hidden">
                       <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                         <span className="sr-only">Open main menu</span>
-                        <Bars3Icon className="h-6 w-6" aria-hidden="true" /> {/*Esto no anda*/}
+                        <MenuIcon className="h-6 w-6" aria-hidden="true" /> {/*Esto no anda*/}
                       </Popover.Button>
                     </div>
                   </div>

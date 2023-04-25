@@ -1,22 +1,8 @@
-{
-  /*import "../styles/globals.css";
-import 'tailwindcss/tailwind.css';
-import { SessionProvider } from "next-auth/react";
 
-function MyApp({ Component, pageProps }) {
-  return (
-    <SessionProvider>
-      <Component {...pageProps} />
-    </SessionProvider>
-  );
-}
-
-export default MyApp;*/
-}
-//import MainLayout from '@layout/MainLayout'
-//import '../styles/globals.css';
+import MainLayout from '@layout/MainLayout'
+import { ProviderAuth } from '@hooks/useAuth';
 import 'tailwindcss/tailwind.css';
-import Header from '../components/Head';
+import Header from '../components/Header';
 import Navbar from '../components/navbar';
 import { SessionProvider } from 'next-auth/react';
 import Footer from 'components/footer';
@@ -29,13 +15,13 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps } 
 
   return (
     <>
-      <NextUIProvider>
+      <ProviderAuth>
         {/*<Navbar></Navbar>*/}
-        <SessionProvider session={pageProps.session}>
+        <MainLayout >
           <Component {...pageProps} />
-        </SessionProvider>
+        </MainLayout>
         <Footer></Footer>
-      </NextUIProvider>
+      </ProviderAuth>
     </>
   );
 }
