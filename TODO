@@ -254,3 +254,400 @@ export default NextAuth({
 });
 
 Ten en cuenta que este es solo un ejemplo de configuración y que tendrás que adaptarlo a tus necesidades específicas. También deberías revisar la documentación de next-auth y magic-sdk para obtener más información y ejemplos detallados.
+            *********************************************************************************************************
+
+
+y que modificaciones debería hacer en /dashboard/index.js
+
+Para hacer las modificaciones necesarias en el archivo /dashboard/index.js para integrar el CRUD y la autenticación, aquí hay algunos pasos generales que podrías seguir:
+
+    Importa los módulos necesarios en la parte superior del archivo. Por ejemplo, para trabajar con MongoDB Atlas y Mongoose, podrías importarlos de la siguiente manera:
+
+javascript
+
+import { connectToDatabase } from '../../utils/mongodb';
+import mongoose from 'mongoose';
+
+También necesitarás importar los módulos para trabajar con formik y yup, así como para la autenticación con next-auth.
+
+    Crea un modelo de Mongoose para los datos de people y guárdalo en un archivo separado en la carpeta models. Podrías llamar al modelo Person y definirlo como sigue:
+
+
+const personSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  address: {
+    type: String,
+    required: true
+  },
+  department: {
+    type: String,
+    required: true
+  },
+  dni: {
+    type: String,
+    required: true
+  },
+  birth: {
+    type: String,
+    required: true
+  },
+  birth_place: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  obra_social: {
+    type: String,
+    required: true
+  },
+  tel_number: String,
+  mob_number: String,
+  image: String,
+});
+
+const Person = mongoose.model('Person', personSchema);
+
+export default Person;
+
+    Crea una página separada para el formulario CRUD, llamada crud.js o algo similar, y asegúrate de que esté protegida mediante autenticación con next-auth.
+
+    En crud.js, utiliza formik y yup para crear un formulario para crear o editar objetos de Person. Cuando se envía el formulario, se debe realizar una llamada a la API para guardar o actualizar los datos en la base de datos.
+
+    En dashboard/index.js, puedes utilizar la función getServerSideProps de Next.js para buscar los datos de Person en la base de datos y pasarlos como propiedades a la página. Por ejemplo, puedes hacer algo como esto:
+
+javascript
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/api/auth/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  const { db } = await connectToDatabase();
+
+  const people = await db.collection('people').find().toArray();
+
+  return {
+    props: {
+      people: JSON.parse(JSON.stringify(people))
+    }
+  }
+}
+
+Esto buscará todos los documentos en la colección people de la base de datos y los pasará como propiedades a la página.
+
+    En dashboard/index.js, utiliza las propiedades people para renderizar la tabla, similar a como lo hiciste anteriormente.
+
+Ten en cuenta que estos son solo pasos generales y que tendrás que adaptarlos a tu proyecto específico y a tus necesidades. También te sugiero que leas la documentación de Next.js, MongoDB Atlas, Mongoose, formik, yup y next-auth para obtener más información sobre cómo trabajar con cada uno de ellos.
+
+
+Gustavo Aranciba
+y como quedaría mi archivo /dashboard/index.js en definitiva
+
+Una posible versión actualizada del archivo /dashboard/index.js con las funcionalidades de CRUD, utilizando las tecnologías mencionadas, podría ser la siguiente:
+
+jsx
+
+import { useState, useEffect } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useSession } from 'next-auth/client';
+import Image from 'next/image';
+import axios from 'axios';
+import { FaEdit, FaTrash } from 'react-icons/fa';
+
+const peopleSchema = Yup.object().shape({
+  name: Yup.string().required('El nombre es obligatorio'),
+  address: Yup.string().required('La dirección es obligatoria'),
+  birth: Yup.date().required('La fecha de nacimiento es obligatoria'),
+  dni: Yup.string().required('El DNI es obligatorio'),
+  birth_place: Yup.string().required('El lugar de nacimiento es obligatorio'),
+  email: Yup.string().email('El correo electrónico no es válido').required('El correo electrónico es obligatorio'),
+  obra_social: Yup.string(),
+  tel_number: Yup.string(),
+  mob_number: Yup.string().required('El número de teléfono móvil es obligatorio'),
+  image: Yup.string().url('La URL de la imagen no es válida').required('La imagen es obligatoria'),
+});
+
+export default function Dashboard() {
+  const [session] = useSession();
+  const [people, setPeople] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('/api/people');
+        setPeople(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, []);
+
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      address: '',
+      birth: '',
+      dni: '',
+      birth_place: '',
+      email: '',
+      obra_social: '',
+      tel_number: '',
+      mob_number: '',
+      image: '',
+    },
+    validationSchema: peopleSchema,
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        const response = await axios.post('/api/people', values, {
+          headers: { Authorization: `Bearer ${session.accessToken}` },
+        });
+        setPeople([...people, response.data]);
+        resetForm();
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`/api/people/${id}`, {
+        headers: { Authorization: `Bearer ${session.accessToken}` },
+      });
+      setPeople(people.filter((person) => person._id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleEdit = (person) => {
+    formik.setValues(person);
+  };
+
+  const handleUpdate = async (values, id) => {
+    try {
+      const response = await axios.put(`/api/people/${id}`, values, {
+        headers: { Authorization: `Bearer ${session.accessToken}` },
+      });
+      const updatedPeople = people.map((person) => {
+        if (person._id === response.data._id) {
+          return response.data;
+        } else {
+          return person;
+        }
+      });
+      setPeople(updatedPeople);
+      formik.resetForm();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <>
+      <div className="flex flex-col">
+        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <
+
+Gustavo Aranciba
+está incompleto
+
+¡Lo siento! Me perdí el final de mi respuesta. Aquí te lo dejo completo:
+
+vbnet
+
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/client';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required('El nombre es requerido'),
+  address: Yup.string().required('La dirección es requerida'),
+  dni: Yup.string().required('El DNI es requerido'),
+  birth: Yup.string().required('La fecha de nacimiento es requerida'),
+  birth_place: Yup.string().required('El lugar de nacimiento es requerido'),
+  email: Yup.string().email('El correo electrónico es inválido').required('El correo electrónico es requerido'),
+  obra_social: Yup.string().required('La obra social es requerida'),
+  tel_number: Yup.string(),
+  mob_number: Yup.string().required('El número de teléfono móvil es requerido'),
+  image: Yup.string().url('La URL de la imagen es inválida'),
+});
+
+export default function Dashboard() {
+  const router = useRouter();
+  const [session] = useSession();
+  const [people, setPeople] = useState([]);
+
+  useEffect(() => {
+    if (!session) {
+      router.push('/');
+    } else {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('/api/people');
+          setPeople(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchData();
+    }
+  }, [session]);
+
+  const initialValues = {
+    name: '',
+    address: '',
+    dni: '',
+    birth: '',
+    birth_place: '',
+    email: '',
+    obra_social: '',
+    tel_number: '',
+    mob_number: '',
+    image: '',
+  };
+
+  const onSubmit = async (values, { resetForm }) => {
+    try {
+      const response = await axios.post('/api/people', values);
+      setPeople((prevPeople) => [...prevPeople, response.data]);
+      resetForm();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <>
+      <div className="flex flex-col">
+        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Nombre
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Domicilio
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Fecha de nacimiento
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      D N I
+                    </th>
+                    <th scope="col" className="relative px-6 py-3">
+                      <span className="sr-only
+
+Gustavo Aranciba
+no entiendo, no son consistentes tus respuestas, unas no tienen relacion con las otras, no estas generando codigo congruente...
+
+Lo siento si mis respuestas no han sido claras o coherentes. Mi objetivo es ayudarte de la mejor manera posible. Tal vez me he perdido en la explicación o he omitido algún detalle importante. Por favor, házmelo saber si hay algo en lo que pueda ayudarte.
+
+Para responder a tu última pregunta, para que tu archivo /dashboard/index.js funcione correctamente con las modificaciones que te propuse, necesitarás importar los paquetes que utilizamos para la conexión y la definición del modelo y agregar las funciones necesarias para hacer las operaciones CRUD. A continuación, te proporciono un ejemplo de cómo podría quedar tu archivo /dashboard/index.js en definitiva:
+
+javascript
+
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/client";
+import { connectToDatabase } from "../util/mongodb";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Person from "../models/person";
+
+export default function Dashboard({ people }) {
+  const [session, loading] = useSession();
+  const [showForm, setShowForm] = useState(false);
+  const [formMode, setFormMode] = useState("");
+  const [selectedPerson, setSelectedPerson] = useState(null);
+  const [personList, setPersonList] = useState(people);
+
+  const initialValues = {
+    name: "",
+    address: "",
+    department: "",
+    dni: "",
+    birth: "",
+    birth_place: "",
+    email: "",
+    obra_social: "",
+    tel_number: "",
+    mob_number: "",
+    image: "",
+  };
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required("El nombre es requerido"),
+    address: Yup.string().required("El domicilio es requerido"),
+    department: Yup.string().required("El departamento es requerido"),
+    dni: Yup.string().required("El DNI es requerido"),
+    birth: Yup.string().required("La fecha de nacimiento es requerida"),
+    birth_place: Yup.string().required("El lugar de nacimiento es requerido"),
+    email: Yup.string().email("Formato de correo electrónico inválido").required("El correo electrónico es requerido"),
+    obra_social: Yup.string().required("La obra social es requerida"),
+    tel_number: Yup.string().nullable(),
+    mob_number: Yup.string().required("El número de teléfono móvil es requerido"),
+    image: Yup.string().url("Formato de URL inválido").nullable(),
+  });
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: async (values) => {
+      try {
+        if (formMode === "create") {
+          const newPerson = new Person(values);
+          await newPerson.save();
+          setPersonList((prev) => [...prev, newPerson]);
+        } else if (formMode === "edit") {
+          await Person.findByIdAndUpdate(selectedPerson._id, values, {
+            new: true,
+          });
+          setPersonList((prev) =>
+            prev.map((person) => (person._id === selectedPerson._id ? { ...person, ...values } : person))
+          );
+        }
+        setShowForm(false);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
+
+  useEffect(() => {
+    setPersonList(people);
+  }, [people]);
+
+  const handleEdit = (person) => {
+    setSelectedPerson(person);
+    setFormMode("edit");
+    formik.setValues(person);
+    setShowForm(true);
+  };
+
+  const handleDelete = async (person) => {
+    try {
+      await Person.findByIdAndDelete(person._id);
+     
