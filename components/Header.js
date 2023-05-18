@@ -50,6 +50,7 @@ export default function Header() {
                           aria-current={item.current ? 'page' : undefined}
                         >
                           {item.name}
+                          
                         </a>
                       ))}
                     </div>

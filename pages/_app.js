@@ -15,13 +15,13 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps } 
 
   return (
     <>
-      <ProviderAuth>
+      <NextUIProvider>
         {/*<Navbar></Navbar>*/}
         <MainLayout >
           <Component {...pageProps} />
         </MainLayout>
         <Footer></Footer>
-      </ProviderAuth>
+      </NextUIProvider>
     </>
   );
 }

@@ -13,12 +13,13 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  purge: ['./api/**/*{html,js,jsx}'],
   content: ["./pages/**/*.{js,ts,jsx,tsx}",
-            "./components/**/*.{js,ts,jsx,tsx}",],
+            "./components/**/*.{js,ts,jsx,tsx}",
+            './public/**/*.html',
+            ],
   theme: {
     colors: {
-      gray: colors.coolGray,
+      gray: colors.gray,
       blue: colors.sky,
       red: colors.rose,
       pink: colors.fuchsia,
