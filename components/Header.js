@@ -24,10 +24,11 @@ function classNames(...classes) {
 export default function Header() {
 
   const auth = useAuth; // useAuth() me da error...
+  //console.log(userData.imageUrl)
   const userData = {
     name: auth?.user?.name,
     email: auth?.user?.email,
-    imageUrl: `https://ui-avatars.com/api/?name=${auth?.user?.name}`,
+    imageUrl: `https://ui-avatars.com/api/?name="John+Doe"}`, /* `https://ui-avatars.com/api/?name=${auth?.user?.name` */
   };
   return (
     <>
