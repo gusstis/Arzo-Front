@@ -22,12 +22,12 @@ export default function IndexPage({ }) {
         <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
           <svg
             className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/3"
-            fill="currentColor"
-            viewBox="0 0 100 100"
+            fill="cyan"
+            viewBox="7 0 100 100"
             preserveAspectRatio="none"
             aria-hidden="true"
           >
-            <polygon points="50,0 100,0 50,100 0,100" />
+            <polygon points="40,0 70,0 41,100 10,100" />
           </svg>
 
           <Popover>

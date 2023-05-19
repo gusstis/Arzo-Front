@@ -1,3 +1,6 @@
+import Image from 'next/image'
+
+
 const people = [
   {
     name: 'Pbro. Miguel Darío Tejada',
@@ -77,7 +80,13 @@ export default function Dashboard() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-12 w-12">
-                            <img className="h-25 w-auto rounded-full" src={product.image[0]} alt="" />
+                          <Image
+                            className="h-25 w-auto rounded-full"
+                            src={product.image[0]}
+                            alt=""
+                            width={100}
+                            height={100}
+                          />
                           </div>
                           <div className="ml-4">
                             <div className="text-sm font-medium text-gray-900">{product.title}</div>

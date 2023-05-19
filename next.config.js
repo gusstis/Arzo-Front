@@ -9,7 +9,7 @@ module.exports = {
     prodUrl: 'localhost:3000',
   },
   images: {
-    domains: ['avatars.githubusercontent.com', 'lh3.googleusercontent.com', 'media-exp1.licdn.com', 'www.ellitoral.com'],
+    domains: ['avatars.githubusercontent.com', 'lh3.googleusercontent.com', 'media-exp1.licdn.com', 'www.ellitoral.com', "ui-avatars.com"],
   },
   reactStrictMode: true,
 };

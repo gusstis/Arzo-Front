@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import {useState} from 'react'
-
+import Image from 'next/image'
 
 function NavLink({to, children}) {
     return <Link href={to} className={`mx-4`}>{children}</Link>
@@ -29,7 +29,13 @@ export default function Navbar() {
                 <div className="w-3/12 flex items-center">
                     <Link href="/"className="text-2xl font-semibold" >
                     <div>
-                      <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Aca va logo arzo" />
+                      <Image
+                      className="h-8 w-auto"
+                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                      alt="Aca va logo arzo"
+                      width={100}
+                      height={100}
+                      />
                     </div>
                     </Link>
                 </div>
