@@ -1,4 +1,9 @@
 module.exports = {
+  experimental: { appDir: false, serverComponentsExternalPackages: ["mongoose"] },
+    webpack(config) {
+        config.experiments = { ...config.experiments, topLevelAwait: true };
+        return config;
+    },
   env: {
     devUrl: 'http://localhost:3000',
     prodUrl: 'localhost:3000',

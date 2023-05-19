@@ -10,7 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "",
+    "mongoose": "^7.1.2",
+    "next": "13.0.0",
     "next-auth": "^4.22.1",
     "react": "",
     "react-dom": "",
