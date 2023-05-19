@@ -1,5 +1,5 @@
-const Sacerdote = require("server/models/Sacerdote");
-const Parroquia = require("server/models/Parroquia");
+const Sacerdote = require("server/models/sacerdote");
+const Parroquia = require("server/models/parroquia");
 import { handleError, InvalidSacerdote } from 'server/errors';
 import dbConnect from 'lib/mongodb'
 import { useRouter } from 'next/router'
