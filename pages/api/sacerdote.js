@@ -1,4 +1,4 @@
-const Sacerdote = require('../sacerdote');
+const Sacerdote = require('../../lib/sacerdote');
 const Parroquia = require('../parroquia');
 import { handleError, InvalidSacerdote, sacerdoteNotFound } from 'server/errors';
 import { IsParroquiaSacerdoteValid } from 'server/helpers/sacerdoteHelpers';
