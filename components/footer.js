@@ -26,11 +26,11 @@ export default function Footer() {
                 <span>Footer</span>
               </Link>
             </div>
-            <div className="max-w-md mt-1 text-gray-500 dark:text-gray-400">Pié de página interactivo.</div>
+            <div className="max-w-md mt-1 text-gray-500 dark:text-gray-450">Pié de página interactivo.</div>
             <span className="max-w-md mt-1 text-gray-500 dark:text-gray-400"> Landing page powered with Nextly.</span>
             <div className="mt-5">
               <a href="https://vercel.com/?utm_source=web3templates&utm_campaign=oss" target="_blank" rel="noreferrer" className="relative block w-44">
-                <Image src={logoXaju} layout="responsive" alt="Pwd by XaJu Systems" width="150" height="80" />
+                <Image src={logoXaju} alt="Pwd by XaJu Systems" width="120" height="60" />
               </a>
             </div>
           </div>
@@ -85,14 +85,14 @@ export default function Footer() {
         </div>
 
         <div className="my-2 text-sm text-center text-gray-600 dark:text-gray-400">
-          Copyright © {new Date().getFullYear()}. Made with ♥ by{' '}
-          <a href="https://web3templates.com/" target="_blank" rel="noreferrer">
+          Copyright © {new Date().getFullYear()}. Made with ♥ by: XAJU systems
+          {/* <a href="https://web3templates.com/" target="_blank" rel="noreferrer">
             Web3Templates.
           </a>{' '}
           Illustrations from{' '}
           <a href="https://www.glazestock.com/" target="_blank" rel="noreferrer ">
             Glazestock
-          </a>
+          </a> */}
         </div>
       </Container>
       {/* Do not remove this */}
