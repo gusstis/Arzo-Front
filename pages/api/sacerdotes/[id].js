@@ -1,77 +1,63 @@
-const Sacerdote = require("server/models/sacerdote");
-const Parroquia = require("server/models/parroquia");
-import { handleError, InvalidSacerdote } from 'server/errors';
-import dbConnect from 'lib/mongodb'
-import { useRouter } from 'next/router'
+import dbConnect from 'lib/mongodb';
+import Sacerdote from 'server/models/sacerdote';
 
 export default async function handler(req, res) {
-    const { method } = req
+  const {
+    query: { id },
+    method,
+  } = req;
 
-    await dbConnect()
+  await dbConnect();
 
-    switch (method) {
-        case 'GET':
+  switch (method) {
+    case 'GET':
+      try {
+        const sacerdote = await Sacerdote.findById(id);
 
-            try {
+        if (!sacerdote) {
+          return res.status(404).json({ message: 'Sacerdote not found' });
+        }
 
-                const sacerdotes = await Sacerdote.find({_id:req.query.id});
-                if (sacerdotes.length==0){
-                    throw new InvalidSacerdote("No existe un sacerdote con el id indicado")
-                }
-                res.json(sacerdotes)
+        res.status(200).json({ sacerdote });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Error retrieving sacerdote' });
+      }
+      break;
 
-            } catch (error) {
-                console.log(error);
-                res.status(500).send(handleError(error));
-            }
-                return
-            
-        case 'PUT':
-            try {
+    case 'PUT':
+      try {
+        const updatedSacerdote = await Sacerdote.findByIdAndUpdate(id, req.body, { new: true });
 
-                const { nombre, categoria, ubicacion, precio } = req.body;
-                let sacerdote = await Sacerdote.findById(req.query.id);
+        if (!updatedSacerdote) {
+          return res.status(404).json({ message: 'Sacerdote not found' });
+        }
 
-                if (!sacerdote) {
-                    throw new InvalidSacerdote("No existe un sacerdote con el id indicado")
-                }
+        res.status(200).json({ sacerdote: updatedSacerdote });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Error updating sacerdote' });
+      }
+      break;
 
-                sacerdote.name = nombre;
-                sacerdote.categoria = categoria;
-                sacerdote.ubicacion = ubicacion;
-                sacerdote.precio = precio;
+    case 'DELETE':
+      try {
+        const deletedSacerdote = await Sacerdote.findByIdAndDelete(id);
 
-                sacerdote = await Sacerdote.findOneAndUpdate({ _id: req.query.id }, sacerdote, { new: true });
-                res.json(sacerdote);
+        if (!deletedSacerdote) {
+          return res.status(404).json({ message: 'Sacerdote not found' });
+        }
 
-            } catch (error) {
-                console.log(error);
-                res.status(500).send("error.....put");
-            }
-                return
-            
+        res.status(200).json({ message: 'Sacerdote deleted successfully' });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Error deleting sacerdote' });
+      }
+      break;
 
-        case 'DELETE':
-
-            try {
-                let sacerdote = await Sacerdote.findById(req.params.id);
-
-                if (!sacerdote) {
-                    throw new InvalidSacerdote("No existe un sacerdote con el id indicado")
-                }
-
-                await Sacerdote.findOneAndRemove({ _id: req.params.id })
-                res.json({ msg: 'Sacerdote eliminado con éxito' });
-
-            } catch (error) {
-                console.log(error);
-                res.status(500).send("error, en el mtd eliminarSacerdote");
-            }
-                return
-            
-        case 'DEFAULT':
-            console.log(error);
-            res.status(404).send("method not found");
-            return
-    }
+    default:
+      res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
+      res.status(405).json({ message: `Method ${method} Not Allowed` });
+      break;
+  }
 }

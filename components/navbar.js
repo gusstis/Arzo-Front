@@ -3,7 +3,7 @@ import {useState} from 'react'
 import Image from 'next/image'
 
 function NavLink({to, children}) {
-    return <Link href={to} className={`mx-4`}>{children}</Link>
+    return <Link href={to} className={`mx-4`} legacyBehavior>{children}</Link>;
 }
 
 function MobileNav({open, setOpen}) {
@@ -27,7 +27,7 @@ export default function Navbar() {
             <nav className="flex filter drop-shadow-md bg-white px-4 py-4 h-20 items-center">
                 <MobileNav open={open} setOpen={setOpen}/>
                 <div className="w-3/12 flex items-center">
-                    <Link href="/"className="text-2xl font-semibold" >
+                    <Link href="/" className="text-2xl font-semibold" legacyBehavior>
                     <div>
                       <Image
                       className="h-8 w-auto"
@@ -60,7 +60,7 @@ export default function Navbar() {
                     </div>
                 </div>
             </nav>
-        )
+        );
     }
 
     

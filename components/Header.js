@@ -6,9 +6,9 @@ import Image from 'next/image';
 import useAuth from '@hooks/useAuth';
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', current: false },
-  { name: 'products', href: '/dashboard/products/', current: false },
-  { name: 'Sales', href: '/dashboard/sales', current: false },
+  { name: 'Sacerdotes', href: '/sacerdotes', current: false },
+  { name: 'Parroquias', href: '/parroquias', current: false },
+  { name: 'Home', href: '/', current: false },
 ];
 const userNavigation = [
   { name: 'Your Profile', href: '#' },

@@ -19,7 +19,10 @@
         ],
         "@services/*":[
           "services/*"
-        ]
+        ],
+        "@models/*":[
+          "hooks/server/models/*"
+        ],
       }
     }
   }

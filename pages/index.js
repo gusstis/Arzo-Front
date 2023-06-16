@@ -7,26 +7,20 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const navigation = [
-  { name: 'Ayuda', href: '/product' },
+  /*   { name: 'Ayuda', href: '/product' },
   { name: 'Helpdesk', href: '/help' },
   { name: 'Contact', href: '/contact' },
-  { name: 'About', href: '/about' },
+  { name: 'About', href: '/about' }, */
 ];
 
 console.log('entrando a: IndexPage (exp func), en /pages/index.js...');
 
-export default function IndexPage({ }) {
+export default function IndexPage({}) {
   return (
     <div className="relative overflow-hidden bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-          <svg
-            className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/3"
-            fill="cyan"
-            viewBox="7 0 100 100"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
+          <svg className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/3" fill="cyan" viewBox="7 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             <polygon points="40,0 70,0 41,100 10,100" />
           </svg>
 
@@ -35,14 +29,16 @@ export default function IndexPage({ }) {
               <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                 <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                   <div className="flex items-center justify-between w-full md:w-auto">
-                    <Link href="/login">
-                      <span className="sr-only">Workflow</span>
-                      <Image alt="Cinta Corazon" className="h-8 w-auto sm:h-10" src="/cora.png" width={200} height={200} />
+                    <Link href="/login" legacyBehavior>
+                      <div>
+                        <span className="sr-only">Workflow</span>
+                        <Image alt="Cinta Corazon" className="h-8 w-auto sm:h-10" src="/cora.png" width={200} height={200} />
+                      </div>
                     </Link>
                     <div className="-mr-2 flex items-center md:hidden">
                       <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                         <span className="sr-only">Open main menu</span>
-                        <MenuIcon className="h-6 w-6" aria-hidden="true" /> {/*Esto no anda*/}
+                        <MenuIcon className="h-6 w-6" aria-hidden="true" />
                       </Popover.Button>
                     </div>
                   </div>
@@ -73,7 +69,7 @@ export default function IndexPage({ }) {
                 <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div className="px-5 pt-4 flex items-center justify-between">
                     <div>
-                      <Image className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="tailwindlogo" />
+                      <Image className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="tailwindlogo" width={100} height={100} />
                     </div>
                     <div className="-mr-2">
                       <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">

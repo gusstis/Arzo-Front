@@ -1,21 +1,19 @@
 import Header from '@components/Header';
 import Nav from '@common/Nav';
 
-
-export default function MainLayout({children}) {
-    return(
-        <>
-        <div className="min-h-full" >
-            <Header/>
-            <Nav/>
-            <main>
-                <div className="max-w-7xl mx-auto py-6 sm:px-0 lg:px-8 " >{children}</div>
-            </main>
-        </div>
-        </>
-    );
+export default function MainLayout({ children }) {
+  return (
+    <>
+      <div className="min-h-full">
+        <Header />
+        <Nav />
+        <main>
+          <div className="max-w-7xl mx-auto py-6 sm:px-0 lg:px-8 ">{children}</div>
+        </main>
+      </div>
+    </>
+  );
 }
-
 
 /* Este código define un componente de diseño llamado MainLayout.
 El componente tiene una prop children, que es un contenido que se insertará dentro del componente en el lugar donde se encuentra la expresión {children}.

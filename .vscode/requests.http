@@ -1,5 +1,5 @@
 ### crear parroquia
-POST http://localhost:3000/api/church
+POST http://localhost:3000/api/parroquias
 Content-Type: application/json
 
 {
@@ -21,11 +21,11 @@ Content-Type: application/json
     "nombramiento":["Presbitero"]
 }
 ### get sacerdotes
-GET http://localhost:3000/api/sacerdote
+GET http://localhost:3000/api/sacerdotes
 Content-Type: application/json
 
 ### get parroquias
-GET http://localhost:3000/api/church
+GET http://localhost:3000/api/parroquias
 Content-Type: application/json
 
 ### get sacerdote

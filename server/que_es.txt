@@ -1,0 +1,7 @@
+    /server/models/: Esta carpeta contiene los modelos de datos que se utilizan para definir la estructura y el esquema de las entidades en la base de datos. Cada archivo de modelo (por ejemplo, user.js, sacerdote.js, parroquia.js, etc.) define un esquema utilizando la biblioteca Mongoose y exporta el modelo correspondiente.
+
+    /server/helpers/: Esta carpeta almacena archivos que contienen funciones auxiliares y de ayuda para el servidor. Por ejemplo, el archivo sacerdoteHelpers.js contiene una función llamada IsParroquiaSacerdoteValid que verifica si una parroquia asociada a un sacerdote es válida.
+
+    /server/errors.js: Este archivo exporta varias clases y constantes que se utilizan para manejar y representar errores en el servidor. Por ejemplo, se define la clase InvalidSacerdote que hereda de la clase Error y se utilizan otras constantes como parroquiaNotFound, sacerdoteNotFound y nombramientoNotFound para representar errores específicos.
+    
+    En general, la carpeta /server/ se utiliza para organizar y almacenar todos los componentes y funcionalidades relacionadas con el servidor en tu aplicación. Esto incluye modelos de datos, controladores, utilidades, configuraciones y manejo de errores. Organizar el código de esta manera ayuda a mantener una estructura clara y modular, facilitando el desarrollo y el mantenimiento de la aplicación de servidor.

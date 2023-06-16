@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import React from 'react';
-import Container from './container';
+import Container from '@components/container';
 import logoXaju from '/public/xaju.jpg';
 
 export default function Footer() {
@@ -10,29 +10,30 @@ export default function Footer() {
   return (
     <div className="relative">
       <Container>
-        <div className="grid max-w-screen-xl grid-cols-1 gap-10 pt-10 mx-auto mt-5 border-t border-gray-100 dark:border-trueGray-700 lg:grid-cols-5">
+        <div className="grid max-w-screen-xl grid-cols-1 gap-10 pt-10 mx-auto mt-5 border-t border-gray-400 dark:border-trueGray-700 lg:grid-cols-5">
           <div className="lg:col-span-2">
-            <div>
-              {' '}
-              <Link href="/" className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">
-                <span>
-                  <Image
-                    src="https://media-exp1.licdn.com/dms/image/C4E0BAQG7lyqLclcRAg/company-logo_200_200/0/1568827391031?e=1677110400&v=beta&t=oC5efSofVNxqi0N5nDysCsDiDWJ4TIV093FUfqWWD7k"
-                    alt="N"
-                    width="82"
-                    height="42"
-                  />
-                </span>
-                <span>Footer</span>
-              </Link>
-            </div>
-            <div className="max-w-md mt-1 text-gray-500 dark:text-gray-450">Pié de página interactivo.</div>
-            <span className="max-w-md mt-1 text-gray-500 dark:text-gray-400"> Landing page powered with Nextly.</span>
+            {/* <div>
+                {' '}
+                <Link href="/" className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">
+                  <span>
+                    <Image
+                      src="https://media-exp1.licdn.com/dms/image/C4E0BAQG7lyqLclcRAg/company-logo_200_200/0/1568827391031?e=1677110400&v=beta&t=oC5efSofVNxqi0N5nDysCsDiDWJ4TIV093FUfqWWD7k"
+                      alt="N"
+                      width="82"
+                      height="42"
+                    />
+                  </span>
+                  <span>Footer</span>
+                </Link>
+              </div> */}
+
             <div className="mt-5">
               <a href="https://vercel.com/?utm_source=web3templates&utm_campaign=oss" target="_blank" rel="noreferrer" className="relative block w-44">
                 <Image src={logoXaju} alt="Pwd by XaJu Systems" width="120" height="60" />
               </a>
             </div>
+            <div className="max-w-md mt-1 text-gray-500 dark:text-gray-450">Pié de página interactivo.</div>
+            <span className="max-w-md mt-1 text-gray-500 dark:text-gray-400"> Landing page powered with Nextly.</span>
           </div>
 
           <div>
@@ -42,7 +43,7 @@ export default function Footer() {
                   key={index}
                   href="/"
                   className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700"
-                >
+                  legacyBehavior>
                   {item}
                 </Link>
               ))}
@@ -55,7 +56,7 @@ export default function Footer() {
                   key={index}
                   href="/"
                   className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700"
-                >
+                  legacyBehavior>
                   {item}
                 </Link>
               ))}
@@ -84,8 +85,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="my-2 text-sm text-center text-gray-600 dark:text-gray-400">
-          Copyright © {new Date().getFullYear()}. Made with ♥ by: XAJU systems
+        <div className="my-2 text-sm text-center text-gray-600 dark:text-gray-500">
+          Copyright © {new Date().getFullYear()}. Made with ♥ by XAJU systems.
           {/* <a href="https://web3templates.com/" target="_blank" rel="noreferrer">
             Web3Templates.
           </a>{' '}
