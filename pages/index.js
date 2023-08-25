@@ -1,27 +1,43 @@
-import { Fragment } from 'react';
+import Head from 'next/head'
+import { Fragment, useEffect, useState } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/solid';
-import Login from '../components/login';
-//import { getSession, signOut } from 'next-auth/react';
+//import Login from '../components/login';
 import Link from 'next/link';
 import Image from 'next/image';
+import {getSession, signOut} from 'next-auth/react';
+import {GetServerSideProps} from 'next';
 
 const navigation = [
-  /*   { name: 'Ayuda', href: '/product' },
+  /*   { name: 'Ayuda', href: '/manual' },
   { name: 'Helpdesk', href: '/help' },
   { name: 'Contact', href: '/contact' },
   { name: 'About', href: '/about' }, */
 ];
 
-console.log('entrando a: IndexPage (exp func), en /pages/index.js...');
 
-export default function IndexPage({}) {
+export default function IndexPage({session}) {
+  //const {user} = session;
+  
+
+{/*// En esta sección estamos obteniendo los datos de usuario desde el frontend
+  const [user, setUser] = useState(null) //guardo la info de sesión en un estado
+  useEffect (() => {
+    console.log('...IndexPage +', session);
+    (async() => {
+      const session = await getSession()
+      setUser(session.user)
+    }) ();  
+  },[])
+
+*/}
+
   return (
     <div className="relative overflow-hidden bg-white">
       <div className="max-w-7xl mx-auto">
-        <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-          <svg className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/3" fill="cyan" viewBox="7 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            <polygon points="40,0 70,0 41,100 10,100" />
+        <div className="relative z-0 pb-8 bg-white sm:pb-6 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+          <svg className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2" fill="cyan" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <polygon points="0,0 100,0 30,100 0,100" />
           </svg>
 
           <Popover>
@@ -107,7 +123,7 @@ export default function IndexPage({}) {
                     href="/login"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                   >
-                    Inicio
+                    Ingresar
                   </Link>
                 </div>
                 <div className="mt-3 sm:mt-0 sm:ml-3">
@@ -115,7 +131,7 @@ export default function IndexPage({}) {
                     href="/about"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                   >
-                    Paseo Virtual
+                    Acerca de
                   </Link>
                 </div>
               </div>
@@ -132,7 +148,53 @@ export default function IndexPage({}) {
           height={800}
         />
       </div>
+      
+      {/**<div>
+        
+
+          session ? ( 
+            <div>
+              <h1>{session.user.name}</h1>
+              <p>{session.user.email}</p>
+              <Image
+                src={session.user.image}
+                alt="user"
+                width="100"
+                height="100"
+          />
+            </div>
+
+          ) : (
+            <p> Skeleton </p>
+          )
+
+          <btn onClick={ () => signOut() } >
+            Logout!
+          </btn>
+        
+        
+          </div>**/}
+    
     </div>
   );
 }
-// Acá estaba el código de: /lib/authSession.js
+
+export const getServerSideProps = async (context) => {
+  const session = await getSession(context)
+
+  {{
+    // Redirect callback come from  nextjs
+    /*if (!session) return {
+    redirect: {
+      destination: '/about',
+      permanent: false
+     }
+    }*/}
+
+  return {
+      props: {
+        session
+      }
+    }
+  }
+}

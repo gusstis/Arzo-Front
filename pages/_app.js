@@ -7,23 +7,13 @@ import Header from '../components/Header';
 import Navbar from '../components/navbar';
 import { NextUIProvider } from '@nextui-org/react';
 import Footer from 'components/footer';
+import { SessionProvider } from 'next-auth/react';
 
 console.log('leendo: _app');
 
-export default function MyApp({ Component, pageProps }) {
-  const router = useRouter();
-
-  useEffect(() => {
-    const handleRouteChange = (url) => {
-      console.log('Página cambiada:', url);
-    };
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, []);
+export default function MyApp({
+  Component,
+  pageProps: { session, ...pageProps } }) {
 
   return (
     <>
@@ -34,7 +24,9 @@ export default function MyApp({ Component, pageProps }) {
         </Head>
         {/* <Navbar></Navbar> */}
         <MainLayout>
+          <SessionProvider session={session} >
           <Component {...pageProps} />
+          </SessionProvider>
         </MainLayout>
         <Footer />
       </NextUIProvider>

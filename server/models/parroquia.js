@@ -4,15 +4,15 @@ const mongoose = require('mongoose');
 const ParroquiaSchema = mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: [true, 'Debe proporcionar Nombre a la Parroquia'],
   },
   address: {
     type: String,
-    require: true,
+    required: [true, 'debe colocar una dorección'],
   },
   postalCode: {
     type: String,
-    require: true,
+    required: [true, 'El código postal debe existir'],
   },
   deletedAt: {
     type: Date,

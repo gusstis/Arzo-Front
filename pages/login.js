@@ -1,44 +1,35 @@
-import LoginPage from '@components/LoginPage';
+import {useRouter} from 'next/router';
 
-export default function Login() {
-  return <LoginPage />;
-}
-
-
-
-/* import { signIn, signOut, useSession, getProviders, SessionProvider } from 'next-auth/react';
+import {signIn, useSession, getProviders} from 'next-auth/react';
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 
-console.log('Pasando por: /pages/login.js...');
+function LoginPage() {
+    const {data: session, status} = useSession()
+    const router = useRouter()
+    
+    //este useEffect es para obtener la session desde el backend 
+    useEffect(() => {
+        (async() => {
+            const providers = await getProviders()
+            console.log(providers)
+        })();
+    }, [])
 
-function Login() {
-  const { data, status } = useSession();
-  const router = useRouter();
-  useEffect(() => {
-    (async () => {
-      const providers = await getProviders();
-      console.log('En /pages/login.js: providers:', providers);
-    })();
-  }, []);
+        if ( status !== 'loading' && status === 'authenticated' ) {
+            router.push('/')
+        }
+    
 
-  useEffect(() => {
-    if (data) {
-      router.push('/');
-    }
-  }, [data, router]);
+    return (
+        <div>
+            <button onClick={(e) => {
+           e.preventDefault()
+           signIn() }} />
+                
 
-  return (
-    <div className="flex justify-center items-center mt-30 flex-col">
-      <h1>login</h1>
-      <button className=" bg-blue-300 hover:bg-blue-200 text-gray-900 px-8 py-3 font-black tracking-widest text-lg rounded-md m-5" onClick={() => signIn('github')}>
-        Login with Github
-      </button>
-      <button className=" bg-blue-300 hover:bg-blue-200 text-gray-900 px-8 py-3 font-black tracking-widest text-lg rounded-md m-2 " onClick={() => signIn('google')}>
-        Login with google
-      </button>
-    </div>
-  );
+            Signin with
+        </div>
+    );
 }
-export default Login;
- */
+
+export default LoginPage;

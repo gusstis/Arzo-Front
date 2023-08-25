@@ -8,20 +8,23 @@
         "@common/*":[
           "common/*"
         ],
+        "@lib/*":[
+          "lib/*"
+        ],
         "@components/*":[
           "components/*"
         ],
         "@layout/*":[
           "layout/*"
         ],
-        "@hooks/*":[
-          "hooks/*"
+        "@utils/*":[
+          "utils/*"
         ],
-        "@services/*":[
-          "services/*"
+        "@server/*":[
+          "server/*"
         ],
         "@models/*":[
-          "hooks/server/models/*"
+          "server/models/*"
         ],
       }
     }

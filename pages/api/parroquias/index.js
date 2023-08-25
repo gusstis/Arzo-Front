@@ -1,5 +1,5 @@
-import dbConnect from 'lib/mongodb';
-import Parroquia from '../../../server/models/parroquia';
+import dbConnect from '@lib/mongodb';
+import Parroquia from '@models/parroquia';
 
 export default async function handler(req, res) {
   const { method } = req;

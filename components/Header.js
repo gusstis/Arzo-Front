@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
-import useAuth from '@hooks/useAuth';
+//import useAuth from '@hooks/useAuth';
 
 const navigation = [
   { name: 'Sacerdotes', href: '/sacerdotes', current: false },
@@ -21,13 +21,7 @@ function classNames(...classes) {
 }
 
 export default function Header() {
-  const auth = useAuth; // useAuth() me da error...
-  //console.log(userData.imageUrl)
-  const userData = {
-    name: auth?.user?.name,
-    email: auth?.user?.email,
-    imageUrl: `https://ui-avatars.com/api/?name="John+Doe"}` /* `https://ui-avatars.com/api/?name=${auth?.user?.name` */,
-  };
+
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">
@@ -38,7 +32,7 @@ export default function Header() {
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <a href="https://arzobispadosanjuan.org.ar/">
-                      <Image className="h-12 w-12" src="/arzo-logo.jpg" alt="logo" width="350" height="350" />
+                      <Image className="h-12 w-12" src="/arzo-logo.jpg" alt="logo" width="250" height="250" />
                     </a>
                   </div>
                   <div className="hidden md:block">
@@ -71,7 +65,7 @@ export default function Header() {
                       <div>
                         <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
-                          <Image className="h-10 w-13 rounded-full" src={userData.imageUrl} alt="" width={100} height={100} />
+                          <Image className="h-10 w-13 rounded-full" src={'/public/oauth-logo.png'} alt="" width={100} height={100} />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -125,11 +119,11 @@ export default function Header() {
               <div className="pt-4 pb-3 border-t border-gray-700">
                 <div className="flex items-center px-5">
                   <div className="flex-shrink-0">
-                    <Image className="h-10 w-10 rounded-full" src={userData.imageUrl} alt="" width={100} height={100} />
+                    <Image className="h-10 w-10 rounded-full" src={'/public/oauth-logo.png'} alt="" width={100} height={100} />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">{userData.name}</div>
-                    <div className="text-sm font-medium leading-none text-gray-400">{userData.email}</div>
+                    <div className="text-base font-medium leading-none text-white">UserName</div>
+                    <div className="text-sm font-medium leading-none text-gray-400">UserEmail</div>
                   </div>
                   <button
                     type="button"

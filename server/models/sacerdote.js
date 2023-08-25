@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const SacerdoteSchema = mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, 'Debe colocar un Nobre'],
   },
   lastname: {
     type: String,
-    required: true,
+    required: [true, 'debe proporcionar el Apellido'],
   },
   nombramiento: {
     type: [String],
@@ -19,7 +19,7 @@ const SacerdoteSchema = mongoose.Schema({
   },
   address: {
     type: String,
-    required: true,
+    required: [true, 'La dirección es oblogatoria'],
   },
   phone: {
     type: String,
