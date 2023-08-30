@@ -15,11 +15,11 @@ function NewParroquiaPage() {
 
   const handleSubmit = async (values) => {
     try {
-      // Realizar la llamada a la API para crear un nuevo sacerdote
+      // Realizar la llamada a la API para crear una nueva parroquia
       const response = await axios.post('/api/parroquias', values);
       console.log(response.data); // Puedes hacer algo con la respuesta de la API
 
-      // Redirigir a la página de lista de sacerdotes después de la creación exitosa
+      // Redirigir a la página de lista de parroquias después de la creación exitosa
       router.push('/parroquias');
     } catch (error) {
       console.error(error);

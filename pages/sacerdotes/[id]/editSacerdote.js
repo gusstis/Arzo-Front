@@ -47,8 +47,9 @@ function EditSacerdotePage() {
       console.error(error);
     }
   };
-
+  
   const setInitialValues = (sacerdoteData) => {
+    console.log(sacerdoteData)
     const initialValues = {
       name: sacerdoteData.name,
       lastname: sacerdoteData.lastname,

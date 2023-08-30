@@ -46,3 +46,12 @@ Content-Type: application/json
     "postalcode":"5411",
     "parroquia":"6342b309e0fd35adfd10c227"
 }
+
+### contenido session
+http://localhost:3000/api/auth/session
+
+### signin
+http://localhost:3000/api/auth/signin
+
+### datos de sesión
+http://0.0.0.0:3000/api/auth/session

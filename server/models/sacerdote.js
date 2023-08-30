@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema, models, model } from 'mongoose';
 
-const SacerdoteSchema = mongoose.Schema({
+const SacerdoteSchema = Schema({
   name: {
     type: String,
     required: [true, 'Debe colocar un Nobre'],
@@ -30,7 +30,7 @@ const SacerdoteSchema = mongoose.Schema({
     required: false,
   },
   parroquia: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'parroquia' }],
+    type: [{ type: Schema.Types.ObjectId, ref: 'parroquia' }],
     required: false,
   },
   dateOfBirth: {
@@ -97,6 +97,6 @@ const SacerdoteSchema = mongoose.Schema({
   },
 });
 
-const Sacerdote = mongoose.models.Sacerdote || mongoose.model('Sacerdote', SacerdoteSchema);
 
-module.exports = Sacerdote;
+module.exports = models.Sacerdote || model('Sacerdote', SacerdoteSchema);
+

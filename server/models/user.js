@@ -3,6 +3,14 @@ import bcrypt from 'bcrypt'
 import validator from 'validator'
 
 const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true 
+      },
+    
+      image: {
+        type: String
+      },
     email: {
         type: String,
         required: true,
@@ -21,7 +29,8 @@ const userSchema = new mongoose.Schema({
         enum: {
             values: [
                 'user',
-                'admin'
+                'admin',
+                'guest'
             ],
         }
     },

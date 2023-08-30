@@ -1,15 +1,15 @@
-const Sacerdote = require('../../../server/models/sacerdote'); //importo modelo de Sacerdote
+const Sacerdote = require('../../../server/models/sacerdote'); // importo modelo de Sacerdote
 const Parroquia = require('../../../server/models/parroquia');
 import { handleError, InvalidSacerdote, sacerdoteNotFound, parroquiaNotFound } from 'server/errors';
 import { IsParroquiaSacerdoteValid } from 'server/helpers/sacerdoteHelpers';
-import dbConnect from 'lib/mongodb';
+import dbConnect from '@lib/mongodb';
 import { ObjectId } from 'mongodb';
 
 export default async function handler(req, res) {
   const { method } = req;
 
   await dbConnect();
-  console.log('Conectado a arzo-users-db');
+  console.log('dbConnect from /pages/api/sacerdotes');
 
   console.log('method', method);
 
@@ -31,6 +31,8 @@ export default async function handler(req, res) {
       return;
     case 'GET':
       try {
+
+        console.log(Sacerdote);
         const sacerdotes = await Sacerdote.find(); // busca y devuelve una lista de todos los sacerdotes en mongodb
         res.status(200).json({ sacerdotes }); // se envían como respuesta en formato json
         console.log(sacerdotes);
@@ -109,24 +111,6 @@ export default async function handler(req, res) {
       return;
   }
 }
-
-// Este archivo se encarga de manejar las solicitudes relacionadas con los sacerdotes. Proporciona la lógica necesaria para crear nuevos sacerdotes, obtener una lista de sacerdotes y manejar métodos HTTP no admitidos.
-
-/*
- * La función handler es el controlador principal de la ruta API. Toma la solicitud (req) y la respuesta (res) como parámetros y maneja la lógica para diferentes métodos HTTP (POST, GET, etc.).
- */
-
-/*
- *Antes de procesar cualquier solicitud, se llama a la función dbConnect() para establecer una conexión con la base de datos. Esto garantiza que la conexión esté establecida antes de realizar cualquier operación en la base de datos. */
-
-/* *
-   * Se utiliza un switch para manejar diferentes métodos HTTP. Dependiendo del método, se ejecutará un bloque de código específico.
-   *POST: En este caso, se crea un nuevo objeto Sacerdote utilizando los datos proporcionados en la solicitud (req.body). Luego se verifica si la parroquia asociada al sacerdote existe en la base de datos. Si no existe, se lanza una excepción. Después de realizar las validaciones, se guarda el objeto Sacerdote en la base de datos y se envía como respuesta (res.send()).
-  *
-  *  GET: Aquí, se busca y devuelve una lista de todos los sacerdotes existentes en la base de datos utilizando Sacerdote.find(). Los sacerdotes se envían como respuesta en formato JSON (res.json()).
-
-  * DEFAULT: En caso de que se reciba un método no admitido, se devuelve una respuesta de estado 404 y se muestra el mensaje "method not found". 
-  * */
 
 // ? Cómo hacer una solicitud PUT?
 /* import axios from 'axios';

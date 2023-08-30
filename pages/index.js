@@ -5,19 +5,21 @@ import { MenuIcon, XIcon } from '@heroicons/react/solid';
 //import Login from '../components/login';
 import Link from 'next/link';
 import Image from 'next/image';
-import {getSession, signOut} from 'next-auth/react';
+import { getSession, useSession, signIn, signOut} from 'next-auth/react';
 import {GetServerSideProps} from 'next';
 
 const navigation = [
-  /*   { name: 'Ayuda', href: '/manual' },
+     { name: 'Ayuda', href: '/manual' },
   { name: 'Helpdesk', href: '/help' },
   { name: 'Contact', href: '/contact' },
-  { name: 'About', href: '/about' }, */
+  { name: 'About', href: '/about' }, 
 ];
 
 
 export default function IndexPage({session}) {
-  //const {user} = session;
+  {/*const { data: session } = useSession();
+console.log('La sesión es: ' , session)*/}
+
   
 
 {/*// En esta sección estamos obteniendo los datos de usuario desde el frontend
@@ -65,8 +67,8 @@ export default function IndexPage({session}) {
                       {item.name}
                     </a>
                   ))}
-                  {/*<button className="" onClick={() => Login()}>
-                    Loginn
+                  {/*<button className="" onClick={() => signIn()}>
+                    Sign in
                   </button>*/}
                 </div>
               </nav>
@@ -110,33 +112,46 @@ export default function IndexPage({session}) {
           </Popover>
 
           <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-            <div className="sm:text-center lg:text-left">
-              <h1 className="text-4xl tracking-tight font-extrabold text-black-900 sm:text-5xl md:text-6xl">
-                <span className="block xl:inline-flex self-center">Arquidiócesis de</span> <span className="block text-indigo-600 xl:inline-flex">San Juan de Cuyo</span>
-              </h1>
-              <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                Usted puede explorar limitadamente este espacio, o logearse para acceder a todas las funcionalidades.
-              </p>
-              <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                <div className="rounded-md shadow">
-                  <Link
-                    href="/login"
-                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
-                  >
-                    Ingresar
-                  </Link>
-                </div>
-                <div className="mt-3 sm:mt-0 sm:ml-3">
-                  <Link
-                    href="/about"
-                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
-                  >
-                    Acerca de
-                  </Link>
-                </div>
-              </div>
+      <div className="sm:text-center lg:text-left">
+        <h1 className="text-4xl tracking-tight font-extrabold text-black-900 sm:text-5xl md:text-6xl">
+          <span className="block xl:inline-flex self-center">Arquidiócesis de</span> <span className="block text-indigo-600 xl:inline-flex">San Juan de Cuyo</span>
+        </h1>
+        <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+          Usted puede explorar limitadamente este espacio, o  {session ? "acceder a todas las funcionalidades." : "logearse para acceder a todas las funcionalidades."}
+        </p>
+        <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+          {session ? (
+            // Renderizar botón de cierre de sesión si el usuario está autenticado
+            <div className="rounded-md shadow">
+              <button
+                onClick={() => signOut()}
+                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 md:py-4 md:text-lg md:px-10"
+              >
+                Cerrar Sesión
+              </button>
             </div>
-          </main>
+          ) : (
+            // Renderizar botón de inicio de sesión si el usuario no está autenticado
+            <div className="rounded-md shadow">
+              <button
+                onClick={() => signIn()}
+                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+              >
+                Ingresar
+              </button>
+            </div>
+          )}
+          <div className="mt-3 sm:mt-0 sm:ml-3">
+            <Link
+              href="/about"
+              className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+            >
+              Acerca de
+            </Link>
+          </div>
+        </div>
+      </div>
+    </main>
         </div>
       </div>
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
@@ -181,12 +196,11 @@ export default function IndexPage({session}) {
 
 export const getServerSideProps = async (context) => {
   const session = await getSession(context)
-
-  {{
-    // Redirect callback come from  nextjs
-    /*if (!session) return {
+  console.log('Sesión: ', session)
+      // Redirect callback comes from  nextjs
+  {/*if (!session) return {
     redirect: {
-      destination: '/about',
+      destination: '/',
       permanent: false
      }
     }*/}
@@ -197,4 +211,4 @@ export const getServerSideProps = async (context) => {
       }
     }
   }
-}
+

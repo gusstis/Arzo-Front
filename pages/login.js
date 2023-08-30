@@ -7,7 +7,7 @@ function LoginPage() {
     const {data: session, status} = useSession()
     const router = useRouter()
     
-    //este useEffect es para obtener la session desde el backend 
+    //este useEffect es para obtener {session} desde el backend 
     useEffect(() => {
         (async() => {
             const providers = await getProviders()

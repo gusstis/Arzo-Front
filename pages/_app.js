@@ -3,17 +3,16 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import MainLayout from '@layout/MainLayout';
 import 'tailwindcss/tailwind.css';
-import Header from '../components/Header';
-import Navbar from '../components/navbar';
+import Header from '@components/Header';
+import Navbar from '@components/navbar';
 import { NextUIProvider } from '@nextui-org/react';
-import Footer from 'components/footer';
-import { SessionProvider } from 'next-auth/react';
+import Footer from '@components/footer';
+import { SessionProvider, useSession } from 'next-auth/react';
 
 console.log('leendo: _app');
 
-export default function MyApp({
-  Component,
-  pageProps: { session, ...pageProps } }) {
+export default function MyApp({Component, pageProps }) {
+
 
   return (
     <>
@@ -24,7 +23,7 @@ export default function MyApp({
         </Head>
         {/* <Navbar></Navbar> */}
         <MainLayout>
-          <SessionProvider session={session} >
+          <SessionProvider  >
           <Component {...pageProps} />
           </SessionProvider>
         </MainLayout>
