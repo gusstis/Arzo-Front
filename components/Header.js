@@ -1,15 +1,12 @@
 /* This example requires Tailwind CSS v2.0+ */
+
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
-//import useAuth from '@hooks/useAuth';
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from 'next/router';
 
-const navigation = [
-  { name: 'Sacerdotes', href: '/sacerdotes', current: false },
-  { name: 'Parroquias', href: '/parroquias', current: false },
-  { name: 'Home', href: '/', current: false },
-];
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
   { name: 'Settings', href: '#' },
@@ -21,7 +18,13 @@ function classNames(...classes) {
 }
 
 export default function Header() {
-
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  const navigation = [
+    { name: 'Sacerdotes', href: '/sacerdotes', current: router.pathname === '/sacerdotes' },
+    { name: 'Parroquias', href: '/parroquias', current: router.pathname === '/parroquias' },
+    { name: 'Home', href: '/', current: router.pathname === '/' },
+  ];
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">
@@ -41,7 +44,7 @@ export default function Header() {
                         <a
                           key={item.name}
                           href={item.href}
-                          className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}
+                          className={classNames(item.current ? 'bg-gray-500 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}
                           aria-current={item.current ? 'page' : undefined}
                         >
                           {item.name}
@@ -78,15 +81,16 @@ export default function Header() {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          {userNavigation.map((item) => (
-                            <Menu.Item key={item.name}>
-                              {({ active }) => (
-                                <a href={item.href} className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
-                                  {item.name}
-                                </a>
+                        {(status === "authenticated") ? (
+                           <Menu.Item>
+                              {({active}) =>
+                              (
+                                <a onClick={() => signOut()}>Logout</a> 
                               )}
                             </Menu.Item>
-                          ))}
+                          ) : (
+                            <a onClick={() => signIn()}>Sign In</a> 
+                        )}
                         </Menu.Items>
                       </Transition>
                     </Menu>

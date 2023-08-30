@@ -16,9 +16,9 @@ const navigation = [
 ];
 
 
-export default function IndexPage({session}) {
-  {/*const { data: session } = useSession();
-console.log('La sesión es: ' , session)*/}
+export default function IndexPage() {
+ const { data: session } = useSession();
+console.log('La sesión es: ' , session)
 
   
 
@@ -194,21 +194,21 @@ console.log('La sesión es: ' , session)*/}
   );
 }
 
-export const getServerSideProps = async (context) => {
+{/*export const getServerSideProps = async (context) => {
   const session = await getSession(context)
   console.log('Sesión: ', session)
       // Redirect callback comes from  nextjs
-  {/*if (!session) return {
+  if (!session) return {
     redirect: {
       destination: '/',
       permanent: false
      }
-    }*/}
+    }
 
   return {
       props: {
         session
       }
     }
-  }
+  }*/}
 
