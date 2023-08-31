@@ -201,7 +201,7 @@ function EditSacerdotePage() {
                       {(arrayHelpers) => (
                         <div>
                           {Array.isArray(values.education) && values.education.length > 0 ? (
-                            values.education.map((_, index) => {
+                            values?.education?.map((_, index) => {
                               // Código de mapeo aquí
                               return <div key={index}>Elemento {index}</div>;
                             })
@@ -213,7 +213,7 @@ function EditSacerdotePage() {
                       )}
                     </FieldArray>
 
-                    {values.education.map((education, index) => (
+                    {values?.education?.map((education, index) => (
                       <div key={index} className="mb-4">
                         <div className="flex items-center">
                           <Field type="text" name={`education[${index}].degree`} className="w-full rounded border-gray-300 p-2" placeholder="Grado" />
@@ -245,7 +245,7 @@ function EditSacerdotePage() {
               <FieldArray name="experience">
                 {(arrayHelpers) => (
                   <div>
-                    {values.experience.map((_, index) => (
+                    {values?.experience?.map((_, index) => (
                       <div key={index} className="mb-4">
                         <div className="flex items-center">
                           <Field type="text" name={`experience[${index}].position`} className="w-full rounded border-gray-300 p-2" placeholder="Posición" />

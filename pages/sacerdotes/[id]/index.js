@@ -22,9 +22,7 @@ export default function SacerdoteDetails() {
         });
     }
   }, [id]);
-  console.log(sacerdote && sacerdote.imagen);
-  console.log('sacerdote.imagen');
-
+  
   return (
     <>
       {sacerdote && (

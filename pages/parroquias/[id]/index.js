@@ -22,9 +22,7 @@ export default function ParroquiaDetails() {
         });
     }
   }, [id]);
-  console.log(parroquia && parroquia.imagen);
-  console.log('parroquia.imagen');
-
+  
   return (
     <>
       {parroquia && (

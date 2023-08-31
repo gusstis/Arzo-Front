@@ -4,14 +4,8 @@ import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
-
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -19,11 +13,18 @@ function classNames(...classes) {
 
 export default function Header() {
   const { data: session, status } = useSession();
+
   const router = useRouter();
   const navigation = [
     { name: 'Sacerdotes', href: '/sacerdotes', current: router.pathname === '/sacerdotes' },
     { name: 'Parroquias', href: '/parroquias', current: router.pathname === '/parroquias' },
     { name: 'Home', href: '/', current: router.pathname === '/' },
+  ];
+
+  const userNavigation = [
+    { name: 'Your Profile', href: '#' },
+    { name: 'Settings', href: '#' },
+    { name: 'Sign out', href: '#' },
   ];
   return (
     <>
@@ -65,10 +66,10 @@ export default function Header() {
 
                     {/* Profile dropdown */}
                     <Menu as="div" className="ml-3 relative">
-                      <div>
+                      <div className="hidden md:block" >
                         <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
-                          <Image className="h-10 w-13 rounded-full" src={'/public/oauth-logo.png'} alt="" width={100} height={100} />
+                          <Image className="h-10 w-13 rounded-full" src={session?.user?.image||'/public/oauth-logo.png'} alt="" width={50} height={100} />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -81,16 +82,12 @@ export default function Header() {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {(status === "authenticated") ? (
-                           <Menu.Item>
-                              {({active}) =>
-                              (
-                                <a onClick={() => signOut()}>Logout</a> 
-                              )}
-                            </Menu.Item>
-                          ) : (
-                            <a onClick={() => signIn()}>Sign In</a> 
-                        )}
+                          {status === 'authenticated' ?
+                          <>
+                          <Menu.Item>{({ active }) => <a onClick={() => signOut()}>Logout</a>}</Menu.Item> 
+                          <Menu.Item>{({ active }) => <a onClick={() => navToMyProfile()}>My Profile</a>}</Menu.Item> 
+                          </> 
+                          : <a onClick={() => signIn()}>Sign In</a>}
                         </Menu.Items>
                       </Transition>
                     </Menu>
@@ -113,7 +110,7 @@ export default function Header() {
                     key={item.name}
                     as="a"
                     href={item.href}
-                    className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block px-3 py-2 rounded-md text-base font-medium')}
+                    className={classNames(item.current ? 'bg-gray-300 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block px-3 py-2 rounded-md text-base font-medium')}
                     aria-current={item.current ? 'page' : undefined}
                   >
                     {item.name}
@@ -122,12 +119,22 @@ export default function Header() {
               </div>
               <div className="pt-4 pb-3 border-t border-gray-700">
                 <div className="flex items-center px-5">
-                  <div className="flex-shrink-0">
-                    <Image className="h-10 w-10 rounded-full" src={'/public/oauth-logo.png'} alt="" width={100} height={100} />
-                  </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">UserName</div>
-                    <div className="text-sm font-medium leading-none text-gray-400">UserEmail</div>
+                   
+                    {session ? (
+                      <>
+                  <div className="flex-shrink-0">
+                    
+                    <Image className="h-10 w-10 rounded-full md:h-12 md:w-12" src={session.user.image} alt="" width={100} height={100} />
+                  
+                  </div>
+                        <div className="text-base font-medium leading-none text-blue-100 ">{session.user.name}</div>
+                        <div className="text-sm font-medium leading-none text-gray-400">{session.user.email}</div>
+                      </>
+                    ) : (
+                      <div className="text-base font-medium leading-none text-white">Guest</div>
+                    )}
+                  
                   </div>
                   <button
                     type="button"
