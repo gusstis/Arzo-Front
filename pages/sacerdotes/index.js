@@ -44,10 +44,10 @@ function SacerdotesPage() {
   const handleDeleteSacerdote = async (sacerdoteId) => {
     try {
       await axios.delete(`/api/sacerdotes/${sacerdoteId}`);
+      setSuccessMessage('Sacerdote eliminado con éxito.');
       const updatedSacerdotes = sacerdotes.filter((sacerdote) => sacerdote._id !== sacerdoteId);
       setSacerdotes(updatedSacerdotes);
-      setSuccessMessage('Sacerdote eliminado con éxito.');
-      router.push(`/sacerdotes`);
+     
     } catch (error) {
       console.error(error);
     }
@@ -57,12 +57,14 @@ function SacerdotesPage() {
     if (successMessage) {
       const timer = setTimeout(() => {
         setSuccessMessage('');
-      }, 3000);
+      }, 2000);
 
       return () => clearTimeout(timer);
     }
   }, [successMessage]);
 
+  console.log('Este es el message:')
+  console.log(successMessage)
   return (
     <>
       {successMessage && (
@@ -124,7 +126,10 @@ function SacerdotesPage() {
                         <td className="px-6 py-4 whitespace-nowrap">{formatDate(sacerdote.CreatedAt)}</td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex gap-2">
-                            <button onClick={(e) => handleDeleteSacerdote(sacerdote._id)}>
+                            <button onClick={(e) => {
+                              e.stopPropagation(); // Evita que el clic se propague al td
+                              handleDeleteSacerdote(sacerdote._id)
+                            }}>
                               <TrashIcon className="h-5 w-5 text-red-500" />
                             </button>
                             <Link href={`/sacerdotes/${sacerdote._id}/editSacerdote`}>

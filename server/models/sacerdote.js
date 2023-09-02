@@ -1,9 +1,9 @@
-import { Schema, models, model } from 'mongoose';
+const mongoose = require('mongoose');
 
-const SacerdoteSchema = Schema({
+const SacerdoteSchema = mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Debe colocar un Nobre'],
+    required: [true, 'Debe colocar un Nombre'],
   },
   lastname: {
     type: String,
@@ -19,7 +19,7 @@ const SacerdoteSchema = Schema({
   },
   address: {
     type: String,
-    required: [true, 'La dirección es oblogatoria'],
+    required: [true, 'La dirección es obligatoria'],
   },
   phone: {
     type: String,
@@ -30,7 +30,7 @@ const SacerdoteSchema = Schema({
     required: false,
   },
   parroquia: {
-    type: [{ type: Schema.Types.ObjectId, ref: 'parroquia' }],
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'parroquia' }],
     required: false,
   },
   dateOfBirth: {
@@ -98,5 +98,5 @@ const SacerdoteSchema = Schema({
 });
 
 
-module.exports = models.Sacerdote || model('Sacerdote', SacerdoteSchema);
+module.exports = mongoose.models.Sacerdote || mongoose.model('Sacerdote', SacerdoteSchema);
 

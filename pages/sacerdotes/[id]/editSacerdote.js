@@ -24,7 +24,9 @@ function EditSacerdotePage() {
       try {
         const response = await axios.get(`/api/sacerdotes/${id}`);
         const sacerdoteData = response.data;
-
+        console.log("Datos recibidos: sacerdoteData");//Ver si estan los datos
+        console.log(sacerdoteData);
+        
         // Establecer los valores iniciales del formulario con los datos actuales
         setFormikInitialValues(sacerdoteData);
       } catch (error) {
@@ -47,9 +49,9 @@ function EditSacerdotePage() {
       console.error(error);
     }
   };
-  
   const setInitialValues = (sacerdoteData) => {
-    console.log(sacerdoteData)
+    console.log(' const setInitialValues');
+    console.log("Datos recibidos:", sacerdoteData);
     const initialValues = {
       name: sacerdoteData.name,
       lastname: sacerdoteData.lastname,
@@ -70,7 +72,8 @@ function EditSacerdotePage() {
       education: sacerdoteData.education || [{ degree: '', year: '', institution: '', description: '' }],
       experience: sacerdoteData.experience || [{ position: '', years: '', company: '', highlights: [''] }],
     };
-
+    console.log("Valores iniciales:");
+    console.log(initialValues);
     setFormikInitialValues(initialValues);
   };
 
@@ -87,7 +90,7 @@ function EditSacerdotePage() {
               <label htmlFor="name" className="block font-bold mb-1">
                 Nombre:
               </label>
-              <Field type="text" id="name" name="name" className="border rounded w-full p-2" />
+              <Field type="text" id="name" name="name" className="border rounded w-full p-2" onChange={ (e) => formik.setFieldValue("name", e.target.value) } />
               <ErrorMessage name="name" component="div" className="text-red-500" />
             </div>
             <div className="mb-4">

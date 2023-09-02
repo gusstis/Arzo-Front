@@ -8,7 +8,7 @@ const ParroquiaSchema = mongoose.Schema({
   },
   address: {
     type: String,
-    required: [true, 'debe colocar una dorección'],
+    required: [true, 'debe colocar una dirección'],
   },
   postalCode: {
     type: String,

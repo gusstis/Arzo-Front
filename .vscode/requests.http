@@ -16,7 +16,7 @@ Content-Type: application/json
     "lastname":"perez",
     "postalCode":"5411",
     "phone":"1234",
-    "imagen":"https://res.cloudinary.com/doh6fzrdq/image/upload/v1669303568/cld-sample-2.jpg",
+    "imagen":"https://res.cloudinary.com/doh6fzrdq/image/upload/v1669303568/cld-sample-3.jpg",
     "parroquia":"637f93c0901f1f1e0dbdcc3b",
     "nombramiento":["Presbitero"]
 }
@@ -29,7 +29,7 @@ GET http://localhost:3000/api/parroquias
 Content-Type: application/json
 
 ### get sacerdote
-GET http://localhost:3000/api/sacerdotes/6372ad9b458a43abd62503db
+GET http://localhost:3000/api/sacerdotes/6490d9f9652a561a3d97060b
 Content-Type: application/json
 
 ### get sacerdote

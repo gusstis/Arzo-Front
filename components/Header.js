@@ -69,7 +69,7 @@ export default function Header() {
                       <div className="hidden md:block" >
                         <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
-                          <Image className="h-10 w-13 rounded-full" src={session?.user?.image||'/public/oauth-logo.png'} alt="" width={50} height={100} />
+                          <Image className="h-10 w-13 rounded-full" src={session?.user?.image||'public/logo-tailwind.svg'} alt="" width={50} height={100} />
                         </Menu.Button>
                       </div>
                       <Transition
