@@ -31,7 +31,7 @@ export default function Header() {
       <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (
           <>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-16">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
@@ -55,21 +55,38 @@ export default function Header() {
                   </div>
                 </div>
                 <div className="hidden md:block">
-                  <div className="ml-4 flex items-center md:ml-6">
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                    
                     <button
                       type="button"
                       className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     >
-                      <span className="sr-only">View notifications</span>
+                      <span className="sr-only">Ver notificaciones</span>
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
+
+                    <div className='text-gray-200' >
+                      <span className='block rounded-md text-sm font-medium ' >
+                      {session ? `Usuario: ${session.user.name}` : 'Usuario sin loguear'}
+                      </span>
+                      <span className='block rounded-md text-sm font-medium ' >
+                      {session ? `Email: ${session.user.email}` : ''}
+                      </span>
+                    </div>
+                    
 
                     {/* Profile dropdown */}
                     <Menu as="div" className="ml-3 relative">
                       <div className="hidden md:block" >
                         <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                          <span className="sr-only">Open user menu</span>
-                          <Image className="h-10 w-13 rounded-full" src={session?.user?.image||'public/logo-tailwind.svg'} alt="" width={50} height={100} />
+                          <span className="sr-only">Abrir menu de usuario</span>
+                          <Image
+                            className="h-12 w-12 rounded-full"
+                            src={status === "authenticated" ? session?.user?.image : "public/arzo-logo.jpg"}
+                            alt="Avatar de usuario"
+                            width={50}
+                            height={50}
+                          />
                         </Menu.Button>
                       </div>
                       <Transition

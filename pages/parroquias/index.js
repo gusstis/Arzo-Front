@@ -113,7 +113,10 @@ function ParroquiasPage() {
                         <td className="px-6 py-4 whitespace-nowrap">{formatDate(parroquia.CreatedAt)}</td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex gap-2">
-                            <button onClick={(e) => handleDeleteParroquia(parroquia._id)}>
+                            <button onClick={(e) => {
+                              e.stopPropagation(); // Evita que el clic se propague al td
+                              handleDeleteParroquia(parroquia._id)
+                            }}>
                               <TrashIcon className="h-5 w-5 text-red-500" />
                             </button>
                             <Link href={`/parroquias/${parroquia._id}/editParroquia`}>
