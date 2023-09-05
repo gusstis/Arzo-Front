@@ -101,8 +101,27 @@ export default function Header() {
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                           {status === 'authenticated' ?
                           <>
-                          <Menu.Item>{({ active }) => <a onClick={() => signOut()}>Logout</a>}</Menu.Item> 
-                          <Menu.Item>{({ active }) => <a onClick={() => navToMyProfile()}>My Profile</a>}</Menu.Item> 
+                          <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            onClick={() => signOut()}
+                            className={classNames(active ? 'bg-gray-300' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            Logout
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            onClick={() => navToMyProfile()}
+                            className={classNames(active ? 'bg-gray-300' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            navTo MyProfile
+                          </a>
+                        )}
+                      </Menu.Item>
+                           
                           </> 
                           : <a onClick={() => signIn()}>Sign In</a>}
                         </Menu.Items>

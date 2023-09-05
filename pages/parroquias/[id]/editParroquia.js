@@ -9,7 +9,8 @@ const validationSchema = Yup.object().shape({
   name: Yup.string().required('El nombre es obligatorio'),
   address: Yup.string().required('La dirección es obligatoria'),
   postalCode: Yup.string().required('El código postal es obligatorio'),
-  CreatedAt: Yup.date().required,
+  CreatedAt: Yup.date().required('La Fecha de Creación es obligatoria')
+
 });
 
 function EditParroquiaPage() {
@@ -18,28 +19,31 @@ function EditParroquiaPage() {
   const [formikInitialValues, setFormikInitialValues] = useState({});
 
   useEffect(() => {
-    // Obtener los datos actuales del sacerdote usando el ID
+    // Obtener los datos actuales de la parroquia usando el ID
     const fetchParroquiaData = async () => {
       try {
-        const response = await axios.get(`/api/Parroquias/${id}`);
+        const response = await axios.get(`/api/parroquias/${id}`);
         const parroquiaData = response.data;
 
+        //parroquiaData.CreatedAt = new Date(parroquiaData.CreatedAt);
         // Establecer los valores iniciales del formulario con los datos actuales
         setFormikInitialValues(parroquiaData);
+      
+      
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchParroquiaData();
+    if (id) {fetchParroquiaData()}
   }, [id]);
 
   const handleSubmit = async (values) => {
+    console.log('Values in handleSubmit:', values);
     try {
-      // Realizar la llamada a la API para actualizar los datos del sacerdote
-      const response = await axios.patch(`/api/parroquias/${id}`, values);
-      console.log(response.data); // Puedes hacer algo con la respuesta de la API
-
+      // Ahora podemos realizar la llamada a la API después de que los valores iniciales se hayan configurado
+      const apiResponse = await axios.patch(`/api/parroquias/${id}`, parroquiaData);
+      console.log(apiResponse.data); // Podemos hacer algo con la respuesta de la API
       // Redirigir a la página de detalles del sacerdote después de la actualización exitosa
       router.push(`/parroquias/${id}`);
     } catch (error) {
@@ -58,6 +62,8 @@ function EditParroquiaPage() {
 
     setFormikInitialValues(initialValues);
   };
+  console.log('formikInitialValues: ')
+  console.log(formikInitialValues)
 
   return (
     <div className="container mx-auto p-4">
