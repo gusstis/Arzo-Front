@@ -1,4 +1,5 @@
 module.exports = {
+  assetPrefix:'https://aram.com.ar',
   output: 'standalone',
   experimental: { appDir: false, serverComponentsExternalPackages: ["mongoose"] },
     webpack(config) {
@@ -7,7 +8,7 @@ module.exports = {
     },
   env: {
     devUrl: 'http://localhost:3000',
-    prodUrl: 'localhost:3000',
+    prodUrl: 'https://aram.com.ar',
   },
   images: {
     domains: ['avatars.githubusercontent.com', 'lh3.googleusercontent.com', 'media-exp1.licdn.com', 'www.ellitoral.com', "ui-avatars.com", "static.vecteezy.com"],
