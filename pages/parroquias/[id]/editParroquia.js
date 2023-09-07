@@ -41,10 +41,10 @@ function EditParroquiaPage() {
   const handleSubmit = async (values) => {
     console.log('Values in handleSubmit:', values);
     try {
-      // Ahora podemos realizar la llamada a la API después de que los valores iniciales se hayan configurado
-      const apiResponse = await axios.patch(`/api/parroquias/${id}`, parroquiaData);
+      // llama a la API con los valores del formulario 
+      const apiResponse = await axios.put(`/api/parroquias/${id}`, values);
       console.log(apiResponse.data); // Podemos hacer algo con la respuesta de la API
-      // Redirigir a la página de detalles del sacerdote después de la actualización exitosa
+      // Redirige a la página de detalles de la parroquia después de la actualización exitosa
       router.push(`/parroquias/${id}`);
     } catch (error) {
       console.error(error);
@@ -71,45 +71,51 @@ function EditParroquiaPage() {
         <title>Editar parroquia</title>
       </Head>
       <h1 className="text-2xl font-bold mb-4">Editar parroquia</h1>
-      <Formik initialValues={formikInitialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-        {({ values }) => (
-          <Form>
-            <div className="mb-4">
-              <label htmlFor="name" className="block font-bold mb-1">
-                Nombre:
-              </label>
-              <Field type="text" id="name" name="name" className="border rounded w-full p-2" />
-              <ErrorMessage name="name" component="div" className="text-red-500" />
-            </div>
+      <Formik
+        initialValues={formikInitialValues}
+        enableReinitialize={false}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+          {({ values }) => (
+            <Form>
+              {console.log('Formik values: ', values)}
+              <div className="mb-4">
+                <label htmlFor="name" className="block font-bold mb-1">
+                  Nombre:
+                </label>
+                <Field type="text" id="name" name="name" className="border rounded w-full p-2" />
+                <ErrorMessage name="name" component="div" className="text-red-500" />
+              </div>
+              
+              <div className="mb-4">
+                <label htmlFor="address" className="block font-bold mb-1">
+                  Dirección:
+                </label>
+                <Field type="text" id="address" name="address" className="border rounded w-full p-2" />
+                <ErrorMessage name="address" component="div" className="text-red-500" />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="postalCode" className="block font-bold mb-1">
+                  Código Postal:
+                </label>
+                <Field type="text" id="postalCode" name="postalCode" className="border rounded w-full p-2" />
+                <ErrorMessage name="postalCode" component="div" className="text-red-500" />
+              </div>
+              
+              <div className="mb-4">
+                <label htmlFor="CreatedAt" className="block font-semibold mb-1">
+                  Fecha de creación
+                </label>
+                <Field type="date" id="CreatedAt" name="CreatedAt" className="w-full rounded border-gray-300 p-2" />
+                <ErrorMessage name="CreatedAt" component="div" className="text-red-500 mt-1" />
+              </div>
             
-            <div className="mb-4">
-              <label htmlFor="address" className="block font-bold mb-1">
-                Dirección:
-              </label>
-              <Field type="text" id="address" name="address" className="border rounded w-full p-2" />
-              <ErrorMessage name="address" component="div" className="text-red-500" />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="postalCode" className="block font-bold mb-1">
-                Código Postal:
-              </label>
-              <Field type="text" id="postalCode" name="postalCode" className="border rounded w-full p-2" />
-              <ErrorMessage name="postalCode" component="div" className="text-red-500" />
-            </div>
-            
-            <div className="mb-4">
-              <label htmlFor="CreatedAt" className="block font-semibold mb-1">
-                Fecha de creación
-              </label>
-              <Field type="date" id="CreatedAt" name="CreatedAt" className="w-full rounded border-gray-300 p-2" />
-              <ErrorMessage name="CreatedAt" component="div" className="text-red-500 mt-1" />
-            </div>
-           
-            <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-              Guardar cambios
-            </button>
-          </Form>
-        )}
+              <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                Guardar cambios
+              </button>
+            </Form>
+          )}
       </Formik>
     </div>
   );

@@ -35,9 +35,9 @@ export default function ParroquiaDetails() {
               </div>
 
               <div className="flex flex-col lg:flex-row">
-                <div className="lg:w-1/3">
+                {/*<div className="lg:w-1/3">
                   <Image src={parroquia.imagen || ''} className="img-fluid" alt="" width={200} height={200} />
-                </div>
+      </div>*/}
                 <div className="lg:w-2/3 pt-4 pt-lg-0 content">
                   <h3 className="text-2xl font-bold">
                     {parroquia.name || ''} {parroquia.lastname || ''}

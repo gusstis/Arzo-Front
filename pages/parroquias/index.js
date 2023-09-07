@@ -29,7 +29,7 @@ function ParroquiasPage() {
     const fetchData = async () => {
       try {
         const response = await axios.get('/api/parroquias');
-        console.log(response.data);
+        //console.log(response.data);
         setParroquias(response.data.parroquias);
       } catch (error) {
         console.error(error);
@@ -46,10 +46,10 @@ function ParroquiasPage() {
   const handleDeleteParroquia = async (parroquiaId) => {
     try {
       await axios.delete(`/api/parroquias/${parroquiaId}`);
+      setSuccessMessage('Parroquia eliminada con éxito.');
       const updatedParroquias = parroquias.filter((parroquia) => parroquia._id !== parroquiaId);
       setParroquias(updatedParroquias);
-      setSuccessMessage('Parroquia eliminada con éxito.');
-      router.push(`/parroquias`);
+      //router.push(`/parroquias`);
     } catch (error) {
       console.error(error);
     }
