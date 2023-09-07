@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Formik, Field, ErrorMessage, Form, FieldArray } from 'formik';
+import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -25,7 +25,6 @@ function EditParroquiaPage() {
         const response = await axios.get(`/api/parroquias/${id}`);
         const parroquiaData = response.data;
 
-        //parroquiaData.CreatedAt = new Date(parroquiaData.CreatedAt);
         // Establecer los valores iniciales del formulario con los datos actuales
         setFormikInitialValues(parroquiaData);
       
@@ -38,18 +37,19 @@ function EditParroquiaPage() {
     if (id) {fetchParroquiaData()}
   }, [id]);
 
-  const handleSubmit = async (values) => {
+  const handleSubmit =  async (values) => {
     console.log('Values in handleSubmit:', values);
     try {
       // llama a la API con los valores del formulario 
       const apiResponse = await axios.put(`/api/parroquias/${id}`, values);
-      console.log(apiResponse.data); // Podemos hacer algo con la respuesta de la API
+      console.log('Respu de la API: ', apiResponse.data); // Podemos hacer algo con la respuesta de la API
       // Redirige a la página de detalles de la parroquia después de la actualización exitosa
       router.push(`/parroquias/${id}`);
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   const setInitialValues = (parroquiaData) => {
     const initialValues = {
@@ -63,7 +63,7 @@ function EditParroquiaPage() {
     setFormikInitialValues(initialValues);
   };
   console.log('formikInitialValues: ')
-  console.log(formikInitialValues)
+  console.log({formikInitialValues})
 
   return (
     <div className="container mx-auto p-4">
@@ -73,18 +73,17 @@ function EditParroquiaPage() {
       <h1 className="text-2xl font-bold mb-4">Editar parroquia</h1>
       <Formik
         initialValues={formikInitialValues}
-        enableReinitialize={false}
+        
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-          {({ values }) => (
+          {() => (
             <Form>
-              {console.log('Formik values: ', values)}
               <div className="mb-4">
                 <label htmlFor="name" className="block font-bold mb-1">
                   Nombre:
                 </label>
-                <Field type="text" id="name" name="name" className="border rounded w-full p-2" />
+                <Field type="text" id="name" name="name" value={formikInitialValues ? formikInitialValues.name : 'Ke se io'} className="border rounded w-full p-2" />
                 <ErrorMessage name="name" component="div" className="text-red-500" />
               </div>
               
@@ -117,6 +116,7 @@ function EditParroquiaPage() {
             </Form>
           )}
       </Formik>
+     
     </div>
   );
 }

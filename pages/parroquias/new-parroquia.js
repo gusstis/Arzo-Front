@@ -69,7 +69,7 @@ function NewParroquiaPage() {
               <ErrorMessage name="postalCode" component="div" className="text-red-500 mt-1" />
             </div>
 
-            <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">
+            <button type="submit" className="bg-blue-300 hover:bg-blue-500 text-white font-bold px-4 py-2 rounded">
               Crear Parroquia
             </button>
           </Form>

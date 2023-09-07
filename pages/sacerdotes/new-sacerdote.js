@@ -237,7 +237,7 @@ function NewSacerdotePage() {
               </FieldArray>
             </div>
 
-            <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">
+            <button type="submit" className="bg-blue-300 hover:bg-blue-500 text-white font-bold px-4 py-2 rounded">
               Crear sacerdote
             </button>
           </Form>

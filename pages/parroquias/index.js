@@ -118,11 +118,14 @@ function ParroquiasPage() {
                               e.stopPropagation(); // Evita que el clic se propague al td
                               handleDeleteParroquia(parroquia._id)
                             }}>
-                              <TrashIcon className="h-5 w-5 text-red-500" />
+                              <TrashIcon className="h-5 w-5 text-red-500 hover:bg-red-300  " />
                             </button>
-                            <Link href={`/parroquias/${parroquia._id}/editParroquia`}>
-                              <PencilIcon className="h-5 w-5 text-blue-500" />
-                            </Link>
+                            <button onClick={(e) => {
+                              e.stopPropagation(); // Evita que el clic se propague al td
+                              router.push(`/parroquias/${parroquia._id}/editParroquia`)
+                            }}>
+                              <PencilIcon className="h-5 w-5 text-blue-500 hover:bg-blue-200" />
+                            </button>
                           </div>
                         </td>
                       </tr>

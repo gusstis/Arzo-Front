@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Formik, Field, ErrorMessage, Form, FieldArray } from 'formik';
+import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -24,24 +24,24 @@ function EditSacerdotePage() {
       try {
         const response = await axios.get(`/api/sacerdotes/${id}`);
         const sacerdoteData = response.data;
-        console.log("Datos recibidos: sacerdoteData");//Ver si estan los datos
-        console.log(sacerdoteData);
         
         // Establecer los valores iniciales del formulario con los datos actuales
         setFormikInitialValues(sacerdoteData);
+      
+      
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchSacerdoteData();
+    if (id) {fetchSacerdoteData()};
   }, [id]);
 
   const handleSubmit = async (values) => {
     try {
       // Realizar la llamada a la API para actualizar los datos del sacerdote
-      const response = await axios.patch(`/api/sacerdotes/${id}`, values);
-      console.log(response.data); // Puedes hacer algo con la respuesta de la API
+      const response = await axios.put(`/api/sacerdotes/${id}`, values);
+      console.log('Resp de la API: ',response.data); // Puedes hacer algo con la respuesta de la API
 
       // Redirigir a la página de detalles del sacerdote después de la actualización exitosa
       router.push(`/sacerdotes/${id}`);
@@ -49,6 +49,8 @@ function EditSacerdotePage() {
       console.error(error);
     }
   };
+  
+  
   const setInitialValues = (sacerdoteData) => {
     console.log(' const setInitialValues');
     console.log("Datos recibidos:", sacerdoteData);
@@ -77,13 +79,18 @@ function EditSacerdotePage() {
     setFormikInitialValues(initialValues);
   };
 
+
   return (
     <div className="container mx-auto p-4">
       <Head>
         <title>Editar sacerdote</title>
       </Head>
       <h1 className="text-2xl font-bold mb-4">Editar sacerdote</h1>
-      <Formik initialValues={formikInitialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={formikInitialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
         {({ values }) => (
           <Form>
             <div className="mb-4">
