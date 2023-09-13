@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   await dbConnect();
   console.log('dbConnect from /pages/api/sacerdotes');
 
-  console.log('method', method);
+  //console.log('method', method);
 
   switch (method) {
     case 'POST':
@@ -32,10 +32,10 @@ export default async function handler(req, res) {
     case 'GET':
       try {
 
-        console.log(Sacerdote);
+        //console.log(Sacerdote);
         const sacerdotes = await Sacerdote.find(); // busca y devuelve una lista de todos los sacerdotes en mongodb
         res.status(200).json({ sacerdotes }); // se envían como respuesta en formato json
-        console.log(sacerdotes);
+        //console.log(sacerdotes);
       } catch (error) {
         console.log(error);
         res.status(500).send('error get sacerdotes'); // Internal Server Error
@@ -112,22 +112,4 @@ export default async function handler(req, res) {
   }
 }
 
-// ? Cómo hacer una solicitud PUT?
-/* import axios from 'axios';
 
-const sacerdoteId = '647b4891ad096569733eaa97'; // ID del sacerdote que deseas actualizar
-
-const newData = {
-  nombre: 'Nuevo nombre',
-  direccion: 'Nueva dirección',
-  // Agrega aquí los demás campos que deseas actualizar
-};
-
-axios
-  .put(`/api/sacerdotes/${sacerdoteId}`, newData)
-  .then(response => {
-    console.log('Sacerdote actualizado:', response.data);
-  })
-  .catch(error => {
-    console.error('Error al actualizar el sacerdote:', error);
-  }); */

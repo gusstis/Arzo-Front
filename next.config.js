@@ -1,5 +1,4 @@
 module.exports = {
-  assetPrefix:'https://aram.com.ar',
   output: 'standalone',
   experimental: { appDir: false, serverComponentsExternalPackages: ["mongoose"] },
     webpack(config) {

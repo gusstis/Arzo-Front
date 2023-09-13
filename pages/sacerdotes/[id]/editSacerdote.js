@@ -97,7 +97,7 @@ function EditSacerdotePage() {
               <label htmlFor="name" className="block font-bold mb-1">
                 Nombre:
               </label>
-              <Field type="text" id="name" name="name" className="border rounded w-full p-2" onChange={ (e) => formik.setFieldValue("name", e.target.value) } />
+              <Field type="text" id="name" name="name" className="border rounded w-full p-2"  />
               <ErrorMessage name="name" component="div" className="text-red-500" />
             </div>
             <div className="mb-4">

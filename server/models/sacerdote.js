@@ -30,8 +30,12 @@ const SacerdoteSchema = mongoose.Schema({
     required: false,
   },
   parroquia: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'parroquia' }],
-    required: false,
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Parroquia' }],
+    populate: {
+      path: 'parroquia',
+      select: 'name'
+    },
+    virtual: true
   },
   dateOfBirth: {
     type: Date,
@@ -95,7 +99,7 @@ const SacerdoteSchema = mongoose.Schema({
     type: Date,
     required: false,
   },
-});
+})
 
 
 module.exports = mongoose.models.Sacerdote || mongoose.model('Sacerdote', SacerdoteSchema);

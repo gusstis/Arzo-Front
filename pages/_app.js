@@ -9,7 +9,7 @@ import { NextUIProvider } from '@nextui-org/react';
 import Footer from '@components/footer';
 import { SessionProvider } from 'next-auth/react';
 
-console.log('leendo: _app');
+console.log('Pasando por _app.js');
 
 export default function MyApp({
   Component,
