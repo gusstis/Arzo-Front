@@ -121,13 +121,13 @@ export default function SacerdoteDetails() {
                           <i className="bi bi-rounded-right"></i> <strong>Edad:</strong> {sacerdote.age || ''}
                         </li>
                         <li>
-                          <i className="bi bi-rounded-right"></i> <strong>Degree:</strong> {sacerdote.degree || ''}
+                          <i className="bi bi-rounded-right"></i> <strong>Grado Académico:</strong> {sacerdote.degree || ''}
                         </li>
                         <li>
                           <i className="bi bi-rounded-right"></i> <strong>Email:</strong> {sacerdote.email || ''}
                         </li>
                         <li>
-                          <i className="bi bi-rounded-right"></i> <strong>Freelance:</strong> {sacerdote.freelance ? 'Available' : 'Not Available'}
+                          <i className="bi bi-rounded-right"></i> <strong>Actividades:</strong> {sacerdote.freelance ? 'Available' : 'Not Available'}
                         </li>
                       </ul>
                     </div>
@@ -154,7 +154,7 @@ export default function SacerdoteDetails() {
                 ))}
             </div>
 
-            <h3 className="mt-8 mb-4 text-2xl font-bold">Professional Experience</h3>
+            <h3 className="mt-8 mb-4 text-2xl font-bold">Experiencia Profesional</h3>
             <div className="grid grid-cols-2 gap-4">
               {sacerdote.experience &&
                 sacerdote.experience.map((experienceItem, index) => (

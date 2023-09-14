@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react';
 import { Formik, Field, ErrorMessage, Form, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -14,6 +15,33 @@ const validationSchema = Yup.object().shape({
 
 function NewSacerdotePage() {
   const router = useRouter();
+  const [parroquias, setParroquias] = useState([])
+
+  {/*useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/parroquias');
+        //console.log(response.data);
+        setParroquias(response.data.parroquias);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);*/}
+
+  useEffect(() => {
+    axios.get('/api/parroquias')
+      .then(response => {
+        setParroquias(response.data.parroquias); // Actualiza 'parroquias' con los datos de la API
+        console.log('parroquias: ', parroquias)  
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      
+  }, []);
 
   const handleSubmit = async (values) => {
     try {
@@ -121,8 +149,21 @@ function NewSacerdotePage() {
               <label htmlFor="parroquia" className="block font-semibold mb-1">
                 Parroquia
               </label>
-              <Field type="text" id="parroquia" name="parroquia" className="w-full rounded border-gray-300 p-2" />
-              <ErrorMessage name="parroquia" component="div" className="text-red-500 mt-1" />
+              <Field as="select" id="parroquia" name="parroquiaActual" className="w-full rounded border-gray-300 p-2">
+                <option value="">Selecciona una parroquia</option>
+                {parroquias.length > 0 ? (
+                  parroquias.map((parroquia) => (
+                    <option key={parroquia._id} value={parroquia._id}>
+                      {parroquia.name}
+                    </option>
+                  ))
+                  ) : (
+                    <option value="" disabled>
+                      Cargando parroquias...
+                    </option>
+                  )}
+                    </Field>
+                        <ErrorMessage name="parroquia" component="div" className="text-red-500 mt-1" />
             </div>
 
             <div className="mb-4">
