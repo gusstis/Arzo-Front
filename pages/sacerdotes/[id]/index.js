@@ -92,7 +92,7 @@ export default function SacerdoteDetails() {
                     Parroquia: {sacerdote.parroquia[0] || 'no ta'}
                   </h6>*/}
                   {<h6 className="text-1xl font-bold">
-                      Parroquia: {sacerdote.parroquia.length > 0 ? sacerdote.parroquia[sacerdote.parroquia.length - 1] : 'no ta'}
+                      Parroquia: {sacerdote.parroquia.length > 0 ? sacerdote.parroquia[sacerdote.parroquia.length - 1] : 'No asignado'}
                     </h6>}                  
                   <p className="italic">{sacerdote.nombramiento || ''}</p>
                   <div className="flex flex-col lg:flex-row">
