@@ -38,6 +38,7 @@ export default async function handler(req, res) {
         parroquia.name = req.body.name;
         parroquia.address = req.body.address;
         parroquia.postalCode = req.body.postalCode;
+        parroquia.emailParroquia = req.body.emailParroquia
 
         await parroquia.save();
         res.status(200).json({ parroquia });

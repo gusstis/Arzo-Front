@@ -69,7 +69,7 @@ export default function ParroquiaDetails() {
                           <i className="bi bi-rounded-right"></i> <strong>Fecha de creación:</strong> {parroquia.CreatedAt || ''}
                         </li>*/}
                         <li>
-                          <i className="bi bi-rounded-right"></i> <strong>Email:</strong> {parroquia.email || ''}
+                          <i className="bi bi-rounded-right"></i> <strong>Email:</strong> {parroquia.emailParroquia || ''}
                         </li>
                         <li>
                           <i className="bi bi-rounded-right"></i> <strong>Habilitada:</strong> {parroquia.enabled ? 'Normalmente' : 'No se informa'}

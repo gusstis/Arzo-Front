@@ -101,7 +101,18 @@ function EditParroquiaPage() {
                 <Field type="text" id="postalCode" name="postalCode" className="border rounded w-full p-2" />
                 <ErrorMessage name="postalCode" component="div" className="text-red-500" />
               </div>
-              
+              <div className="mb-4">
+                <label htmlFor="emailParroquia" className="block font-semibold mb-1">
+                  Correo de la Parroquia:
+                </label>
+                <Field
+                  type="text"
+                  id="emailParroquia"
+                  name="emailParroquia"
+                  className="w-full rounded border-gray-300 p-2"
+                />
+                <ErrorMessage name="emailParroquia" component="div" className="text-red-500 mt-1" />
+              </div>              
               <div className="mb-4">
                 <label htmlFor="CreatedAt" className="block font-semibold mb-1">
                   Fecha de creación

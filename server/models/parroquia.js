@@ -14,6 +14,10 @@ const ParroquiaSchema = mongoose.Schema({
     type: String,
     required: [true, 'El código postal debe existir'],
   },
+  emailParroquia: {
+    type: String, // Tipo de dato para el correo electrónico
+    // Agregar validaciones específicas para correos electrónicos if need it
+  },
   deletedAt: {
     type: Date,
   },

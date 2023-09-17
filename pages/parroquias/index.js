@@ -100,6 +100,9 @@ function ParroquiasPage() {
                       Código Postal
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Email
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Fecha de creación
                     </th>
                   </tr>
@@ -111,6 +114,7 @@ function ParroquiasPage() {
                         <td className="px-6 py-4 whitespace-nowrap">{parroquia.name}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{parroquia.address}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{parroquia.postalCode}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{parroquia.emailParroquia}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{formatDate(parroquia.CreatedAt)}</td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex gap-2">

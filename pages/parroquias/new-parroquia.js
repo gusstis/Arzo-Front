@@ -8,6 +8,7 @@ const validationSchema = Yup.object().shape({
   name: Yup.string().required('El nombre es obligatorio'),
   address: Yup.string().required('La dirección es obligatoria'),
   postalCode: Yup.string().required('El código postal es obligatorio'),
+  emailParroquia: Yup.string().email('Debe ser un correo electrónico válido'),
 });
 
 function NewParroquiaPage() {
@@ -39,6 +40,7 @@ function NewParroquiaPage() {
           lastname: '',
           address: '',
           postalCode: '',
+          emailParroquia: ''
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
@@ -67,6 +69,13 @@ function NewParroquiaPage() {
               </label>
               <Field type="text" id="postalCode" name="postalCode" className="w-full rounded border-gray-300 p-2" />
               <ErrorMessage name="postalCode" component="div" className="text-red-500 mt-1" />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="postalCode" className="block font-semibold mb-1">
+                Email
+              </label>
+              <Field type="text" id="emailParroquia" name="emailParroquia" className="w-full rounded border-gray-300 p-2" />
+              <ErrorMessage name="emailParroquia" component="div" className="text-red-500 mt-1" />
             </div>
 
             <button type="submit" className="bg-blue-300 hover:bg-blue-500 text-white font-bold px-4 py-2 rounded">
