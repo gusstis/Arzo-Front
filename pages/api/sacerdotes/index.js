@@ -1,9 +1,9 @@
 const Sacerdote = require('../../../server/models/sacerdote'); // importo modelo de Sacerdote
-const Parroquia = require('../../../server/models/parroquia');
+//const Parroquia = require('../../../server/models/parroquia');
 import { handleError, InvalidSacerdote, sacerdoteNotFound, parroquiaNotFound } from 'server/errors';
-import { IsParroquiaSacerdoteValid } from 'server/helpers/sacerdoteHelpers';
+//import { IsParroquiaSacerdoteValid } from 'server/helpers/sacerdoteHelpers';
 import dbConnect from '@lib/mongodb';
-import { ObjectId } from 'mongodb';
+//import { ObjectId } from 'mongodb';
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -56,21 +56,23 @@ export default async function handler(req, res) {
         updatedSacerdote.name = req.body.name || updatedSacerdote.name;
         updatedSacerdote.lastname = req.body.lastname || updatedSacerdote.lastname;
         updatedSacerdote.address = req.body.address || updatedSacerdote.address;
-        updatedSacerdote.nombramiento = req.body.nombramiento || updatedSacerdote.nombramiento;
+        updatedSacerdote.dni = req.body.dni || updatedSacerdote.dni;
         updatedSacerdote.postalCode = req.body.postalCode || updatedSacerdote.postalCode;
         updatedSacerdote.phone = req.body.phone || updatedSacerdote.phone;
         updatedSacerdote.imagen = req.body.imagen || updatedSacerdote.imagen;
-        updatedSacerdote.parroquia = req.body.parroquia || updatedSacerdote.parroquia;
+        updatedSacerdote.placeOfBirth = req.body.placeOfBirth || updatedSacerdote.placeOfBirth;
         updatedSacerdote.dateOfBirth = req.body.dateOfBirth || updatedSacerdote.dateOfBirth;
-        updatedSacerdote.summary = req.body.summary || updatedSacerdote.summary;
-        updatedSacerdote.website = req.body.website || updatedSacerdote.website;
-        updatedSacerdote.age = req.body.age || updatedSacerdote.age;
-        updatedSacerdote.degree = req.body.degree || updatedSacerdote.degree;
+        updatedSacerdote.locality = req.body.locality || updatedSacerdote.locality;
+        updatedSacerdote.celPhone = req.body.celPhone || updatedSacerdote.celPhone;
+        updatedSacerdote.healthCond = req.body.healthCond || updatedSacerdote.healthCond;
+        updatedSacerdote.obraSocial = req.body.obraSocial || updatedSacerdote.obraSocial;
         updatedSacerdote.email = req.body.email || updatedSacerdote.email;
-        updatedSacerdote.freelance = req.body.freelance || updatedSacerdote.freelance;
-        updatedSacerdote.about = req.body.about || updatedSacerdote.about;
+        updatedSacerdote.numObraSocial = req.body.numObraSocial || updatedSacerdote.numObraSocial;
         updatedSacerdote.education = req.body.education || updatedSacerdote.education;
         updatedSacerdote.experience = req.body.experience || updatedSacerdote.experience;
+        updatedSacerdote.ministeries = req.body.ministeries || updatedSacerdote.ministeries;
+        updatedSacerdote.fides = req.body.fides || updatedSacerdote.fides;
+        updatedSacerdote.socioFides = req.body.socioFides || updatedSacerdote.socioFides;
         updatedSacerdote.CreatedAt = req.body.CreatedAt || updatedSacerdote.CreatedAt;
         updatedSacerdote.deletedAt = req.body.deletedAt || updatedSacerdote.deletedAt;
 

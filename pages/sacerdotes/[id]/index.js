@@ -4,6 +4,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import ErrorMsg from '@common/ErrorMsg'
 import Loader from '@common/Loader'
+import DateFormatter from '@common/DateFormatter';
 
 
 export default function SacerdoteDetails() {
@@ -14,41 +15,21 @@ export default function SacerdoteDetails() {
   const { id } = router.query;
 
   
-  {/*useEffect(() => {
-    if (id) {
-      setLoading(true);
-      axios
-        .get(`/api/sacerdotes/${id}`)
-        .then( async (response) => {
-          
-          const sacerdote = response.populate('parroquia').execPopulate();
-          setSacerdote(response.data.sacerdote);
-          console.log('response.data.sacerdote');
-          console.log(response.data.sacerdote);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setError(error)
-          setLoading(false)
-        });
-    }
-  }, [id]);*/}
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         const response = await axios.get(`/api/sacerdotes/${id}`);
         const sacerdote = response.data.sacerdote;
-        const parroquiaId = sacerdote.parroquia[0];
+        //const parroquiaId = sacerdote.parroquia[0];
   
-        // Realizar una solicitud adicional para obtener información de la parroquia
+        {/*// Realizar una solicitud adicional para obtener información de la parroquia
         if (parroquiaId) {
           const parroquiaResponse = await axios.get(`/api/parroquias/${parroquiaId}`);
           const parroquia = parroquiaResponse.data.parroquia;
           sacerdote.parroquia[0] = parroquia.name;
           console.log('parroquia: ', sacerdote.parroquia[0])
-        }
+        }*/}
   
         setSacerdote(sacerdote);
         setLoading(false);
@@ -75,8 +56,7 @@ export default function SacerdoteDetails() {
           <section id="about" className="mt-8 mb-12">
             <div className="container" data-aos="fade-up">
               <div className="section-title">
-                <h2 className="text-3xl font-bold">Reseña</h2>
-                <p>{sacerdote.summary || ''}</p>
+                <h2 className="text-3xl font-bold">{sacerdote.name || ''} {sacerdote.lastname || ''}</h2>
               </div>
 
               <div className="flex flex-col lg:flex-row">
@@ -84,90 +64,103 @@ export default function SacerdoteDetails() {
                   <Image src={sacerdote.imagen || ''} className="img-fluid" alt="avatar" width={200} height={200} />
                 </div>
                 <div className="lg:w-2/3 pt-4 pt-lg-0 content">
-                  <h3 className="text-2xl font-bold">
-                    {sacerdote.name || ''} {sacerdote.lastname || ''}
-                  </h3>
+                  <h6 className="text-2xl font-bold">
+                    {sacerdote.lastname || ''} {sacerdote.name || ''}
+                  </h6>
 
                  {/*<h6 className="text-1xl font-bold">
                     Parroquia: {sacerdote.parroquia[0] || 'no ta'}
                   </h6>*/}
                   {<h6 className="text-1xl font-bold">
-                      Parroquia: {sacerdote.parroquia.length > 0 ? sacerdote.parroquia[sacerdote.parroquia.length - 1] : 'No asignado'}
+                      DNI: {sacerdote.dni}
                     </h6>}                  
                   <p className="italic">{sacerdote.nombramiento || ''}</p>
                   <div className="flex flex-col lg:flex-row">
                     <div className="lg:w-1/2">
                       <ul>
                         <li>
-                          <i className="bi bi-rounded-right"></i> <strong>Fecha de Nacimiento:</strong> {sacerdote.dateOfBirth || ''}
-                        </li>
-                        <li>
-                          <i className="bi bi-rounded-right"></i> <strong>Website:</strong> {sacerdote.website || ''}
-                        </li>
-                        <li>
-                          <i className="bi bi-rounded-right"></i> <strong>Teléfono:</strong> {sacerdote.phone || ''}
+                          <i className="bi bi-rounded-right"></i> <strong>Lugar de Nacimiento:</strong> {sacerdote.placeOfBirth || ''}
                         </li>
                         <li>
                           <i className="bi bi-rounded-right"></i> <strong>Dirección:</strong> {sacerdote.address || ''}
                         </li>
                         <li>
-                          <i className="bi bi-rounded-right"></i> <strong>Zip Code:</strong> {sacerdote.postalCode || ''}
+                          <i className="bi bi-rounded-right"></i> <strong>Teléfono:</strong> {sacerdote.phone || ''}
+                        </li>
+                        <li>
+                          <i className="bi bi-rounded-right"></i> <strong>Celular:</strong> {sacerdote.celPhone || ''}
+                        </li>
+                        <li>
+                          <i className="bi bi-rounded-right"></i> <strong>Estado de Salud:</strong> {sacerdote.healthCond || ''}
                         </li>
                       </ul>
                     </div>
                     <div className="lg:w-1/2">
                       <ul>
                         <li>
-                          <i className="bi bi-rounded-right"></i> <strong>Edad:</strong> {sacerdote.age || ''}
+                          <i className="bi bi-rounded-right"></i> <strong>Fecha de Nacimiento:</strong> <DateFormatter dateString={sacerdote.dateOfBirth || ''} />
                         </li>
                         <li>
-                          <i className="bi bi-rounded-right"></i> <strong>Grado Académico:</strong> {sacerdote.degree || ''}
+                          <i className="bi bi-rounded-right"></i> <strong>Localidad:</strong> {sacerdote.locality || ''}
                         </li>
                         <li>
                           <i className="bi bi-rounded-right"></i> <strong>Email:</strong> {sacerdote.email || ''}
                         </li>
                         <li>
-                          <i className="bi bi-rounded-right"></i> <strong>Actividades:</strong> {sacerdote.freelance ? 'Available' : 'Not Available'}
+                          <i className="bi bi-rounded-right"></i> <strong>Obra Social:</strong> {sacerdote.obraSocial || ''}
+                        </li>
+                        <li>
+                          <i className="bi bi-rounded-right"></i> <strong>FIDES:</strong> {sacerdote.fides ? 'Available' : 'Not Available'}
                         </li>
                       </ul>
                     </div>
                   </div>
-                  <p>{sacerdote.about || ''}</p>
                 </div>
               </div>
             </div>
           </section>
 
           <div className="container mt-8 mb-12">
-            <h3 className="text-2xl font-bold">Formación Académica</h3>
+            <h3 className="text-2xl font-bold">Estudios Realizados</h3>
             <div className="grid grid-cols-2 gap-4">
               {sacerdote.education &&
                 sacerdote.education.map((educationItem, index) => (
                   <div className="p-4 bg-gray-100 rounded" key={index}>
-                    <h4 className="text-lg font-bold">{educationItem.degree || ''}</h4>
-                    <h5 className="text-md">{educationItem.year || ''}</h5>
+                    <h4 className="text-lg font-bold">{educationItem.edType || ''}</h4>
+                    <h5 className="text-md">{educationItem.degree || ''}</h5>
                     <p>
                       <em>{educationItem.institution || ''}</em>
                     </p>
-                    <p>{educationItem.description || ''}</p>
+                    <p>{educationItem.receiptDate || ''}</p>
                   </div>
                 ))}
             </div>
 
-            <h3 className="mt-8 mb-4 text-2xl font-bold">Experiencia Profesional</h3>
+            <h3 className="mt-8 mb-4 text-2xl font-bold">Oficios / Cargos</h3>
             <div className="grid grid-cols-2 gap-4">
               {sacerdote.experience &&
                 sacerdote.experience.map((experienceItem, index) => (
                   <div className="p-4 bg-gray-100 rounded" key={index}>
-                    <h4 className="text-lg font-bold">{experienceItem.position || ''}</h4>
-                    <h5 className="text-md">{experienceItem.years || ''}</h5>
-                    <p>
-                      <em>{experienceItem.company || ''}</em>
-                    </p>
-                    <ul className="list-disc list-inside">{experienceItem.highlights && experienceItem.highlights.map((highlight, index) => <li key={index}>{highlight}</li>)}</ul>
+                    <h4 className="text-lg font-bold">{experienceItem.startDate || ''}</h4>
+                    <h5 className="text-md">{experienceItem.endDate || ''}</h5>
+                    <h4 className="text-lg font-bold">{experienceItem.charge || ''}</h4>
+                    <h5 className="text-md">{experienceItem.place || ''}</h5>
+                    <h5 className="text-md">{experienceItem.decree || ''}</h5>
                   </div>
                 ))}
             </div>
+
+            <h3 className="mt-8 mb-4 text-2xl font-bold">Ministerios</h3>
+            <div className="grid grid-cols-2 gap-4">
+              {sacerdote.experience &&
+                sacerdote.experience.map((experienceItem, index) => (
+                  <div className="p-4 bg-gray-100 rounded" key={index}>
+                    <h4 className="text-lg font-bold">{experienceItem.ordinationDate || ''}</h4>
+                    <h5 className="text-md">{experienceItem.ministery || ''}</h5>
+                    <h4 className="text-lg font-bold">{experienceItem.place || ''}</h4>
+                  </div>
+                ))}
+</div>
           </div>
         </>
       )}

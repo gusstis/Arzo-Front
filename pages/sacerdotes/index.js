@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { DateTime } from 'luxon';
+//import { DateTime } from 'luxon';
 import { TrashIcon, PencilIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -79,25 +79,22 @@ function SacerdotesPage() {
                 <thead className="bg-gray-50">
                   <tr>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Nombre
+                      Nombres
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Apellido
+                      Apellidos
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Dirección
+                      Domicilio
+                    </th><th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Localidad
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Cod Postal
+                      Email
                     </th>
+                    
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Teléfono
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Creado el
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Acciones
+                      Fecha de Nacimiento
                     </th>
                   </tr>
                 </thead>
@@ -108,9 +105,9 @@ function SacerdotesPage() {
                         <td className="px-6 py-4 whitespace-nowrap">{sacerdote.name}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{sacerdote.lastname}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{sacerdote.address}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{sacerdote.postalCode}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{sacerdote.phone}</td>
-                        <td className="px-6 py-4 whitespace-nowrap"><DateFormatter dateString={sacerdote.CreatedAt}/></td>
+                        <td className="px-6 py-4 whitespace-nowrap">{sacerdote.locality}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{sacerdote.email}</td>
+                        <td className="px-6 py-4 whitespace-nowrap"><DateFormatter dateString={sacerdote.dateOfBirth}/></td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex gap-2">
                             <button onClick={(e) => {

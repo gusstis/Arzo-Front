@@ -9,63 +9,23 @@ const SacerdoteSchema = mongoose.Schema({
     type: String,
     required: [true, 'debe proporcionar el Apellido'],
   },
-  dni: {
-    type: String,
-    required: false,
-  },
-  placeOfBirth: {
-    type: String,
-    required: false,
-  },
   dateOfBirth: {
     type: Date,
+    required: false,
+  },
+    postalCode: {
+    type: String,
     required: false,
   },
   address: {
     type: String,
     required: [true, 'La dirección es obligatoria'],
   },
-  locality: {
-  type: String,
-  required: false,
-},
-    postalCode: {
-    type: String,
-    required: false,
-  },
   phone: {
     type: String,
     required: false,
   },
-  celPhone: {
-    type: String,
-    required: false,
-  },
   imagen: {
-    type: String,
-    required: false,
-  },
-  email: {
-    type: String,
-    required: false,
-  },
-  healthCond: {
-    type: String,
-    required: false,
-  },
-  obraSocial: {
-    type: String,
-    required: false,
-  },
-  numObraSocial: {
-    type: String,
-    required: false,
-  },
-  fides: {
-    type: String,
-    required: false,
-  },
-  socioFides: {
     type: String,
     required: false,
   },
@@ -81,13 +41,41 @@ const SacerdoteSchema = mongoose.Schema({
     },
     virtual: true
   },
+  summary: {
+    type: String,
+    required: false,
+  },
+  website: {
+    type: String,
+    required: false,
+  },
+  age: {
+    type: Number,
+    required: false,
+  },
+  degree: {
+    type: String,
+    required: false,
+  },
+  email: {
+    type: String,
+    required: false,
+  },
+  freelance: {
+    type: Boolean,
+    required: false,
+  },
+  about: {
+    type: String,
+    required: false,
+  },
   education: {
     type: [
       {
-        edType: String,
         degree: String,
+        year: String,
         institution: String,
-        receiptDate: Date,
+        description: String,
       },
     ],
     required: false,
@@ -95,21 +83,10 @@ const SacerdoteSchema = mongoose.Schema({
   experience: {
     type: [
       {
-        charge: String,
-        place: String,
-        decree: String,
-        startDate: Date,
-        endDate: Date,
-      },
-    ],
-    required: false,
-  },
-  ministeries: {
-    type: [
-      {
-        ordinationDate: Date,
-        ministery: String,
-        place: String,
+        position: String,
+        years: String,
+        company: String,
+        highlights: [String],
       },
     ],
     required: false,
@@ -126,3 +103,4 @@ const SacerdoteSchema = mongoose.Schema({
 
 
 module.exports = mongoose.models.Sacerdote || mongoose.model('Sacerdote', SacerdoteSchema);
+

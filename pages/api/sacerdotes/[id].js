@@ -1,5 +1,5 @@
 import dbConnect from 'lib/mongodb';
-import Sacerdote from 'server/models/sacerdote';
+import Sacerdote from '@server/models/sacerdote';
 
 export default async function handler(req, res) {
   const {
