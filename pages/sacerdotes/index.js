@@ -4,19 +4,8 @@ import { DateTime } from 'luxon';
 import { TrashIcon, PencilIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import DateFormatter from 'common/DateFormatter';
 
-function formatDate(dateString) {
-  const date = DateTime.fromISO(dateString);
-  return date.toLocaleString({
-    locale: 'es-ES',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-  });
-}
 
 function SacerdotesPage() {
   const [sacerdotes, setSacerdotes] = useState([]);
@@ -121,7 +110,7 @@ function SacerdotesPage() {
                         <td className="px-6 py-4 whitespace-nowrap">{sacerdote.address}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{sacerdote.postalCode}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{sacerdote.phone}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{formatDate(sacerdote.CreatedAt)}</td>
+                        <td className="px-6 py-4 whitespace-nowrap"><DateFormatter dateString={sacerdote.CreatedAt}/></td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex gap-2">
                             <button onClick={(e) => {

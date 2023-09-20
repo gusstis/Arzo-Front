@@ -4,27 +4,38 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import {DateTime} from 'luxon';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('El nombre es obligatorio'),
   address: Yup.string().required('La dirección es obligatoria'),
   postalCode: Yup.string().required('El código postal es obligatorio'),
-  CreatedAt: Yup.date().required('La Fecha de Creación es obligatoria')
-
+  emailParroquia: Yup.string().email('Debe ser un correo electrónico válido'),
+  
 });
 
 function EditParroquiaPage() {
   const router = useRouter();
   const { id } = router.query;
-  const [formikInitialValues, setFormikInitialValues] = useState({});
+  const [formikInitialValues, setFormikInitialValues] = useState({
+    name:"cargando...",
+    address:"cargando...",
+    postalCode:"cargando...",
+    emailParroquia:"cargando...",
+    CreatedAt:"cargando...",});
+
 
   useEffect(() => {
     // Obtener los datos actuales de la parroquia usando el ID
     const fetchParroquiaData = async () => {
       try {
         const response = await axios.get(`/api/parroquias/${id}`);
-        const parroquiaData = response.data;
-
+        const parroquiaData = response.data.parroquia;
+        // Convierte la fecha usando Luxon antes de establecer los valores iniciales
+        parroquiaData.CreatedAt = DateTime.fromISO(parroquiaData.CreatedAt);
+      {/*  TODO
+      if ! pd.mail 
+      pd.m="no hay datos"*/}
         // Establecer los valores iniciales del formulario con los datos actuales
         setFormikInitialValues(parroquiaData);
       
@@ -38,11 +49,14 @@ function EditParroquiaPage() {
   }, [id]);
 
   const handleSubmit =  async (values) => {
+   
     console.log('Values in handleSubmit:', values);
     try {
+      // Formatea la fecha CreatedAt nuevamente antes de enviar la solicitud
+    values.CreatedAt = formikInitialValues.CreatedAt.toISO(); // Convierte la fecha a formato ISO
       // llama a la API con los valores del formulario 
       const apiResponse = await axios.put(`/api/parroquias/${id}`, values);
-      console.log('Respu de la API: ', apiResponse.data); // Podemos hacer algo con la respuesta de la API
+      console.log('Respu de la API: ', apiResponse.data.parroquia); // Podemos hacer algo con la respuesta de la API
       // Redirige a la página de detalles de la parroquia después de la actualización exitosa
       router.push(`/parroquias/${id}`);
     } catch (error) {
@@ -51,20 +65,10 @@ function EditParroquiaPage() {
   };
   
 
-  const setInitialValues = (parroquiaData) => {
-    const initialValues = {
-      name: parroquiaData.name,
-      address: parroquiaData.address,
-      postalCode: parroquiaData.postalCode,
-      CreatedAt: parroquiaData.CreatedAt,
-      email: parroquiaData.email,
-    };
-
-    setFormikInitialValues(initialValues);
-  };
   console.log('formikInitialValues: ')
   console.log({formikInitialValues})
-
+  
+  
   return (
     <div className="container mx-auto p-4">
       <Head>
@@ -73,7 +77,7 @@ function EditParroquiaPage() {
       <h1 className="text-2xl font-bold mb-4">Editar parroquia</h1>
       <Formik
         initialValues={formikInitialValues}
-        
+        enableReinitialize={true}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
@@ -83,7 +87,7 @@ function EditParroquiaPage() {
                 <label htmlFor="name" className="block font-bold mb-1">
                   Nombre:
                 </label>
-                <Field type="text" id="name" name="name" value={formikInitialValues ? formikInitialValues.name : 'Ke se io'} className="border rounded w-full p-2" />
+                <Field type="text" id="name" name="name"  className="border rounded w-full p-2" />
                 <ErrorMessage name="name" component="div" className="text-red-500" />
               </div>
               
@@ -113,13 +117,13 @@ function EditParroquiaPage() {
                 />
                 <ErrorMessage name="emailParroquia" component="div" className="text-red-500 mt-1" />
               </div>              
-              <div className="mb-4">
+              {/*<div className="mb-4">
                 <label htmlFor="CreatedAt" className="block font-semibold mb-1">
                   Fecha de creación
                 </label>
-                <Field type="date" id="CreatedAt" name="CreatedAt" className="w-full rounded border-gray-300 p-2" />
+                <Field type="date" id="CreatedAt" name="CreatedAt" readonly className="w-full rounded border-gray-300 p-2" />
                 <ErrorMessage name="CreatedAt" component="div" className="text-red-500 mt-1" />
-              </div>
+          </div>*/}
             
               <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                 Guardar cambios
@@ -133,3 +137,5 @@ function EditParroquiaPage() {
 }
 
 export default EditParroquiaPage;
+
+//value={formikInitialValues ? formikInitialValues.name : 'Ke se io'}

@@ -37,7 +37,6 @@ function NewParroquiaPage() {
       <Formik
         initialValues={{
           name: '',
-          lastname: '',
           address: '',
           postalCode: '',
           emailParroquia: ''

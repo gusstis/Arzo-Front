@@ -27,9 +27,15 @@ export default async function handler(req, res) {
 
     case 'PUT':
       try {
-        const { name, address, postalCode } = req.body;
-
-        const updatedParroquia = await Parroquia.findByIdAndUpdate(id, { name, address, postalCode }, { new: true });
+        const { name, address, postalCode, emailParroquia, CreatedAt } = req.body;
+        const updatedParroquiaData = { name, address, postalCode, emailParroquia };
+        
+        // Si CreatedAt está presente en el cuerpo de la solicitud, conviértelo a un objeto Date
+        if (CreatedAt) {
+          updatedParroquiaData.CreatedAt = new Date(CreatedAt);
+    }
+        
+        const updatedParroquia = await Parroquia.findByIdAndUpdate(id, updatedParroquiaData, { new: true });
 
         if (!updatedParroquia) {
           return res.status(404).json({ message: 'Parroquia not found' });
