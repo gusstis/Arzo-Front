@@ -4,38 +4,63 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+//import sacerdote from 'server/models/sacerdote';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('El nombre es obligatorio'),
   lastname: Yup.string().required('El apellido es obligatorio'),
+  dni: Yup.string(). required('Se requiere Número de Documento') ,
   address: Yup.string().required('La dirección es obligatoria'),
-  postalCode: Yup.string().required('El código postal es obligatorio'),
-  phone: Yup.string().required('El teléfono es obligatorio'),
+  phone: Yup.string(),
+  email: Yup.string().email('Debe ser un correo electrónico válido'),
 });
 
 function EditSacerdotePage() {
   const router = useRouter();
   const { id } = router.query;
-  const [formikInitialValues, setFormikInitialValues] = useState({});
+  const [sacerdoteData, setSacerdoteData] = useState(null);
 
   useEffect(() => {
-    // Obtener los datos actuales del sacerdote usando el ID
-    const fetchSacerdoteData = async () => {
-      try {
-        const response = await axios.get(`/api/sacerdotes/${id}`);
-        const sacerdoteData = response.data;
-        
-        // Establecer los valores iniciales del formulario con los datos actuales
-        setFormikInitialValues(sacerdoteData);
-      
-      
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    if (id) {fetchSacerdoteData()};
+    // Realiza una llamada a la API para obtener los datos del sacerdote por su ID
+    if (id) {
+      axios.get(`/api/sacerdotes/${id}`)
+        .then((response) => {
+          setSacerdoteData(response.data.sacerdote); // Almacena los datos del sacerdote en el estado
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   }, [id]);
+
+  if (!sacerdoteData) {
+    return <div>Cargando...</div>; // Muestra un mensaje de carga mientras se obtienen los datos
+  }
+
+
+  const formikInitialValues = {
+    name: sacerdoteData.name || '',
+    lastname: sacerdoteData.lastname || '',
+    dni: sacerdoteData.dni || '',
+    placeOfBirth: sacerdoteData.placeOfBirth || '',
+    dateOfBirth: sacerdoteData.dateOfBirth || '',
+    address: sacerdoteData.address || '',
+    locality: sacerdoteData.locality || '',
+    postalCode: sacerdoteData.postalCode || '',
+    phone: sacerdoteData.phone || '',
+    celPhone: sacerdoteData.celPhone || '',
+    imagen: sacerdoteData.imagen || '',
+    email: sacerdoteData.email || '',
+    healthCond: sacerdoteData.healthCond || '',
+    obraSocial: sacerdoteData.obraSocial || '',
+    numObraSocial: sacerdoteData.numObraSocial || '',
+    fides: sacerdoteData.fides || '',
+    socioFides: sacerdoteData.socioFides || '',
+    summary: sacerdoteData.summary || '',
+    education: sacerdoteData.education || [{ edType: '', degree: '', institution: '', receiptDate: '' }],
+    experience: sacerdoteData.experience || [{ charge: '', place: '', decree: '', startDate: '', endDate: '' }],
+    ministeries: sacerdoteData.ministeries || [{ ordinationDate: '', ministery: '', place: '' }],
+  };
 
   const handleSubmit = async (values) => {
     try {
@@ -51,35 +76,7 @@ function EditSacerdotePage() {
   };
   
   
-  const setInitialValues = (sacerdoteData) => {
-    console.log(' const setInitialValues');
-    console.log("Datos recibidos:", sacerdoteData);
-    const initialValues = {
-      name: sacerdoteData.name,
-      lastname: sacerdoteData.lastname,
-      address: sacerdoteData.address,
-      postalCode: sacerdoteData.postalCode,
-      phone: sacerdoteData.phone,
-      nombramiento: sacerdoteData.nombramiento,
-      imagen: sacerdoteData.imagen,
-      parroquia: sacerdoteData.parroquia,
-      dateOfBirth: sacerdoteData.dateOfBirth,
-      summary: sacerdoteData.summary,
-      website: sacerdoteData.website,
-      age: sacerdoteData.age,
-      degree: sacerdoteData.degree,
-      email: sacerdoteData.email,
-      freelance: sacerdoteData.freelance,
-      about: sacerdoteData.about,
-      education: sacerdoteData.education || [{ degree: '', year: '', institution: '', description: '' }],
-      experience: sacerdoteData.experience || [{ position: '', years: '', company: '', highlights: [''] }],
-    };
-    console.log("Valores iniciales:");
-    console.log(initialValues);
-    setFormikInitialValues(initialValues);
-  };
-
-
+ 
   return (
     <div className="container mx-auto p-4">
       <Head>
@@ -108,18 +105,39 @@ function EditSacerdotePage() {
               <ErrorMessage name="lastname" component="div" className="text-red-500" />
             </div>
             <div className="mb-4">
+              <label htmlFor="dni" className="block font-bold mb-1">
+                DNI:
+              </label>
+              <Field type="text" id="dni" name="dni" className="border rounded w-full p-2" />
+              <ErrorMessage name="dni" component="div" className="text-red-500" />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="placeOfBirth" className="block font-bold mb-1">
+                Lugar de Nacimiento:
+              </label>
+              <Field type="text" id="placeOfBirth" name="placeOfBirth" className="border rounded w-full p-2" />
+              <ErrorMessage name="placeOfBirth" component="div" className="text-red-500" />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="dateOfBirth" className="block font-semibold mb-1">
+                Fecha de Nacimiento
+              </label>
+              <Field type="date" id="dateOfBirth" name="dateOfBirth" className="w-full rounded border-gray-300 p-2" />
+              <ErrorMessage name="dateOfBirth" component="div" className="text-red-500 mt-1" />
+            </div>
+            <div className="mb-4">
               <label htmlFor="address" className="block font-bold mb-1">
-                Dirección:
+                Domicilio:
               </label>
               <Field type="text" id="address" name="address" className="border rounded w-full p-2" />
               <ErrorMessage name="address" component="div" className="text-red-500" />
             </div>
             <div className="mb-4">
-              <label htmlFor="postalCode" className="block font-bold mb-1">
-                Código Postal:
+              <label htmlFor="locality" className="block font-bold mb-1">
+                Localidad:
               </label>
-              <Field type="text" id="postalCode" name="postalCode" className="border rounded w-full p-2" />
-              <ErrorMessage name="postalCode" component="div" className="text-red-500" />
+              <Field type="text" id="locality" name="locality" className="border rounded w-full p-2" />
+              <ErrorMessage name="locality" component="div" className="text-red-500" />
             </div>
             <div className="mb-4">
               <label htmlFor="phone" className="block font-bold mb-1">
@@ -128,14 +146,14 @@ function EditSacerdotePage() {
               <Field type="text" id="phone" name="phone" className="border rounded w-full p-2" />
               <ErrorMessage name="phone" component="div" className="text-red-500" />
             </div>
-
             <div className="mb-4">
-              <label htmlFor="nombramiento" className="block font-bold mb-1">
-                Nombramiento:
+              <label htmlFor="celPhone" className="block font-bold mb-1">
+                Celular:
               </label>
-              <Field type="text" id="nombramiento" name="nombramiento" className="border rounded w-full p-2" />
-              <ErrorMessage name="nombramiento" component="div" className="text-red-500" />
+              <Field type="text" id="celPhone" name="celPhone" className="border rounded w-full p-2" />
+              <ErrorMessage name="celPhone" component="div" className="text-red-500" />
             </div>
+
             <div className="mb-4">
               <label htmlFor="imagen" className="block font-bold mb-1">
                 Imagen:
@@ -144,61 +162,51 @@ function EditSacerdotePage() {
               <ErrorMessage name="imagen" component="div" className="text-red-500" />
             </div>
             <div className="mb-4">
-              <label htmlFor="parroquia" className="block font-bold mb-1">
-                Parroquia:
-              </label>
-              <Field type="text" id="parroquia" name="parroquia" className="border rounded w-full p-2" />
-              <ErrorMessage name="parroquia" component="div" className="text-red-500" />
-            </div>
-            {/* Resto del formulario */}
-
-            <div className="mb-4">
-              <label htmlFor="dateOfBirth" className="block font-semibold mb-1">
-                Fecha de Nacimiento
-              </label>
-              <Field type="date" id="dateOfBirth" name="dateOfBirth" className="w-full rounded border-gray-300 p-2" />
-              <ErrorMessage name="dateOfBirth" component="div" className="text-red-500 mt-1" />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="summary" className="block font-semibold mb-1">
-                Resumen
-              </label>
-              <Field as="textarea" id="summary" name="summary" rows="4" className="w-full rounded border-gray-300 p-2" />
-              <ErrorMessage name="summary" component="div" className="text-red-500 mt-1" />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="website" className="block font-semibold mb-1">
-                Sitio web
-              </label>
-              <Field type="text" id="website" name="website" className="w-full rounded border-gray-300 p-2" />
-              <ErrorMessage name="website" component="div" className="text-red-500 mt-1" />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="degree" className="block font-semibold mb-1">
-                Grado
-              </label>
-              <Field type="text" id="degree" name="degree" className="w-full rounded border-gray-300 p-2" />
-              <ErrorMessage name="degree" component="div" className="text-red-500 mt-1" />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="about" className="block font-semibold mb-1">
-                Acerca de
-              </label>
-              <Field as="textarea" id="about" name="about" rows="4" className="w-full rounded border-gray-300 p-2" />
-              <ErrorMessage name="about" component="div" className="text-red-500 mt-1" />
-            </div>
-
-            <div className="mb-4">
               <label htmlFor="email" className="block font-semibold mb-1">
                 Correo electrónico
               </label>
               <Field type="email" id="email" name="email" className="w-full rounded border-gray-300 p-2" />
               <ErrorMessage name="email" component="div" className="text-red-500 mt-1" />
             </div>
+            <div className="mb-4">
+              <label htmlFor="healthCond" className="block font-bold mb-1">
+                Estado de Salud:
+              </label>
+              <Field type="text" id="healthCond" name="healthCond" className="border rounded w-full p-2" />
+              <ErrorMessage name="healthCond" component="div" className="text-red-500" />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="obraSocial" className="block font-semibold mb-1">
+                Obra Social:
+              </label>
+              <Field type="text" id="obraSocial" name="obraSocial" className="w-full rounded border-gray-300 p-2" />
+              <ErrorMessage name="obraSocial" component="div" className="text-red-500 mt-1" />
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="numObraSocial" className="block font-semibold mb-1">
+                Número de Obra Social
+              </label>
+              <Field type="text" id="numObraSocial" name="numObraSocial" className="w-full rounded border-gray-300 p-2" />
+              <ErrorMessage name="numObraSocial" component="div" className="text-red-500 mt-1" />
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="fides" className="block font-semibold mb-1">
+                FIDES
+              </label>
+              <Field type="text" id="fides" name="fides" className="w-full rounded border-gray-300 p-2" />
+              <ErrorMessage name="fides" component="div" className="text-red-500 mt-1" />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="socioFides" className="block font-semibold mb-1">
+                Socio FIDES
+              </label>
+              <Field type="text" id="socioFides" name="socioFides" className="w-full rounded border-gray-300 p-2" />
+              <ErrorMessage name="socioFides" component="div" className="text-red-500 mt-1" />
+            </div>
+
+
 
             <div className="mb-4">
               <label htmlFor="education" className="block font-semibold mb-1">
@@ -211,13 +219,13 @@ function EditSacerdotePage() {
                       {(arrayHelpers) => (
                         <div>
                           {Array.isArray(values.education) && values.education.length > 0 ? (
-                            values?.education?.map((_, index) => {
+                            values?.education?.map((education, index) => {
                               // Código de mapeo aquí
-                              return <div key={index}>Elemento {index}</div>;
+                              return <div key={index}>{index}</div>;
                             })
                           ) : (
                             // Código si no hay elementos en values.education
-                            <></>
+                            <>Sin Datos de Educación</>
                           )}
                         </div>
                       )}
@@ -241,7 +249,7 @@ function EditSacerdotePage() {
                       </div>
                     ))}
                     <button type="button" onClick={() => arrayHelpers.push({ degree: '', year: '', institution: '', description: '' })} className="bg-blue-500 text-white px-2 py-1 rounded">
-                      Agregar educación
+                      Agregar Estudios
                     </button>
                   </div>
                 )}
@@ -250,7 +258,7 @@ function EditSacerdotePage() {
 
             <div className="mb-4">
               <label htmlFor="experience" className="block font-semibold mb-1">
-                Experiencia
+                Oficios/Cargos
               </label>
               <FieldArray name="experience">
                 {(arrayHelpers) => (
@@ -273,7 +281,37 @@ function EditSacerdotePage() {
                       </div>
                     ))}
                     <button type="button" onClick={() => arrayHelpers.push({ position: '', years: '', company: '', highlights: [''] })} className="bg-blue-500 text-white px-2 py-1 rounded">
-                      Agregar experiencia
+                      Agregar Cargo
+                    </button>
+                  </div>
+                )}
+              </FieldArray>
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="ministeries" className="block font-semibold mb-1">
+                Ministerios
+              </label>
+              <FieldArray name="ministeries">
+                {(arrayHelpers) => (
+                  <div>
+                    {values?.ministeries?.map((_, index) => (
+                      <div key={index} className="mb-4">
+                        <div className="flex items-center">
+                          <Field type="date" name={`ministeries[${index}].ordinatioDate`} className="w-full rounded border-gray-300 p-2" placeholder="Fecha Orden" />
+                          <button type="button" onClick={() => arrayHelpers.remove(index)} className="ml-2 bg-red-500 text-white px-2 py-1 rounded">
+                            Eliminar
+                          </button>
+                        </div>
+                        <ErrorMessage name={`ministeries[${index}].ordinatioDate`} component="div" className="text-red-500 mt-1" />
+                        <Field type="text" name={`ministeries[${index}].ministery`} className="w-full rounded border-gray-300 p-2 mt-2" placeholder="Ministerio" />
+                        <ErrorMessage name={`ministeries[${index}].ministery`} component="div" className="text-red-500 mt-1" />
+                        <Field type="text" name={`ministeries[${index}].place`} className="w-full rounded border-gray-300 p-2 mt-2" placeholder="Lugar" />
+                        <ErrorMessage name={`ministeries[${index}].place`} component="div" className="text-red-500 mt-1" />
+                        </div>
+                    ))}
+                    <button type="button" onClick={() => arrayHelpers.push({ position: '', years: '', company: '', highlights: [''] })} className="bg-blue-500 text-white px-2 py-1 rounded">
+                      Agregar Ministerio
                     </button>
                   </div>
                 )}

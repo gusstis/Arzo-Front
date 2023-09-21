@@ -56,7 +56,7 @@ export default function SacerdoteDetails() {
           <section id="about" className="mt-8 mb-12">
             <div className="container" data-aos="fade-up">
               <div className="section-title">
-                <h2 className="text-3xl font-bold">{sacerdote.name || ''} {sacerdote.lastname || ''}</h2>
+                <h3 className="text-3xl font-bold">{sacerdote.name || ''} {sacerdote.lastname || ''}</h3>
               </div>
 
               <div className="flex flex-col lg:flex-row">
@@ -64,7 +64,8 @@ export default function SacerdoteDetails() {
                   <Image src={sacerdote.imagen || ''} className="img-fluid" alt="avatar" width={200} height={200} />
                 </div>
                 <div className="lg:w-2/3 pt-4 pt-lg-0 content">
-                  <h6 className="text-2xl font-bold">
+                <h2 className="text-3xl font-bold">Datos Personales</h2>
+                  <h6 className="text-1xl font-bold">
                     {sacerdote.lastname || ''} {sacerdote.name || ''}
                   </h6>
 
@@ -110,7 +111,7 @@ export default function SacerdoteDetails() {
                           <i className="bi bi-rounded-right"></i> <strong>Obra Social:</strong> {sacerdote.obraSocial || ''}
                         </li>
                         <li>
-                          <i className="bi bi-rounded-right"></i> <strong>FIDES:</strong> {sacerdote.fides ? 'Available' : 'Not Available'}
+                          <i className="bi bi-rounded-right"></i> <strong>FIDES:</strong> {sacerdote.fides ? 'Disponible' : 'No Disponible'}
                         </li>
                       </ul>
                     </div>
@@ -126,12 +127,12 @@ export default function SacerdoteDetails() {
               {sacerdote.education &&
                 sacerdote.education.map((educationItem, index) => (
                   <div className="p-4 bg-gray-100 rounded" key={index}>
-                    <h4 className="text-lg font-bold">{educationItem.edType || ''}</h4>
-                    <h5 className="text-md">{educationItem.degree || ''}</h5>
+                    <h4 className="text-lg font-bold"> Tipo: {educationItem.edType || ''}</h4>
+                    <h5 className="text-md"> Título: {educationItem.degree || ''}</h5>
                     <p>
-                      <em>{educationItem.institution || ''}</em>
+                      <em> Lugar: {educationItem.institution || ''}</em>
                     </p>
-                    <p>{educationItem.receiptDate || ''}</p>
+                    <p> Fecha Recibida: <DateFormatter dateString={educationItem.receiptDate || ''} /></p>
                   </div>
                 ))}
             </div>
@@ -141,23 +142,23 @@ export default function SacerdoteDetails() {
               {sacerdote.experience &&
                 sacerdote.experience.map((experienceItem, index) => (
                   <div className="p-4 bg-gray-100 rounded" key={index}>
-                    <h4 className="text-lg font-bold">{experienceItem.startDate || ''}</h4>
-                    <h5 className="text-md">{experienceItem.endDate || ''}</h5>
-                    <h4 className="text-lg font-bold">{experienceItem.charge || ''}</h4>
-                    <h5 className="text-md">{experienceItem.place || ''}</h5>
-                    <h5 className="text-md">{experienceItem.decree || ''}</h5>
+                    <h4 className="text-lg font-bold"> Desde:   <DateFormatter dateString={experienceItem.startDate || ''}/> </h4> 
+                    <h5 className="text-md"> Hasta:    <DateFormatter dateString={experienceItem.endDate || ''}/> </h5>
+                    <h4 className="text-lg font-bold">Cargo: {experienceItem.charge || ''}</h4>
+                    <h5 className="text-md"> Lugar:  {experienceItem.place || ''}</h5>
+                    <h5 className="text-md"> Decreto: {experienceItem.decree || ''}</h5>
                   </div>
                 ))}
             </div>
 
             <h3 className="mt-8 mb-4 text-2xl font-bold">Ministerios</h3>
-            <div className="grid grid-cols-2 gap-4">
-              {sacerdote.experience &&
-                sacerdote.experience.map((experienceItem, index) => (
+            <div className="grid grid-cols-3 gap-4">
+              {sacerdote.ministeries &&
+                sacerdote.ministeries.map((ministeriesItem, index) => (
                   <div className="p-4 bg-gray-100 rounded" key={index}>
-                    <h4 className="text-lg font-bold">{experienceItem.ordinationDate || ''}</h4>
-                    <h5 className="text-md">{experienceItem.ministery || ''}</h5>
-                    <h4 className="text-lg font-bold">{experienceItem.place || ''}</h4>
+                    <h4 className="text-lg "> Fecha Orden: <DateFormatter dateString={ministeriesItem.ordinationDate || ''} /> </h4>
+                    <h5 className="text-md font-bold"> Ministerio: {ministeriesItem.ministery || ''}</h5>
+                    <h4 className="text-lg "> Lugar: {ministeriesItem.place || ''}</h4>
                   </div>
                 ))}
 </div>
