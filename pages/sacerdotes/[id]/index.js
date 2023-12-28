@@ -159,6 +159,8 @@ export default function SacerdoteDetails() {
                     <h4 className="text-lg "> Fecha Orden: <DateFormatter dateString={ministeriesItem.ordinationDate || ''} /> </h4>
                     <h5 className="text-md font-bold"> Ministerio: {ministeriesItem.ministery || ''}</h5>
                     <h4 className="text-lg "> Lugar: {ministeriesItem.place || ''}</h4>
+                    <h4 className="text-lg "> Folio: {ministeriesItem.folio || ''}</h4>
+                    <h4 className="text-lg "> Libro: {ministeriesItem.libro || ''}</h4>
                   </div>
                 ))}
 </div>

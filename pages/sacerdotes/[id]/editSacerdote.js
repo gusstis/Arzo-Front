@@ -59,7 +59,7 @@ function EditSacerdotePage() {
     summary: sacerdoteData.summary || '',
     education: sacerdoteData.education || [{ edType: '', degree: '', institution: '', receiptDate: '' }],
     experience: sacerdoteData.experience || [{ charge: '', place: '', decree: '', startDate: '', endDate: '' }],
-    ministeries: sacerdoteData.ministeries || [{ ordinationDate: '', ministery: '', place: '' }],
+    ministeries: sacerdoteData.ministeries || [{ ordinationDate: '', ministery: '', place: '', libro: '',folio: ''}],
   };
 
   const handleSubmit = async (values) => {

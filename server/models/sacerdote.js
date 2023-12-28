@@ -110,6 +110,8 @@ const SacerdoteSchema = mongoose.Schema({
         ordinationDate: Date,
         ministery: String,
         place: String,
+        folio: Number,
+        libro: Number,
       },
     ],
     required: false,

@@ -86,7 +86,7 @@ function NewSacerdotePage() {
           parroquia: [],
           education: [{ edType: '', degree: '', institution: '', receiptDate: '' }],
           experience: [{ charge: '', place: '', decree: '', startDate: '', endDate: '' }],
-          ministeries: [{ ordinationDate: '', ministery: '', place: ''}],
+          ministeries: [{ ordinationDate: '', ministery: '', place: '', libro: '',folio: ''}],
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
@@ -337,9 +337,14 @@ function NewSacerdotePage() {
                         <ErrorMessage name={`ministeries[${index}].ministery`} component="div" className="text-red-500 mt-1" />
                         <Field type="text" name={`ministeries[${index}].place`} className="w-full rounded border-gray-300 p-2 mt-2" placeholder="Lugar" />
                         <ErrorMessage name={`ministeries[${index}].place`} component="div" className="text-red-500 mt-1" />
+                        <Field type="text" name={`ministeries[${index}].folio`} className="w-full rounded border-gray-300 p-2 mt-2" placeholder="Folio" />
+                      <ErrorMessage name={`ministeries[${index}].folio`} component="div" className="text-red-500 mt-1" />
+
+                      <Field type="text" name={`ministeries[${index}].libro`} className="w-full rounded border-gray-300 p-2 mt-2" placeholder="Libro" />
+                      <ErrorMessage name={`ministeries[${index}].libro`} component="div" className="text-red-500 mt-1" />
                       </div>
                     ))}
-                    <button type="button" onClick={() => arrayHelpers.push({ edType: '', degree: '', institution: '', receiptDate: '' })} className="bg-blue-500 text-white px-2 py-1 rounded">
+                  <button type="button" onClick={() => arrayHelpers.push({ ordinationDate: '', ministery: '', place: '', folio: '', libro: '' })} className="bg-blue-500 text-white px-2 py-1 rounded">
                       Agregar Ministerios
                     </button>
                   </div>
