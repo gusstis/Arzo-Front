@@ -51,6 +51,7 @@ export default NextAuth ( {
     signIn: async (user, account, profile) => {
       console.log("allowedUsers",allowedUsers)
       if (user.email && allowedUsers.includes(user.email)) {
+        console.log("allowing",allowedUsers.includes(user.email))
         return true; // Continue the sign-in process
       }
       console.error('Access Denied: You are not allowed to access this application.');
