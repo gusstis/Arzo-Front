@@ -54,7 +54,7 @@ export default NextAuth ( {
         return true; // Continue the sign-in process
       }
       console.error('Access Denied: You are not allowed to access this application.');
-   return true
+   return false
     },
   
     jwt: async (token, user) => {
