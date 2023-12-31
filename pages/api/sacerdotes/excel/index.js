@@ -74,7 +74,15 @@ export default async function handler(req, res) {
         fileStream.pipe(res);
 
         // Optional: Delete file after sending (handle errors appropriately, consider async deletion)
-        fileStream.on('end', () => fs.unlinkSync(tmpFileName));
+        fileStream.on('end', function() {
+            try {
+              fs.unlinkSync(tmpFileName); // Delete the temp file
+              console.log(`Successfully deleted ${tmpFileName}`);
+            } catch (error) {
+              // Handle errors in deletion here
+              console.error(`Error deleting ${tmpFileName}: `, error);
+            }
+          });
       } catch (error) {
         console.error(error);
         res.status(500).send('Error generating or sending the Excel file');
