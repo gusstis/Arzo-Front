@@ -63,6 +63,9 @@ function SacerdotesPage() {
   }, [successMessage]);
 
 
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
   if (!session) {
     // If no session exists, prompt the user to sign in
     signIn(); // You can also redirect to a sign-in page or render a message
