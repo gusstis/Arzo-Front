@@ -50,7 +50,9 @@ export default NextAuth ( {
 
     signIn: async (user, account, profile) => {
       console.log("allowedUsers",allowedUsers)
-      console.log("user.email",user.email)
+      console.log("user.email",user)
+      console.log("user",account)
+      console.log("user",profile)
 
       if (user.email && allowedUsers.includes(user.email)) {
         console.log("allowing",allowedUsers.includes(user.email))
