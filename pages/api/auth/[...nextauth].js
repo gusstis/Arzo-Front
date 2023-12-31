@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 import User from '@models/user';
 import Session from '@models/session';
 import dbConnect from '@lib/mongodb';
-import { allowedUsers } from '@lib/allowedUsers';
+import { allowedUsers } from './allowedUsers';
 
 
 
