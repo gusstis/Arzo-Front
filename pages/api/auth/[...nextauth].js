@@ -46,6 +46,7 @@ export default NextAuth ( {
     },
 
     signIn: async (user, account, profile) => {
+      console.log(allowedUsers)
       if (user.email && allowedUsers.includes(user.email)) {
         return true; // Continue the sign-in process
       }
