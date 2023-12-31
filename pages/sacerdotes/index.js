@@ -13,6 +13,7 @@ function SacerdotesPage() {
   const [successMessage, setSuccessMessage] = useState('');
   const router = useRouter();
   const { data: session, status } = useSession();
+  console.log('La sesión es: ' , session)
 
 
   useEffect(() => {
