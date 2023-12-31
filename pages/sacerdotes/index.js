@@ -13,8 +13,14 @@ function SacerdotesPage() {
   const [successMessage, setSuccessMessage] = useState('');
   const router = useRouter();
   const { data: session, status } = useSession();
-  console.log('La sesión es: ' , session)
 
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      signIn(); // Redirect user to sign in
+    } else if (status === "authenticated") {
+      // Fetch sacerdotes data or perform other actions
+    }
+  }, [status]);
 
   useEffect(() => {
     const fetchData = async () => {
