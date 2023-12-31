@@ -55,9 +55,6 @@ function SacerdotesPage() {
     }
   }, [successMessage]);
 
-  if (status === "loading") {
-    return <p>Loading...</p>;
-  }
 
   if (!session) {
     // If no session exists, prompt the user to sign in
