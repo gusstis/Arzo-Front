@@ -35,10 +35,14 @@ export default NextAuth ( {
 */
   callbacks: {
     session: async (session, user) => {
-        console.log("Usuario", user); 
+      if (user) { // Check if user is not undefined
+        console.log("User", user);
+        session.user._id = user._id; // Assuming _id exists on user object
+      } else {
+        console.error("User object is undefined in session callback");
+      }
         console.log("Sesión", session);
-      session.user._id = user._id;
-      return Promise.resolve(session);
+      return (session);
     },
 
     signIn: async (user, account, profile) => {
@@ -50,8 +54,11 @@ export default NextAuth ( {
     },
   
     jwt: async (token, user) => {
-      token._id = user._id;
-      return Promise.resolve(token);
+      console.log("JWT callback - User:", user, "Token:", token);
+      if (user && user._id) {
+        token._id = user._id;
+      }
+      return (token);
     },
   },
 /*
