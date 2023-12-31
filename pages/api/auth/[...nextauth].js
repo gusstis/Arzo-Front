@@ -54,7 +54,7 @@ export default NextAuth ( {
       console.log("user",account)
       console.log("user",profile)
 
-      if (user.email && allowedUsers.includes(user.email)) {
+      if (user.email && (allowedUsers.includes(user.email)||allowedUsers.includes(profile.email))) {
         console.log("allowing",allowedUsers.includes(user.email))
         return true; // Continue the sign-in process
       }
