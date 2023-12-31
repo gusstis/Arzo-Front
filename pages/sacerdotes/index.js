@@ -15,6 +15,7 @@ function SacerdotesPage() {
   const { data: session, status } = useSession();
 
   useEffect(() => {
+    console.log("session:",session)
     if (status === "unauthenticated") {
       signIn(); // Redirect user to sign in
     } else if (status === "authenticated") {
