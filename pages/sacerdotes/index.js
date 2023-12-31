@@ -5,12 +5,15 @@ import { TrashIcon, PencilIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import DateFormatter from 'common/DateFormatter';
+import { useSession, signIn } from 'next-auth/react';
 
 
 function SacerdotesPage() {
   const [sacerdotes, setSacerdotes] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
   const router = useRouter();
+  const { data: session, status } = useSession();
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,6 +55,15 @@ function SacerdotesPage() {
     }
   }, [successMessage]);
 
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
+  if (!session) {
+    // If no session exists, prompt the user to sign in
+    signIn(); // You can also redirect to a sign-in page or render a message
+    return <p>Access Denied</p>;
+  }
   return (
     <>
       {successMessage && (

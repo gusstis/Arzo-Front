@@ -22,17 +22,17 @@ export default NextAuth ( {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  adapter: MongooseAdapter(MONGODB_URI)
-})
+  adapter: MongooseAdapter(MONGODB_URI),
 
-{/* 
+
+/*{ 
 ,
   adapter: MongooseAdapter(process.env.MONGODB_URI),
 
   session: {
     strategy: 'jwt',
   },
-
+*/
   callbacks: {
     session: async (session, user) => {
         console.log("Usuario", user); 
@@ -42,23 +42,19 @@ export default NextAuth ( {
     },
 
     signIn: async (user, account, profile) => {
-      // Específica la URL de redireccionamiento absoluta
-      const redirectUrl = 'http://localhost:3000'; // Cambia esto según tu configuración
-      return Promise.resolve(redirectUrl);
+      if (user.email && allowedUsers.includes(user.email)) {
+        return true; // Continue the sign-in process
+      }
+      console.error('Access Denied: You are not allowed to access this application.');
+   return true
     },
   
-    redirect: async (url, baseUrl) => {
-      // Específica la URL de redireccionamiento absoluta
-      const absoluteUrl = 'http://localhost:3000' + url; // Cambia esto según tu configuración
-      return Promise.resolve(absoluteUrl);
-    },
-
     jwt: async (token, user) => {
       token._id = user._id;
       return Promise.resolve(token);
     },
   },
-
+/*
   debug: false,
 
   session: {
@@ -73,4 +69,5 @@ export default NextAuth ( {
   model: User,
 
   sessionModel: Session,
-*/}
+}*/
+})

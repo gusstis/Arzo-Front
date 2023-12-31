@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useSession, signIn } from 'next-auth/react';
+
 
 import { DateTime } from 'luxon';
 import { TrashIcon, PencilIcon } from '@heroicons/react/solid';
@@ -21,6 +23,7 @@ function formatDate(dateString) {
 }
 
 function ParroquiasPage() {
+  const { data: session, status } = useSession();
   const [parroquias, setParroquias] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
   const router = useRouter();
@@ -64,8 +67,19 @@ function ParroquiasPage() {
     }
   }, [successMessage]);
 
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
+  if (!session) {
+    // If no session exists, prompt the user to sign in
+    signIn(); // You can also redirect to a sign-in page or render a message
+    return <p>Access Denied</p>;
+  }
   return (
+    
     <>
+    
       {successMessage && (
         <div class="flex bg-blue-100 rounded-lg p-4 mb-4">
           <svg class="w-5 h-5 text-blue-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
